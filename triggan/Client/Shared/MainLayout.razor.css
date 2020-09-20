@@ -8,8 +8,8 @@
     flex: 1;
 }
 
-.navigation {
-    background-image: linear-gradient(90deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+.navigation, footer {
+    background-color: var(--dark-blue);
 }
 
 .top-row {
@@ -30,11 +30,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
-footer {
-    background-image: linear-gradient(90deg, rgba(5, 39, 103, 155) 0%, #3a0647 70%);
-    color: white;
-}
 
 @media (max-width: 767.98px) {
     .top-row:not(.auth) {
