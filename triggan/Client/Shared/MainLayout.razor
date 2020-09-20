@@ -14,4 +14,67 @@
             @Body
         </div>
     </main>
+
+    <footer class="px-3 py-2">
+		<div class="d-flex col-md-12 justify-content-between align-items-center">
+			<small>
+				@*Flag icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from
+				<a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by
+				<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>*@
+				<span class="m-0">&copy; @DateTime.Now.Year - Tristan Robin</span>
+			</small>
+			<div id="social-footer" class="d-flex">
+				<!-- Facebook -->
+				@*<div>
+					<a id="fb-button" href="https://www.facebook.com/tristan.robin.7503" target="_blank"
+					   data-share-text="" data-share-via="" data-share-hashtags="" data-share-related="">
+						<div class="square rounded-circle social-button-small d-flex justify-content-center">
+							<i class="fab fa-facebook-f"></i>
+						</div>
+					</a>
+				</div>*@
+				@*<a href="http://www.facebook.com/sharer.php?u=http://triggan.com/Read/@(Model.Slug)" target="_blank">
+			<img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+		</a>
+			<div class="fb-share-button" data-href="http://triggan.com:21450/Read/@(Model.Slug)"
+				 data-layout="button_count" data-size="small" data-mobile-iframe="true">
+				<a target="_blank"
+				   href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+				   class="fb-xfbml-parse-ignore"><i class="fas fa-facebook"></i></a>
+			</div>*@
+
+				<!-- Twitter -->
+				<div>
+					<a id="twitter-button" href="https://twitter.com/Tris_Robin" target="_blank" class="p-1"
+					   data-share-text=""
+					   data-share-url="http://.triggan.com/Read/" data-share-via="" data-share-hashtags="" data-share-related="">
+						<Icon Name="@("fab fa-twitter")" />
+					</a>
+					@*<span id="twitter-count" class="social-count">0</span>*@
+				</div>
+
+				<!-- Instagram -->
+				<div>
+					<a id="instagram-button" href="https://www.instagram.com/trisrobin/" target="_blank"  class="p-1">
+						<Icon Name="@("fab fa-instagram")" />
+					</a>
+					@*<span id="twitter-count" class="social-count">0</span>*@
+				</div>
+
+				<!-- Youtube -->
+				<div>
+					<a id="youtube-button" href="https://www.youtube.com/channel/UCTUyfNsecc5H7W_prkxpyKA" target="_blank"  class="p-1">
+						<Icon Name="@("fab fa-youtube")" />
+					</a>
+				</div>
+
+				<!-- Email -->
+				<div>
+					<a href="mailto:?Subject=Hello there!"  class="p-1">
+						<Icon Name="@("fa-envelope")" />
+					</a>
+				</div>
+			</div>
+		</div>
+	</footer>
 </div>
