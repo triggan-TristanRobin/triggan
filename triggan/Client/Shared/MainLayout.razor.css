@@ -6,10 +6,30 @@
 
 .main {
     flex: 1;
+    max-width: 40em;
+    margin: 0 auto;
 }
+
 
 .navigation, footer {
     background-color: var(--dark-blue);
+}
+
+footer {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin: 0;
+}
+
+    .social-footer li {
+        padding: 0.25rem;
+    }
+
+.social-footer {
+    flex-direction: row;
+    margin: 0;
 }
 
 .top-row {
@@ -32,14 +52,6 @@
     }
 
 @media (max-width: 767.98px) {
-    .top-row:not(.auth) {
-        display: none;
-    }
-
-    .top-row.auth {
-        justify-content: space-between;
-    }
-
     .top-row a, .top-row .btn-link {
         margin-left: 0;
     }

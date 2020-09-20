@@ -1,7 +1,5 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 @import url('https://use.fontawesome.com/releases/v5.12.0/css/all.css');
-@import url('https://use.fontawesome.com/releases/v5.12.0/css/all.css');
-@import url('https://use.fontawesome.com/releases/v5.12.0/css/all.css');
 
 :root {
     --background-color: #0c1526;
@@ -18,8 +16,8 @@
     --teal: #20c997;
     --cyan: #17a2b8;
     --white: #fff;
-    --gray: #6c757d;
-    --gray-dark: #343a40;
+    --gray: #646464;
+    --gray-dark: #353535;
     --primary: #007bff;
     --secondary: #6c757d;
     --success: #28a745;
@@ -38,13 +36,16 @@
 }
 
 html, body {
-    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', Georgia, Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    line-height: 30px;
     background-color: var(--background-color) !important;
     color: var(--white) !important;
 }
 
 a, .btn-link {
     color: var(--white);
+    text-decoration: none;
 }
 
 .btn-primary {
@@ -87,3 +88,40 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+ul {
+    display: flex;
+    list-style: none;
+}
+
+.sticky-top {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+}
+
+.collapse:not(.show) {
+    display: none;
+}
+
+.quote {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-radius: .25rem;
+    color: var(--dark-blue);
+    background-color: var(--gray);
+    border-color: var(--blue);
+}
+
+@media (max-width: 767.98px) {
+}
+
+@media (min-width: 768px) {
+}

@@ -1,25 +1,25 @@
-﻿<nav class="navbar navbar-dark py-0 d-flex justify-content-between flex-wrap">
+﻿<nav class="navbar">
 	<a class="navbar-brand" href="#">triggan</a>
 	<button class="navbar-toggler" type="button" @onclick="ToggleNavMenu">
-		<span class="navbar-toggler-icon"></span>
+	    <Icon Name="@("fa-bars")" />
 	</button>
     <ul class="nav nav-menu @NavMenuCssClass">
-        <li class="nav-item px-3">
+        <li class="nav-item">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-copywriting" aria-hidden="true"></span> Blog
             </NavLink>
         </li>
-        <li class="nav-item px-3">
+        <li class="nav-item">
             <NavLink class="nav-link" href="projects">
                 <span class="oi oi-project" aria-hidden="true"></span> Projects
             </NavLink>
         </li>
-        <li class="nav-item px-3">
+        <li class="nav-item">
             <NavLink class="nav-link" href="work">
                 <span class="oi oi-people aria-hidden="true"></span> Work together
             </NavLink>
         </li>
-        <li class="nav-item px-3">
+        <li class="nav-item">
             <NavLink class="nav-link" href="now">
                 <span class="oi oi-pulse" aria-hidden="true"></span> Now
             </NavLink>

@@ -1,62 +1,56 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
-	<div class="container col-12 sticky-top navigation p-0">
+	<div class="sticky-top navigation">
         <NavMenu />
     </div>
 
     <main class="main">
-        <div class="px-4">
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
-        </div>
-
-        <div class="content px-4">
+        <div>
             @Body
         </div>
     </main>
 
-    <footer class="px-3 py-2">
-		<div class="d-flex col-md-12 justify-content-between align-items-center">
-			<small>
-				@*Flag icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from
-				<a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by
-				<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>*@
-				<span class="m-0">&copy; @DateTime.Now.Year - Tristan Robin</span>
-			</small>
-			<div id="social-footer" class="d-flex">
+    <footer>
+		<small>
+			@*Flag icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from
+			<a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by
+			<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>*@
+			<span class="m-0">&copy; @DateTime.Now.Year - Tristan Robin</span>
+		</small>
+		<ul class="social-footer">
 
-				<!-- Twitter -->
-				<div>
-					<a id="twitter-button" href="https://twitter.com/Tris_Robin" target="_blank" class="p-1"
-					   data-share-text=""
-					   data-share-url="http://.triggan.com/Read/" data-share-via="" data-share-hashtags="" data-share-related="">
-						<Icon Name="@("fab fa-twitter")" />
-					</a>
-					@*<span id="twitter-count" class="social-count">0</span>*@
-				</div>
+			<!-- Twitter -->
+			<li>
+				<a id="twitter-button" href="https://twitter.com/Tris_Robin" target="_blank"
+					data-share-text=""
+					data-share-url="http://.triggan.com/Read/" data-share-via="" data-share-hashtags="" data-share-related="">
+					<Icon Name="@("fab fa-twitter")" />
+				</a>
+				@*<span id="twitter-count" class="social-count">0</span>*@
+			</li>
 
-				<!-- Instagram -->
-				<div>
-					<a id="instagram-button" href="https://www.instagram.com/trisrobin/" target="_blank"  class="p-1">
-						<Icon Name="@("fab fa-instagram")" />
-					</a>
-					@*<span id="twitter-count" class="social-count">0</span>*@
-				</div>
+			<!-- Instagram -->
+			<li>
+				<a id="instagram-button" href="https://www.instagram.com/trisrobin/" target="_blank">
+					<Icon Name="@("fab fa-instagram")" />
+				</a>
+				@*<span id="twitter-count" class="social-count">0</span>*@
+			</li>
 
-				<!-- Youtube -->
-				<div>
-					<a id="youtube-button" href="https://www.youtube.com/channel/UCTUyfNsecc5H7W_prkxpyKA" target="_blank"  class="p-1">
-						<Icon Name="@("fab fa-youtube")" />
-					</a>
-				</div>
+			<!-- Youtube -->
+			<li>
+				<a id="youtube-button" href="https://www.youtube.com/channel/UCTUyfNsecc5H7W_prkxpyKA" target="_blank">
+					<Icon Name="@("fab fa-youtube")" />
+				</a>
+			</li>
 
-				<!-- Email -->
-				<div>
-					<a href="mailto:?Subject=Hello there!"  class="p-1">
-						<Icon Name="@("fa-envelope")" />
-					</a>
-				</div>
-			</div>
-		</div>
+			<!-- Email -->
+			<li>
+				<a href="mailto:?Subject=Hello there!">
+					<Icon Name="@("fa-envelope")" />
+				</a>
+			</li>
+		</ul>
 	</footer>
 </div>
