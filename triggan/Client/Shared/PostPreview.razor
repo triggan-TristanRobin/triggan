@@ -1,0 +1,17 @@
+﻿<div class="post">
+    <strong>@Post.Title</strong>
+    <small>
+        @foreach(var tag in Post.Tags)
+        {
+        <a class="tag" href="/tag/@tag" >@tag</a>
+        }
+    </small>
+    <span class="text-nowrap">
+        @Post.Excerpt
+    </span>
+</div>
+
+@code {
+    [Parameter]
+    public Post Post { get; set; }
+}
