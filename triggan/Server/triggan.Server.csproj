@@ -13,9 +13,5 @@
     <ProjectReference Include="..\Shared\triggan.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 
 </Project>
