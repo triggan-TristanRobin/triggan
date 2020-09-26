@@ -1,11 +1,11 @@
 ﻿<nav class="navbar">
 	<a class="navbar-brand" href="#">triggan</a>
-	<button class="navbar-toggler" type="button" @onclick="ToggleNavMenu">
+	<div class="navbar-toggler nav-link" @onclick="ToggleNavMenu">
 	    <Icon Name="@("fa-bars")" />
-	</button>
+	</div>
     <ul class="nav nav-menu @NavMenuCssClass">
         <li class="nav-item">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+            <NavLink class="nav-link" href="blog" Match="NavLinkMatch.All">
                 <span class="oi oi-copywriting" aria-hidden="true"></span> Blog
             </NavLink>
         </li>

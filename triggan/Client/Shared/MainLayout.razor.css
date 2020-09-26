@@ -6,8 +6,9 @@
 
 .main {
     flex: 1;
-    max-width: 40em;
+    max-width: 60em;
     margin: 0 auto;
+    width: 100%;
 }
 
 
@@ -23,9 +24,13 @@ footer {
     margin: 0;
 }
 
-    .social-footer li {
-        padding: 0.25rem;
-    }
+.social-footer li {
+    padding: 0.25rem;
+}
+
+.social-footer a {
+    color: var(--light);
+}
 
 .social-footer {
     flex-direction: row;
