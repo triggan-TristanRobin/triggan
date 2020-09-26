@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30509.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "triggan.Server", "triggan\Server\triggan.Server.csproj", "{F1BAF009-B330-4933-AE1F-35D45D03B1CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "triggan.Server", "triggan\Server\triggan.Server.csproj", "{F1BAF009-B330-4933-AE1F-35D45D03B1CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "triggan.Client", "triggan\Client\triggan.Client.csproj", "{EB0C375D-D322-41EE-8577-F700ECF6F927}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "triggan.Client", "triggan\Client\triggan.Client.csproj", "{EB0C375D-D322-41EE-8577-F700ECF6F927}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "triggan.Shared", "triggan\Shared\triggan.Shared.csproj", "{29CB1F33-B392-4ECA-B3B4-EFAC2D71FEC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "triggan.Shared", "triggan\Shared\triggan.Shared.csproj", "{29CB1F33-B392-4ECA-B3B4-EFAC2D71FEC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
