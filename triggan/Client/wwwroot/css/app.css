@@ -41,6 +41,7 @@ html, body {
     line-height: 30px;
     background-color: var(--background-color) !important;
     color: var(--light) !important;
+    margin: 0;
 }
 
 a, .btn-link {

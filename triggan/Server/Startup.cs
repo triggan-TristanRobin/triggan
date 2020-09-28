@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
+using Data;
+using Microsoft.EntityFrameworkCore;
+using triggan.DataAccessLayer;
+using triggan.Interfaces;
+using Model;
+using System.Configuration;
 
 namespace triggan.Server
 {
@@ -25,6 +28,9 @@ namespace triggan.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddTransient<IRepository<Post>, PostRepository>();
+            services.AddDbContext<TrigganDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("trigganContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
