@@ -12,6 +12,7 @@ namespace Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime Created { get; set; } = DateTime.Now;
         public DateTime Updated { get; set; } = DateTime.Now;
+        public string Slug { get; set; }
         public bool Deleted { get; set; }
     }
 }
