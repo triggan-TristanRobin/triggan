@@ -5,6 +5,7 @@ using System.Linq;
 using triggan.Interfaces;
 using triggan.Server.Controllers;
 using Moq;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter;
 
 namespace triggan.Server.test
 {
@@ -32,6 +33,24 @@ namespace triggan.Server.test
             // Assert
             Assert.IsInstanceOf(typeof(IEnumerable<Post>), result);
             Assert.AreEqual(3, result.Count());
+        }
+
+        [Test]
+        public void GetWithSlugShouldReturnSingleRelatedPost()
+        {
+            //Arrange
+            var expected = new Post()
+            {
+                Title = "Fake",
+                Slug = "Slug",
+            };
+            repositoryMock.Setup(repo => repo.Get("Slug")).Returns(expected);
+
+            // Act
+            var result = controller.Get("Slug");
+
+            // Assert
+            Assert.AreEqual(expected, result);
         }
     }
 }
