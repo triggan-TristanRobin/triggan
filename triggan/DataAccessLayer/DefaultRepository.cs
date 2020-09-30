@@ -31,6 +31,11 @@ namespace triggan.DataAccessLayer
             return dbSet.Find(id);
         }
 
+        public TEntity Get(string slug)
+        {
+            return dbSet.FirstOrDefault(e => e.Slug == slug);
+        }
+
         public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
         {
             IQueryable<TEntity> query = dbSet;

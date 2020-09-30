@@ -1,10 +1,12 @@
-﻿<div class="post tile">
-    <h3>@Post.Title</h3>
+﻿@inject NavigationManager NavigationManager
+
+<div class="post tile">
+    <h3 @onclick=@Read>@Post.Title</h3>
     <p>
         <span class="small">
-            @foreach(var tag in Post.Tags)
+            @foreach (var tag in Post.Tags)
             {
-                <a class="tag" href="/tag/@tag" >@tag</a>
+                <a class="tag" href="/tag/@tag">@tag</a>
             }
         </span>
         <br />
@@ -17,4 +19,9 @@
 @code {
     [Parameter]
     public Post Post { get; set; }
+
+    public void Read()
+    {
+        NavigationManager.NavigateTo($"/blog/{Post.Slug}");
+    }
 }

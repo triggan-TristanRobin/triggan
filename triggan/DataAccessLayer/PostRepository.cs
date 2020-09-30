@@ -34,6 +34,11 @@ namespace triggan.DataAccessLayer
             return context.Posts.Find(PostId);
         }
 
+        public Post Get(string slug)
+        {
+            return context.Posts.FirstOrDefault(e => e.Slug == slug);
+        }
+
         public IEnumerable<Post> Get(Expression<Func<Post, bool>> filter = null, Func<IQueryable<Post>, IOrderedQueryable<Post>> orderBy = null, string includeProperties = "")
         {
             throw new NotImplementedException();

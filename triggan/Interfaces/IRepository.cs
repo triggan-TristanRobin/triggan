@@ -11,6 +11,7 @@ namespace triggan.Interfaces
 	{
 		IEnumerable<TEntity> Get();
 		TEntity Get(int id);
+		TEntity Get(string slug);
 		IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "");
 		void Insert(TEntity tentity);
 		void Update(TEntity tentity);

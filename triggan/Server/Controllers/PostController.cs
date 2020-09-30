@@ -25,5 +25,11 @@ namespace triggan.Server.Controllers
         {
             return repository.Get();
         }
+
+        [HttpGet("{slug}")]
+        public Post Get(string slug)
+        {
+            return repository.Get(slug);
+        }
     }
 }

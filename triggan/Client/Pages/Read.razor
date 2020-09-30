@@ -1,0 +1,29 @@
+﻿@page "/blog/{slug}"
+@inject HttpClient Http
+
+<section class="post">
+    @if (post == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <h1>@post.Title</h1>
+        <p class="content">
+            @((MarkupString)Markdig.Markdown.ToHtml(post.Content))
+        </p>
+        <a href="/blog">Back</a>
+    }
+</section>
+
+@code {
+    private Post post;
+    [Parameter]
+    public string Slug { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        post = await Http.GetFromJsonAsync<Post>($"Post/{Slug}");
+    }
+
+}
