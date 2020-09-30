@@ -10,12 +10,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace triggan.DataAccessLayer
 {
-    public class DefaultRepository<TEntity> : IRepository<TEntity> where TEntity : Entity
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
         internal TrigganDBContext context;
         internal DbSet<TEntity> dbSet;
 
-        public DefaultRepository(TrigganDBContext context)
+        public Repository(TrigganDBContext context)
         {
             this.context = context;
             this.dbSet = context.Set<TEntity>();

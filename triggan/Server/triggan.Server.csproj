@@ -21,10 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\Data.csproj" />
-    <ProjectReference Include="..\..\Model\Model.csproj" />
+    <ProjectReference Include="..\..\Data\DataAccessLayer\DataAccessLayer.csproj" />
+    <ProjectReference Include="..\..\Data\Data\Data.csproj" />
+    <ProjectReference Include="..\..\Data\Model\Model.csproj" />
     <ProjectReference Include="..\Client\triggan.Client.csproj" />
-    <ProjectReference Include="..\DataAccessLayer\triggan.DataAccessLayer.csproj" />
   </ItemGroup>
 
 

@@ -5,7 +5,6 @@ using System.Linq;
 using triggan.Interfaces;
 using triggan.Server.Controllers;
 using Moq;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter;
 
 namespace triggan.Server.test
 {

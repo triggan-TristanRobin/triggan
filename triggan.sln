@@ -9,15 +9,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "triggan.Client", "triggan\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "triggan.Interfaces", "triggan\Interfaces\triggan.Interfaces.csproj", "{1B7BACD2-C748-4604-90E1-789943AE8CAF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "triggan.DataAccessLayer", "triggan\DataAccessLayer\triggan.DataAccessLayer.csproj", "{7342F835-0C80-4972-9812-0564CE64B550}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "Data\DataAccessLayer\DataAccessLayer.csproj", "{7342F835-0C80-4972-9812-0564CE64B550}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{A92C58A9-4A53-47D1-A0D4-F092CA8D6CBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data\Data.csproj", "{A92C58A9-4A53-47D1-A0D4-F092CA8D6CBD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{46B5F311-898C-484B-95C4-59AEF70CBAD6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "triggan.Server.Test", "triggan\Server.Test\triggan.Server.Test.csproj", "{24478E6D-5354-4E8C-B0F6-DDE27FC00712}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{CDA32078-4A8A-41AD-9B76-10128072F642}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Data\Model\Model.csproj", "{CDA32078-4A8A-41AD-9B76-10128072F642}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer.Tests", "Data\triggan.DataAccessLayer.Tests\DataAccessLayer.Tests.csproj", "{10CDDFF0-61E5-48FA-897D-CFF81BCD081C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{CDA32078-4A8A-41AD-9B76-10128072F642}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDA32078-4A8A-41AD-9B76-10128072F642}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDA32078-4A8A-41AD-9B76-10128072F642}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10CDDFF0-61E5-48FA-897D-CFF81BCD081C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10CDDFF0-61E5-48FA-897D-CFF81BCD081C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10CDDFF0-61E5-48FA-897D-CFF81BCD081C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10CDDFF0-61E5-48FA-897D-CFF81BCD081C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{7342F835-0C80-4972-9812-0564CE64B550} = {46B5F311-898C-484B-95C4-59AEF70CBAD6}
 		{A92C58A9-4A53-47D1-A0D4-F092CA8D6CBD} = {46B5F311-898C-484B-95C4-59AEF70CBAD6}
 		{CDA32078-4A8A-41AD-9B76-10128072F642} = {46B5F311-898C-484B-95C4-59AEF70CBAD6}
+		{10CDDFF0-61E5-48FA-897D-CFF81BCD081C} = {46B5F311-898C-484B-95C4-59AEF70CBAD6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {40D6C318-F229-4B20-845B-01F794D74B58}
