@@ -1,0 +1,39 @@
+﻿@using System.Timers
+
+<div class="presenter">
+    <h1>Tristan Robin</h1>
+    <h2>Creator of triggan</h2>
+    <span class="small">but also</span>
+    <br />
+    <br />
+    <span class="@beamState role">@roles[index]</span>
+</div>
+
+@code {
+    private int index = 0;
+    private string[] roles = { "Pastry lover", ".NET developer", "Team Leader", "In continuous improvment", "Dad" };
+    private string beamState = "beamIn";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ChangeRole();
+        await base.OnInitializedAsync();
+    }
+
+    public async Task ChangeRole()
+    {
+        while (true)
+        {
+            await Task.Delay(2000);
+
+            beamState = "beam";
+            StateHasChanged();
+            await Task.Delay(500);
+            index = index == roles.Length - 1 ? 0 : index + 1;
+            StateHasChanged();
+            await Task.Delay(500);
+            beamState = "";
+            StateHasChanged();
+        }
+    }
+}
