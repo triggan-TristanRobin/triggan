@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DefaultRepository.Tests.cs" />
+    <Compile Remove="DefaultRepositoryTests.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="DefaultRepository.Tests.cs" />
+    <None Include="DefaultRepositoryTests.cs" />
   </ItemGroup>
 
   <ItemGroup>

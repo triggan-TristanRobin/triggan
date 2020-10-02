@@ -5,6 +5,7 @@
     --background-color: #0c1526;
     --dark-blue: #052767;
     --blue: #007bff;
+    --grey-blue: #1a3466;
     --indigo: #6610f2;
     --purple: #6f42c1;
     --dark-purple: #3a0647;
@@ -142,15 +143,81 @@ ul {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
-    .tag {
-        margin-left: 0.5em;
-        margin-right: 0.5em;
-    }
+
+.tag {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
 
 .content-list {
     -ms-flex-direction: column;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+    .form-group div {
+        width: 100%;
+    }
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+form input, form textarea {
+    width: 100%;
+    background-color: var(--grey-blue);
+    border: none;
+    resize: none;
+    padding: 0.5em;
+    font-size: 1.1em;
+}
+
+.form-row div {
+    flex-shrink: 2;
+}
+
+form label {
+    width: 100%;
+    padding: 0.5em;
+}
+
+form i {
+    padding-right: 0.5em;
+}
+
+button {
+    text-transform: capitalize;
+    font-weight: bold;
+    margin: 1em auto;
+    border: 3px solid var(--blue);
+    outline: 0;
+    border-radius: 2em;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0.5em;
+    transition: all .3s ease-in-out;
+    background: var(--blue);
+}
+
+    button:hover {
+        color: var(--light);
+        background-image: initial;
+        background-color: initial;
+        color: var(--blue);
+        border: 3px solid var(--blue);
+        background: 0 0;
+    }
+
+.post h3 {
+    cursor: pointer;
 }
 
 @media (max-width: 767.98px) {
