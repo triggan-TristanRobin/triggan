@@ -1,0 +1,23 @@
+﻿@inject NavigationManager NavigationManager
+
+<div class="post tile card">
+    <h3 @onclick=@Read>@Project.Title</h3>
+    <div class="">
+        <img class="scale-on-hover" @onclick=@Read src="@Project.CoverImagePath" alt="Card Image">
+        <div class="">
+            <p class="">
+                @Project.Excerpt
+            </p>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Project Project { get; set; }
+
+    public void Read()
+    {
+        NavigationManager.NavigateTo($"/projects/{Project.Slug}");
+    }
+}

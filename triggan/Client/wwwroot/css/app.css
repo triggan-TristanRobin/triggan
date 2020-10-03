@@ -220,6 +220,30 @@ button {
     cursor: pointer;
 }
 
+img {
+    width: 100%;
+}
+
+.scale-on-hover:hover {
+    transform: scale(1.05);
+    /*box-shadow: 0 0 1em var(--light) !important;*/
+}
+
+.grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.card {
+    max-width: 30%;
+    border: none;
+}
+
+    .card:hover {
+        box-shadow: 0 0 0.5em var(--blue);
+    }
+
 @media (max-width: 767.98px) {
 }
 
