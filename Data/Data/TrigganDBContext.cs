@@ -11,6 +11,7 @@ namespace Data
     public class TrigganDBContext : DbContext
 	{
 		public DbSet<Post> Posts { get; set; }
+		public DbSet<Project> Projects { get; set; }
 		public DbSet<Message> Messages { get; set; }
 
 		static TrigganDBContext()

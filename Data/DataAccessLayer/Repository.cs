@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
+    public class Repository<TEntity> : ISlugRepository<TEntity> where TEntity : Entity
     {
         internal TrigganDBContext context;
         internal DbSet<TEntity> dbSet;
@@ -28,6 +28,11 @@ namespace DataAccessLayer
         public TEntity Get(int id)
         {
             return dbSet.Find(id);
+        }
+
+        public TEntity Get(string slug)
+        {
+            return dbSet.FirstOrDefault(e => e.Slug == slug);
         }
 
         public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")

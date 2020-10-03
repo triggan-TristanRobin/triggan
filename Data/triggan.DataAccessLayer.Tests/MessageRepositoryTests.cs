@@ -36,7 +36,7 @@ namespace DataAccessLayer.Tests
 		}
 
 		[Test]
-		public void InsertMEssageShouldCallRightMethod()
+		public void InsertMessageShouldCallRightMethod()
 		{
 			// Arrange
 			var testObject = new Message();
