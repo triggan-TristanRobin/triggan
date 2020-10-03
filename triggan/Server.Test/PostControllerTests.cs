@@ -12,11 +12,11 @@ namespace triggan.Server.test
     public class PostControllerTests
     {
         readonly PostController controller;
-        readonly Mock<IRepository<Post>> repositoryMock;
+        readonly Mock<ISlugRepository<Post>> repositoryMock;
 
         public PostControllerTests()
         {
-            repositoryMock = new Mock<IRepository<Post>>();
+            repositoryMock = new Mock<ISlugRepository<Post>>();
             controller = new PostController(repositoryMock.Object);
         }
 

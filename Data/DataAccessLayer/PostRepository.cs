@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Model;
 using Data;
 using triggan.Interfaces;
@@ -8,9 +7,9 @@ using System.Linq.Expressions;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace triggan.DataAccessLayer
+namespace DataAccessLayer
 {
-    public class PostRepository : IRepository<Post>
+    public class PostRepository : ISlugRepository<Post>
     {
         private readonly TrigganDBContext context;
 

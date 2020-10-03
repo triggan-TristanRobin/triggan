@@ -11,25 +11,25 @@ namespace triggan.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PostController : ControllerBase
+    public class MessageController : ControllerBase
     {
-        private readonly ISlugRepository<Post> repository;
+        private readonly IRepository<Message> repository;
 
-        public PostController(ISlugRepository<Post> repo)
+        public MessageController(IRepository<Message> repo)
         {
             this.repository = repo;
         }
 
         [HttpGet]
-        public IEnumerable<Post> Get()
+        public IEnumerable<Message> Get()
         {
             return repository.Get();
         }
 
-        [HttpGet("{slug}")]
-        public Post Get(string slug)
+        [HttpPost]
+        public void Insert(Message message)
         {
-            return repository.Get(slug);
+            repository.Insert(message);
         }
     }
 }

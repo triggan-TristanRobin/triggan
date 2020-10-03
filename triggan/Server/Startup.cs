@@ -5,10 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Data;
 using Microsoft.EntityFrameworkCore;
-using triggan.DataAccessLayer;
 using triggan.Interfaces;
 using Model;
 using System.Configuration;
+using DataAccessLayer;
 
 namespace triggan.Server
 {
@@ -29,7 +29,8 @@ namespace triggan.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddTransient<IRepository<Post>, PostRepository>();
+            services.AddTransient<ISlugRepository<Post>, PostRepository>();
+            services.AddTransient<IRepository<Message>, MessageRepository>();
             services.AddDbContext<TrigganDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("trigganContext")));
         }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Model;
 using Data;
 using triggan.Interfaces;
@@ -8,7 +7,7 @@ using System.Linq.Expressions;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace triggan.DataAccessLayer
+namespace DataAccessLayer
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
@@ -29,11 +28,6 @@ namespace triggan.DataAccessLayer
         public TEntity Get(int id)
         {
             return dbSet.Find(id);
-        }
-
-        public TEntity Get(string slug)
-        {
-            return dbSet.FirstOrDefault(e => e.Slug == slug);
         }
 
         public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
@@ -85,6 +79,14 @@ namespace triggan.DataAccessLayer
         public void Save()
         {
             context.SaveChanges();
+        }
+    }
+
+    public static class RepositoryExtensions
+    {
+        public static Entity Get(this Repository<Entity> repository, string slug)
+        {
+            return repository.dbSet.FirstOrDefault(e => e.Slug == slug);
         }
     }
 }
