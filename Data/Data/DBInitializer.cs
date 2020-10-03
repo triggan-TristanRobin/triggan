@@ -1,10 +1,8 @@
-﻿using Model;
+﻿using Microsoft.EntityFrameworkCore;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data
 {
@@ -16,7 +14,8 @@ namespace Data
 
             // Look for any students.
             if (context.Posts.Any())
-            {
+                {
+                context.Database.Migrate();
                 return;   // DB has been seeded
             }
 

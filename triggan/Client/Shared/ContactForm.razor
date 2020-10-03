@@ -1,4 +1,6 @@
-﻿<EditForm Model=@Message OnSubmit=@Send class="form-group">
+﻿@inject HttpClient Http
+
+<EditForm Model=@Message OnSubmit=@Send class="form-group">
     <div class="form-row">
         <div>
             <label for="Name"><Icon Name="@("far fa-user")" />Name</label>
@@ -22,7 +24,9 @@
 {
     private Message Message = new Message();
 
-    private void Send()
+    private async Task Send()
     {
+        await Http.PostAsJsonAsync("Message", Message);
+        return;
     }
 }

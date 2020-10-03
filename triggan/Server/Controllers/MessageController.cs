@@ -30,6 +30,7 @@ namespace triggan.Server.Controllers
         public void Insert(Message message)
         {
             repository.Insert(message);
+            repository.Save();
         }
     }
 }
