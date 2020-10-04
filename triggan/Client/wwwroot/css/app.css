@@ -7,14 +7,6 @@
     --blue: #007bff;
     --grey-blue: #1a3466;
     --indigo: #6610f2;
-    --purple: #6f42c1;
-    --dark-purple: #3a0647;
-    --pink: #e83e8c;
-    --red: #dc3545;
-    --orange: #fd7e14;
-    --yellow: #ffc107;
-    --green: #28a745;
-    --teal: #20c997;
     --cyan: #17a2b8;
     --white: #d7d7d7;
     --gray: #646464;
@@ -28,11 +20,6 @@
     --light: #85c2ff;
     --dark: #343a40;
     --transparent: #00000000;
-    --breakpoint-xs: 0;
-    --breakpoint-sm: 576px;
-    --breakpoint-md: 768px;
-    --breakpoint-lg: 992px;
-    --breakpoint-xl: 1200px;
     --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
@@ -143,6 +130,11 @@ ul {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
+
+    .tile:hover {
+        box-shadow: 0em 0em 0.35em var(--dark-blue);
+        padding-left: 1em;
+    }
 
 .tag {
     margin-left: 0.5em;
