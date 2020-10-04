@@ -2,11 +2,15 @@
 
 <div class="post tile card" @onclick=@Read>
     <h3>@Project.Title</h3>
+    <span class="small">@Project.State</span>
     <div class="">
         <img src="@Project.CoverImagePath" alt="Card Image">
         <div>
             <p>
-                @((MarkupString)Markdig.Markdown.ToHtml(Project.Excerpt))
+                @if(Project.Excerpt != null)
+                {
+                    @((MarkupString)Markdig.Markdown.ToHtml(Project.Excerpt))
+                }
             </p>
         </div>
     </div>

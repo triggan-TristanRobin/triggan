@@ -10,6 +10,7 @@
     {
         <img class="" src="@project.CoverImagePath" alt="Project banner">
         <h1>@project.Title</h1>
+        <span class="small">@project.State</span>
         <p class="content">
             @((MarkupString)Markdig.Markdown.ToHtml(project.Excerpt))
         </p>
@@ -18,9 +19,7 @@
             <div>
                 <h3>@update.Title</h3>
                 <span class="small">@update.Created</span>
-                <p class="content">
-                    @((MarkupString)Markdig.Markdown.ToHtml(update.Content))
-                </p>
+                @((MarkupString)Markdig.Markdown.ToHtml(update.Content))
             </div>
         }
         <a href="/projects">Back</a>

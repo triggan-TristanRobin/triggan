@@ -21,13 +21,13 @@ namespace triggan.Server.Controllers
         [HttpGet("[action]")]
         public IEnumerable<Project> GetAll(int count = 0)
         {
-            return repository.Get(orderBy: source => source.OrderBy(proj => proj.Updated), count: count);
+            return repository.Get(orderBy: source => source.OrderBy(proj => proj.Updated), count: count, includeProperties: "Updates");
         }
 
         [HttpGet("[action]")]
         public Project Get(string slug)
         {
-            return repository.Get(slug);
+            return repository.Get(proj => proj.Slug == slug, includeProperties: "Updates").FirstOrDefault();
         }
     }
 }

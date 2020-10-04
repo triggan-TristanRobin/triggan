@@ -1,0 +1,29 @@
+﻿@inject HttpClient Http
+
+@if (posts?.Any() != true)
+{
+    <p><em>Loading blog posts...</em></p>
+}
+else
+{
+    <ul class="content-list">
+    @foreach (var post in posts)
+    {
+        <li>
+            <PostPreview Post=@post />
+        </li>
+    }
+    </ul>
+}
+
+@code {
+    private List<Post> posts;
+    [Parameter]
+    public int PostCount { get; set; } = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        posts = await Http.GetFromJsonAsync<List<Post>>($"Post/GetAll?count={PostCount}");
+    }
+
+}
