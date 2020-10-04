@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(TrigganDBContext))]
-    [Migration("20201003213443_AddProject")]
+    [Migration("20201004113007_AddProject")]
     partial class AddProject
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

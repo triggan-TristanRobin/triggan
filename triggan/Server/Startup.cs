@@ -30,6 +30,7 @@ namespace triggan.Server
             services.AddRazorPages();
 
             services.AddTransient<ISlugRepository<Post>, PostRepository>();
+            services.AddTransient<ISlugRepository<Project>, Repository<Project>>();
             services.AddTransient<IRepository<Message>, MessageRepository>();
             services.AddDbContext<TrigganDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("trigganContext")));
         }

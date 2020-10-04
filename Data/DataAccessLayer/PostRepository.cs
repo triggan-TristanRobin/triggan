@@ -25,22 +25,30 @@ namespace DataAccessLayer
 
         public IEnumerable<Post> Get()
         {
-            return context.Posts.ToList();
+            var posts = context.Posts.ToList();
+            posts.ForEach(p => p.Tags = p.Tags ?? new List<string>());
+            return posts;
         }
 
         public Post Get(int PostId)
         {
-            return context.Posts.Find(PostId);
+            var p = context.Posts.Find(PostId);
+            p.Tags = p.Tags ?? new List<string>();
+            return p;
         }
 
         public Post Get(string slug)
         {
-            return context.Posts.FirstOrDefault(e => e.Slug == slug);
+            var p = context.Posts.FirstOrDefault(e => e.Slug == slug);
+            p.Tags = p.Tags ?? new List<string>();
+            return p;
         }
 
         public IEnumerable<Post> Get(Expression<Func<Post, bool>> filter = null, Func<IQueryable<Post>, IOrderedQueryable<Post>> orderBy = null, string includeProperties = "")
         {
-            return context.Posts.Where(filter).ToList();
+            var posts = context.Posts.Where(filter).ToList();
+            posts.ForEach(p => p.Tags = p.Tags ?? new List<string>());
+            return posts;
         }
 
         public void Insert(Post Post)
