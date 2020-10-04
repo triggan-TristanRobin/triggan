@@ -40,7 +40,7 @@ namespace DataAccessLayer
 
         public IEnumerable<Post> Get(Expression<Func<Post, bool>> filter = null, Func<IQueryable<Post>, IOrderedQueryable<Post>> orderBy = null, string includeProperties = "")
         {
-            throw new NotImplementedException();
+            return context.Posts.Where(filter).ToList();
         }
 
         public void Insert(Post Post)

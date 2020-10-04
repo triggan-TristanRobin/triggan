@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Model;
+using Model.Enums;
 using triggan.Interfaces;
 
 namespace triggan.Server.Controllers
@@ -23,7 +20,7 @@ namespace triggan.Server.Controllers
         [HttpGet]
         public IEnumerable<Post> Get()
         {
-            return repository.Get();
+            return repository.Get(p => p.Type != PostType.Update);
         }
 
         [HttpGet("{slug}")]
