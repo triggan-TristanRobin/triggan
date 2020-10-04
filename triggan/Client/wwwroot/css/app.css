@@ -155,6 +155,10 @@ ul {
     justify-content: space-between;
 }
 
+form {
+    margin: 1.5em auto;
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
@@ -172,7 +176,8 @@ ul {
 }
 
 form input, form textarea {
-    width: 100%;
+    max-width: 100%;
+    min-width: 95%;
     background-color: var(--grey-blue);
     border: none;
     resize: none;

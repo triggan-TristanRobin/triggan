@@ -13,7 +13,7 @@
         ?
     </p>
     <p>
-        Then <AnchorLink href="#contactme">contact me</AnchorLink> to discuss our possibilities!<br />
+        Then <a href="#contactme">contact me</a> to discuss our possibilities!<br />
         Some or my skills:
     </p>
     <div id="skillGrid" class="grid">
@@ -25,10 +25,12 @@
         </div>
         }
     </div>
-    <div class="card skill-tile" style="margin-left: auto;margin-right: auto">
+    <div id="contactme" class="card skill-tile" style="margin-left: auto;margin-right: auto">
         <Icon Name="@($"{moreSkill.Modifier} fa-{moreSkill.Icon}")" />
         @moreSkill.Name
     </div>
+
+    <ContactForm />
 </div>
 
 @code {
