@@ -12,15 +12,10 @@ namespace Data
         {
             context.Database.EnsureCreated();
 
-            // Look for any students.
-            if (context.Posts.Any())
-                {
-                context.Database.Migrate();
-                return;   // DB has been seeded
-            }
-
-            var posts = new Post[]
+            if (!context.Posts.Any())
             {
+                var posts = new Post[]
+                {
                 new Post
                 {
                     Title = "Awesome blog post",
@@ -57,10 +52,118 @@ namespace Data
                                 "![surprise](https://media.giphy.com/media/fdyZ3qI0GVZC0/giphy.gif)",
                     Public = true, PublicationDate = DateTime.Now, Tags = new List<string> { "Tag2" }
                 }
-            };
+                };
 
-            context.Posts.AddRange(posts);
-            context.SaveChanges();
+                context.Posts.AddRange(posts);
+                context.SaveChanges();
+            }
+
+            if (!context.Projects.Any())
+            {
+                var projects = new Project[]
+                {
+                    new Project
+                    {
+                        Title = "Awesome project",
+                        Slug = "pr1",
+                        Excerpt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere dolor ut ligula laoreet cursus sed quis nulla. Aenean suscipit placerat ex, ut laoreet odio maximus id.",
+                        CoverImagePath = "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
+                        Public = true,
+                        PublicationDate = DateTime.Now.AddDays(-5),
+                        Updates = new List<Post>
+                        {
+                            new Post
+                            {
+                                Content = "Update number 1, hell yeah!",
+                                Slug = "pr1u1" + DateTime.Now.AddDays(-3),
+                                Public = true,
+                                PublicationDate = DateTime.Now.AddDays(-3),
+                            },
+                            new Post
+                            {
+                                Content = "Update number 2, hell yeah!",
+                                Slug = "pr1u2" + DateTime.Now.AddDays(-1),
+                                Public = true,
+                                PublicationDate = DateTime.Now.AddDays(-1),
+                            },
+                            new Post
+                            {
+                                Content = "# Hello world\nThis is update number 3!\n"+
+                                            "**Lorem** ipsum dolor sit"+
+                                            "amet, *consectetur* adipiscing elit. Sed"+
+                                            "eu est nec metus luctus tempus. Pellentesque"+
+                                            "at elementum sapien, ac faucibus sem"+
+                                            "![surprise](https://media.giphy.com/media/fdyZ3qI0GVZC0/giphy.gif)",
+                                Slug = "pr1u3" + DateTime.Now,
+                                Public = true,
+                                PublicationDate = DateTime.Now,
+                            },
+                        }
+                    },
+                    new Project
+                    {
+                        Title = "Awesome project",
+                        Slug = "pr2",
+                        Excerpt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere dolor ut ligula laoreet cursus sed quis nulla. Aenean suscipit placerat ex, ut laoreet odio maximus id.",
+                        CoverImagePath = "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
+                        Public = true,
+                        PublicationDate = DateTime.Now.AddDays(-10),
+                        Updates = new List<Post>
+                        {
+                            new Post
+                            {
+                                Content = "Update number 1, hell yeah!",
+                                Slug = "pr2u1" + DateTime.Now.AddDays(-5),
+                                Public = true,
+                                PublicationDate = DateTime.Now.AddDays(-5),
+                            },
+                            new Post
+                            {
+                                Content = "# Hello world\nThis is update number 3!\n"+
+                                            "**Lorem** ipsum dolor sit"+
+                                            "amet, *consectetur* adipiscing elit. Sed"+
+                                            "eu est nec metus luctus tempus. Pellentesque"+
+                                            "at elementum sapien, ac faucibus sem"+
+                                            "![surprise](https://media.giphy.com/media/fdyZ3qI0GVZC0/giphy.gif)",
+                                Slug = "pr2u2" + DateTime.Now.AddDays(-6),
+                                Public = true,
+                                PublicationDate = DateTime.Now.AddDays(-6),
+                            },
+                            new Post
+                            {
+                                Content = "Update number 2, hell yeah!",
+                                Slug = "pr2u3" + DateTime.Now.AddDays(-3),
+                                Public = true,
+                                PublicationDate = DateTime.Now.AddDays(-3),
+                            },
+                        }
+                    },
+                    new Project
+                    {
+                        Title = "Awesome project",
+                        Slug = "pr3",
+                        Excerpt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere dolor ut ligula laoreet cursus sed quis nulla. Aenean suscipit placerat ex, ut laoreet odio maximus id.",
+                        CoverImagePath = "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
+                        Public = true,
+                        PublicationDate = DateTime.Now
+                    },
+                    new Project
+                    {
+                        Title = "Awesome project",
+                        Slug = "pr4",
+                        Excerpt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere dolor ut ligula laoreet cursus sed quis nulla. Aenean suscipit placerat ex, ut laoreet odio maximus id.",
+                        CoverImagePath = "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
+                        Public = true,
+                        PublicationDate = DateTime.Now
+                    }
+                };
+
+                context.Projects.AddRange(projects);
+                context.SaveChanges();
+            }
+
+
+            context.Database.Migrate();
         }
     }
 }

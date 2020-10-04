@@ -18,30 +18,10 @@ else
 }
 
 @code {
-    private List<Project> projects = new List<Project> {
-        new Project {
-            Title = "Awesome project",
-            Excerpt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere dolor ut ligula laoreet cursus sed quis nulla. Aenean suscipit placerat ex, ut laoreet odio maximus id.",
-            CoverImagePath = "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
-            Public = true, PublicationDate = DateTime.Now
-        },
-        new Project {
-            Title = "Awesome project",
-            Excerpt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere dolor ut ligula laoreet cursus sed quis nulla. Aenean suscipit placerat ex, ut laoreet odio maximus id.",
-            CoverImagePath = "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
-            Public = true, PublicationDate = DateTime.Now
-        },
-        new Project {
-            Title = "Awesome project",
-            Excerpt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere dolor ut ligula laoreet cursus sed quis nulla. Aenean suscipit placerat ex, ut laoreet odio maximus id.",
-            CoverImagePath = "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
-            Public = true, PublicationDate = DateTime.Now
-        },
-        new Project {
-            Title = "Awesome project",
-            Excerpt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere dolor ut ligula laoreet cursus sed quis nulla. Aenean suscipit placerat ex, ut laoreet odio maximus id.",
-            CoverImagePath = "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
-            Public = true, PublicationDate = DateTime.Now
-        },
-    };
+    private List<Project> projects;
+
+    protected override async Task OnInitializedAsync()
+    {
+        projects = await Http.GetFromJsonAsync<List<Project>>("Project");
+    }
 }
