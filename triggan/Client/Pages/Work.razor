@@ -6,29 +6,24 @@
         What can I do for You?<br />
         You might have some needs, or some ideas you would like to analyze. I might help you so why not get in touch?<br />
         I will try my best to answer any question, to help you with your projects of any kind by either offering my services or redirecting you to someone who could.<br />
-        => Do you have a
     </p>
-    <ul class="content-list">
-        <li>project Idea</li>
-        <li>need</li>
-        <li>an app you would like to create</li>
-        <li>cash</li>
-        <li>an open position I would be the best for</li>
-        <li>some needs you would like to discuss</li>
-        <li>cookies</li>
-    </ul>
+    <p style="margin: 0 auto">
+        Do you have a
+        <span class="need">@currentNeed</span>
+        ?
+    </p>
     <p>
         Then <AnchorLink href="#contactme">contact me</AnchorLink> to discuss our possibilities!<br />
         Some or my skills:
     </p>
     <div id="skillGrid" class="grid">
-    @foreach(var skill in skills)
-    {
+        @foreach (var skill in skills)
+        {
         <div class="card skill-tile">
             <Icon Name="@($"{skill.Modifier} fa-{skill.Icon}")" />
             @skill.Name
         </div>
-    }
+        }
     </div>
     <div class="card skill-tile" style="margin-left: auto;margin-right: auto">
         <Icon Name="@($"{moreSkill.Modifier} fa-{moreSkill.Icon}")" />
@@ -37,19 +32,65 @@
 </div>
 
 @code {
-    class Skill {
-       public string Icon { get; set; }
-       public string Name { get; set; }
-       public string Modifier { get; set; }
+    class Skill
+    {
+        public string Icon { get; set; }
+        public string Name { get; set; }
+        public string Modifier { get; set; }
     }
     private Skill moreSkill = new Skill { Icon = "ellipsis-h", Name = "And more" };
 
     private Skill[] skills = new[]{
-        new Skill { Icon = "terminal", Name = "Software" },
-        new Skill { Icon = "", Name = ".NET" },
-        new Skill { Icon = "gamepad", Name = "Video Games" },
-        new Skill { Icon = "cubes", Name = "3D modeling" },
-        new Skill { Icon = "users", Name = "Team Management" },
-        new Skill { Icon = "teamspeak", Name = "Remote", Modifier = "fab" },
+    new Skill { Icon = "terminal", Name = "Software" },
+    new Skill { Icon = "", Name = ".NET" },
+    new Skill { Icon = "gamepad", Name = "Video Games" },
+    new Skill { Icon = "cubes", Name = "3D modeling" },
+    new Skill { Icon = "users", Name = "Team Management" },
+    new Skill { Icon = "teamspeak", Name = "Remote", Modifier = "fab" },
     };
+
+    private string[] needs = {
+    "a project Idea",
+    "a need",
+    "an app you would like to create",
+    "a cash",
+    "an open position I would be the best for",
+    "some needs you would like to discuss",
+    "cookies",
+    };
+    private int index = 0;
+    private string currentNeed;
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentNeed = needs[0];
+        await ChangeRole();
+        await base.OnInitializedAsync();
+    }
+
+    public async Task ChangeRole()
+    {
+        while (true)
+        {
+            await Task.Delay(2000);
+            index = index == needs.Length - 1 ? 0 : index + 1;
+            currentNeed += "|";
+            await Task.Delay(100);
+            for (int i = currentNeed.Length - 1; i >= 0; i--)
+            {
+                currentNeed = currentNeed.Substring(0, i) + "|";
+                StateHasChanged();
+                await Task.Delay(25);
+            }
+            await Task.Delay(500);
+            for (int i = 1; i < needs[index].Length - 2; i++)
+            {
+                currentNeed = needs[index].Substring(0, i) + "|";
+                StateHasChanged();
+                await Task.Delay(25);
+            }
+            currentNeed = needs[index];
+            StateHasChanged();
+        }
+    }
 }

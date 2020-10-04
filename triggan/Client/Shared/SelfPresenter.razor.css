@@ -10,118 +10,10 @@
     background-size: 400% 400%;
 }
 
-.beamIn {
-    -webkit-animation: BeamIn 1s;
-    -moz-animation: BeamIn 1s;
-    animation: BeamIn 1s;
-}
-
-.beamOut {
-    -webkit-animation: beamOut 1s;
-    -moz-animation: beamOut 1s;
-    animation: beamOut 1s;
-}
-
 .beam {
-    -webkit-animation: beam 1s;
-    -moz-animation: beam 1s;
-    animation: beam 1s;
-}
-
-@-webkit-keyframes BeamIn {
-    0% {
-        background-position: 0% 50%;
-        color: var(--transparent);
-    }
-
-    50% {
-        background-position: 50% 50%;
-        color: var(--light);
-    }
-
-    100% {
-        background-position: 100% 50%
-    }
-}
-
-@-moz-keyframes BeamIn {
-    0% {
-        background-position: 0% 50%;
-        color: var(--transparent);
-    }
-
-    50% {
-        background-position: 50% 50%;
-        color: var(--light);
-    }
-
-    100% {
-        background-position: 100% 50%
-    }
-}
-
-@keyframes BeamIn {
-    0% {
-        background-position: 0% 50%;
-        color: var(--transparent);
-    }
-
-    50% {
-        background-position: 50% 50%;
-        color: var(--light);
-    }
-
-    100% {
-        background-position: 100% 50%
-    }
-}
-
-@-webkit-keyframes BeamOut {
-    0% {
-        background-position: 0% 50%;
-        color: var(--light);
-    }
-
-    50% {
-        background-position: 50% 50%;
-        color: var(--transparent);
-    }
-
-    100% {
-        background-position: 100% 50%;
-    }
-}
-
-@-moz-keyframes BeamOut {
-    0% {
-        background-position: 0% 50%;
-        color: var(--light);
-    }
-
-    50% {
-        background-position: 50% 50%;
-        color: var(--transparent);
-    }
-
-    100% {
-        background-position: 100% 50%;
-    }
-}
-
-@keyframes BeamOut {
-    0% {
-        background-position: 0% 50%;
-        color: var(--light);
-    }
-
-    50% {
-        background-position: 50% 50%;
-        color: var(--transparent);
-    }
-
-    100% {
-        background-position: 100% 50%;
-    }
+    -webkit-animation: Beam 1s infinite;
+    -moz-animation: Beam 1s infinite;
+    animation: Beam 1s infinite;
 }
 
 @-webkit-keyframes Beam {
@@ -129,12 +21,20 @@
         background-position: 0% 50%;
     }
 
+    25% {
+        color: var(--transparent);
+    }
+
     50% {
         background-position: 50% 50%;
     }
 
+    75% {
+        color: var(--light);
+    }
+
     100% {
-        background-position: 100% 50%;
+        background-position: 100% 50%
     }
 }
 
@@ -143,12 +43,20 @@
         background-position: 0% 50%;
     }
 
+    25% {
+        color: var(--transparent);
+    }
+
     50% {
         background-position: 50% 50%;
     }
 
+    75% {
+        color: var(--light);
+    }
+
     100% {
-        background-position: 100% 50%;
+        background-position: 100% 50%
     }
 }
 
@@ -157,11 +65,19 @@
         background-position: 0% 50%;
     }
 
+    25% {
+        color: var(--transparent);
+    }
+
     50% {
         background-position: 50% 50%;
     }
 
+    75% {
+        color: var(--light);
+    }
+
     100% {
-        background-position: 100% 50%;
+        background-position: 100% 50%
     }
 }
