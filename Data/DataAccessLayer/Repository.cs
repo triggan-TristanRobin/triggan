@@ -20,9 +20,9 @@ namespace DataAccessLayer
             this.dbSet = context.Set<TEntity>();
         }
 
-        public IEnumerable<TEntity> Get()
+        public IEnumerable<TEntity> GetAll()
         {
-            return dbSet.AsEnumerable();
+            return dbSet.ToList();
         }
 
         public TEntity Get(int id)
@@ -35,7 +35,7 @@ namespace DataAccessLayer
             return dbSet.FirstOrDefault(e => e.Slug == slug);
         }
 
-        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
+        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, int count = 0, string includeProperties = "")
         {
             IQueryable<TEntity> query = dbSet;
             if (filter != null)
@@ -51,7 +51,10 @@ namespace DataAccessLayer
                 }
             }
 
-            return orderBy != null ? orderBy(query).ToList() : query.ToList();
+            query = orderBy != null ? orderBy(query) : query;
+            query = count == 0 ? query : query.Take(count);
+
+            return query.ToList();
         }
 
         public virtual void Insert(TEntity entity)

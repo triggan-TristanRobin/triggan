@@ -1,0 +1,27 @@
+﻿@inject HttpClient Http
+
+@if (projects?.Any() != true)
+{
+    <p><em>Loading projects...</em></p>
+}
+else
+{
+    <div class="content-list grid">
+    @foreach (var project in projects)
+    {
+        <ProjectPreview Project=@project />
+    }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int ProjectCount { get; set; } = 0;
+    private List<Project> projects;
+
+    protected override async Task OnInitializedAsync()
+    {
+        projects = await Http.GetFromJsonAsync<List<Project>>($"Project/GetAll?count={ProjectCount}");
+    }
+}
+

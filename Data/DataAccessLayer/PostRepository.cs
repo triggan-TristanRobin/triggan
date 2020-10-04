@@ -6,6 +6,7 @@ using triggan.Interfaces;
 using System.Linq.Expressions;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Threading;
 
 namespace DataAccessLayer
 {
@@ -23,7 +24,7 @@ namespace DataAccessLayer
             this.context = context;
         }
 
-        public IEnumerable<Post> Get()
+        public IEnumerable<Post> GetAll()
         {
             var posts = context.Posts.ToList();
             posts.ForEach(p => p.Tags = p.Tags ?? new List<string>());
@@ -44,9 +45,27 @@ namespace DataAccessLayer
             return p;
         }
 
-        public IEnumerable<Post> Get(Expression<Func<Post, bool>> filter = null, Func<IQueryable<Post>, IOrderedQueryable<Post>> orderBy = null, string includeProperties = "")
+        public IEnumerable<Post> Get(Expression<Func<Post, bool>> filter = null, Func<IQueryable<Post>, IOrderedQueryable<Post>> orderBy = null, int count = 0, string includeProperties = "")
         {
-            var posts = context.Posts.Where(filter).ToList();
+            IQueryable<Post> query = context.Posts;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (includeProperties != null)
+            {
+                foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+
+            query = orderBy != null ? orderBy(query) : query;
+            query = count == 0 ? query : query.Take(count);
+
+            var posts = query.ToList();
+
             posts.ForEach(p => p.Tags = p.Tags ?? new List<string>());
             return posts;
         }

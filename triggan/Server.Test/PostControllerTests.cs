@@ -24,7 +24,7 @@ namespace triggan.Server.test
         public void GetShouldReturnAll()
         {
             //Arrange
-            repositoryMock.Setup(repo => repo.Get()).Returns(new List<Post> { new Post(), new Post(), new Post() });
+            repositoryMock.Setup(repo => repo.GetAll()).Returns(new List<Post> { new Post(), new Post(), new Post() });
 
             // Act
             var result = controller.Get();

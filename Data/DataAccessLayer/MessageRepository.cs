@@ -23,7 +23,7 @@ namespace DataAccessLayer
             this.context = context;
         }
 
-        public IEnumerable<Message> Get()
+        public IEnumerable<Message> GetAll()
         {
             return context.Messages.ToList();
         }
@@ -33,9 +33,26 @@ namespace DataAccessLayer
             return context.Messages.Find(MessageId);
         }
 
-        public IEnumerable<Message> Get(Expression<Func<Message, bool>> filter = null, Func<IQueryable<Message>, IOrderedQueryable<Message>> orderBy = null, string includeProperties = "")
+        public IEnumerable<Message> Get(Expression<Func<Message, bool>> filter = null, Func<IQueryable<Message>, IOrderedQueryable<Message>> orderBy = null, int count = 0, string includeProperties = "")
         {
-            throw new NotImplementedException();
+            IQueryable<Message> query = context.Messages;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (includeProperties != null)
+            {
+                foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+
+            query = orderBy != null ? orderBy(query) : query;
+            query = count == 0 ? query : query.Take(count);
+
+            return query.ToList();
         }
 
         public void Insert(Message Message)

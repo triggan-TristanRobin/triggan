@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using Model.Enums;
@@ -17,13 +18,13 @@ namespace triggan.Server.Controllers
             this.repository = repo;
         }
 
-        [HttpGet]
-        public IEnumerable<Project> Get()
+        [HttpGet("[action]")]
+        public IEnumerable<Project> GetAll(int count)
         {
-            return repository.Get();
+            return repository.Get(orderBy: source => source.OrderBy(proj => proj.Updated), count: count);
         }
 
-        [HttpGet("{slug}")]
+        [HttpGet("[action]")]
         public Project Get(string slug)
         {
             return repository.Get(slug);

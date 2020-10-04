@@ -23,7 +23,7 @@ namespace triggan.Server.Controllers
         [HttpGet]
         public IEnumerable<Message> Get()
         {
-            return repository.Get();
+            return repository.GetAll();
         }
 
         [HttpPost]

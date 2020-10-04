@@ -1,27 +1,5 @@
 ﻿@page "/projects"
-@inject HttpClient Http
 
 <h3>My projects</h3>
 
-@if (projects?.Any() != true)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <div class="content-list grid">
-    @foreach (var project in projects)
-    {
-        <ProjectPreview Project=@project />
-    }
-    </div>
-}
-
-@code {
-    private List<Project> projects;
-
-    protected override async Task OnInitializedAsync()
-    {
-        projects = await Http.GetFromJsonAsync<List<Project>>("Project");
-    }
-}
+<ProjectGrid />

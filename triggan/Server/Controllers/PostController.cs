@@ -23,7 +23,7 @@ namespace triggan.Server.Controllers
             return repository.Get(p => p.Type != PostType.Update);
         }
 
-        [HttpGet("{slug}")]
+        [HttpGet("[action]")]
         public Post Get(string slug)
         {
             return repository.Get(slug);

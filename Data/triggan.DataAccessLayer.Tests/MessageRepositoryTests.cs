@@ -29,7 +29,7 @@ namespace DataAccessLayer.Tests
 
 			// Act
 			var repository = new MessageRepository(context.Object);
-			var result = repository.Get();
+			var result = repository.GetAll();
 
 			// Assert
 			Assert.AreEqual(testList, result.ToList());
