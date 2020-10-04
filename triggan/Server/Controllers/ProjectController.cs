@@ -19,7 +19,7 @@ namespace triggan.Server.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Project> GetAll(int count)
+        public IEnumerable<Project> GetAll(int count = 0)
         {
             return repository.Get(orderBy: source => source.OrderBy(proj => proj.Updated), count: count);
         }

@@ -231,7 +231,6 @@ img {
 
 .scale-on-hover:hover {
     transform: scale(1.05);
-    /*box-shadow: 0 0 1em var(--light) !important;*/
 }
 
 .grid {
@@ -244,10 +243,15 @@ img {
 .card {
     max-width: 30%;
     border: none;
+    cursor: pointer;
 }
 
     .card:hover {
         box-shadow: 0 0 0.5em var(--blue);
+    }
+
+    .card:hover img{
+        transform: scale(1.05);
     }
 
 .skill-tile {

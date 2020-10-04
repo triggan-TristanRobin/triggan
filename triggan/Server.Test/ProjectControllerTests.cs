@@ -27,7 +27,7 @@ namespace triggan.Server.test
             repositoryMock.Setup(repo => repo.GetAll()).Returns(new List<Project> { new Project(), new Project(), new Project() });
 
             // Act
-            var result = controller.Get();
+            var result = controller.GetAll();
 
             // Assert
             Assert.IsInstanceOf(typeof(IEnumerable<Project>), result);

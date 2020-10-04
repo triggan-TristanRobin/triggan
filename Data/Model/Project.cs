@@ -16,6 +16,6 @@ namespace Model
         public bool Public { get; set; }
         public ProjectState State { get; set; }
         public DateTime PublicationDate { get; set; }
-        public List<Post> Updates { get; set; }
+        public List<Post> Updates { get; set; } = new List<Post>();
     }
 }

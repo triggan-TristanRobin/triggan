@@ -11,7 +11,7 @@
         </span>
         <br />
         <span class="text-nowrap">
-            @Post.Excerpt
+            @((MarkupString)Markdig.Markdown.ToHtml(Post.Excerpt))
         </span>
     </p>
 </div>
