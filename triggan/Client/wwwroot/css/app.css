@@ -233,6 +233,7 @@ img {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .card {
@@ -242,6 +243,21 @@ img {
 
     .card:hover {
         box-shadow: 0 0 0.5em var(--blue);
+    }
+
+.skill-tile {
+    margin: 0.25em;
+    width: 30%;
+    border: var(--light) 0.1em solid;
+    padding: 0.25em;
+}
+
+    .skill-tile i {
+        color: var(--info);
+    }
+
+    .skill-tile:hover {
+        box-shadow: none;
     }
 
 @media (max-width: 767.98px) {

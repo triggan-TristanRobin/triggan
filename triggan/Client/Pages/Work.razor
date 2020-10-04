@@ -4,9 +4,11 @@
     <SelfPresenter />
     <p>
         What can I do for You?<br />
+        You might have some needs, or some ideas you would like to analyze. I might help you so why not get in touch?<br />
+        I will try my best to answer any question, to help you with your projects of any kind by either offering my services or redirecting you to someone who could.<br />
         => Do you have a
     </p>
-    <ul>
+    <ul class="content-list">
         <li>project Idea</li>
         <li>need</li>
         <li>an app you would like to create</li>
@@ -16,6 +18,38 @@
         <li>cookies</li>
     </ul>
     <p>
-        Then <AnchorLink href="#contactme">contact me</AnchorLink> to discuss our possibilities!
+        Then <AnchorLink href="#contactme">contact me</AnchorLink> to discuss our possibilities!<br />
+        Some or my skills:
     </p>
+    <div id="skillGrid" class="grid">
+    @foreach(var skill in skills)
+    {
+        <div class="card skill-tile">
+            <Icon Name="@($"{skill.Modifier} fa-{skill.Icon}")" />
+            @skill.Name
+        </div>
+    }
+    </div>
+    <div class="card skill-tile" style="margin-left: auto;margin-right: auto">
+        <Icon Name="@($"{moreSkill.Modifier} fa-{moreSkill.Icon}")" />
+        @moreSkill.Name
+    </div>
 </div>
+
+@code {
+    class Skill {
+       public string Icon { get; set; }
+       public string Name { get; set; }
+       public string Modifier { get; set; }
+    }
+    private Skill moreSkill = new Skill { Icon = "ellipsis-h", Name = "And more" };
+
+    private Skill[] skills = new[]{
+        new Skill { Icon = "terminal", Name = "Software" },
+        new Skill { Icon = "", Name = ".NET" },
+        new Skill { Icon = "gamepad", Name = "Video Games" },
+        new Skill { Icon = "cubes", Name = "3D modeling" },
+        new Skill { Icon = "users", Name = "Team Management" },
+        new Skill { Icon = "teamspeak", Name = "Remote", Modifier = "fab" },
+    };
+}
