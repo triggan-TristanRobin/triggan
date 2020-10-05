@@ -13,6 +13,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20201004113007_AddProject.cs" />
+    <Compile Remove="Migrations\20201004113007_AddProject.Designer.cs" />
     <Compile Remove="Migrations\20201004133023_test.cs" />
     <Compile Remove="Migrations\20201004133023_test.Designer.cs" />
   </ItemGroup>

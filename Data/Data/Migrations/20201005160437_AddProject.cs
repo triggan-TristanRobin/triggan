@@ -7,6 +7,16 @@ namespace Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<int>(
+                name: "ProjectId",
+                table: "Entity",
+                nullable: true);
+
+            migrationBuilder.AddColumn<int>(
+                name: "Type",
+                table: "Entity",
+                nullable: true);
+
             migrationBuilder.AddColumn<string>(
                 name: "Project_CoverImagePath",
                 table: "Entity",
@@ -42,6 +52,11 @@ namespace Data.Migrations
                 table: "Entity",
                 nullable: true);
 
+            migrationBuilder.CreateIndex(
+                name: "IX_Entity_ProjectId",
+                table: "Entity",
+                column: "ProjectId");
+
             migrationBuilder.AddForeignKey(
                 name: "FK_Entity_Entity_ProjectId",
                 table: "Entity",
@@ -55,6 +70,18 @@ namespace Data.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_Entity_Entity_ProjectId",
+                table: "Entity");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Entity_ProjectId",
+                table: "Entity");
+
+            migrationBuilder.DropColumn(
+                name: "ProjectId",
+                table: "Entity");
+
+            migrationBuilder.DropColumn(
+                name: "Type",
                 table: "Entity");
 
             migrationBuilder.DropColumn(

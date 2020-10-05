@@ -131,7 +131,7 @@ ul {
     margin-bottom: 0.5rem;
 }
 
-    .tile:hover {
+    .post.tile:hover {
         box-shadow: 0em 0em 0.35em var(--dark-blue);
         padding-left: 1em;
     }

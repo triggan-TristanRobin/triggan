@@ -10,7 +10,7 @@ namespace Data
     {
         public static void Initialize(TrigganDBContext context)
         {
-            context.Database.EnsureCreated();
+            context.Database.Migrate();
 
             if (!context.Posts.Any())
             {
@@ -167,9 +167,6 @@ namespace Data
                 context.Projects.AddRange(projects);
                 context.SaveChanges();
             }
-
-
-            //context.Database.Migrate();
         }
     }
 }
