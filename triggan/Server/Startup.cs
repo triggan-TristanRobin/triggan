@@ -32,7 +32,11 @@ namespace triggan.Server
             services.AddTransient<ISlugRepository<Post>, PostRepository>();
             services.AddTransient<ISlugRepository<Project>, Repository<Project>>();
             services.AddTransient<IRepository<Message>, MessageRepository>();
-            services.AddDbContext<TrigganDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("trigganContext")));
+            var contextName = "trigganContext";
+#if DEBUG
+            contextName = "trigganDev";
+#endif
+            services.AddDbContext<TrigganDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString(contextName)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
