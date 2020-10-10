@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using Data;
+using System.Diagnostics;
 
 namespace triggan.Server
 {
@@ -33,6 +34,8 @@ namespace triggan.Server
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred creating the DB.");
+                    Trace.TraceError("And issue occured");
+                    Trace.TraceError(ex.Message);
                 }
             }
         }

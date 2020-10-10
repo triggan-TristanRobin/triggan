@@ -9,6 +9,7 @@ using triggan.Interfaces;
 using Model;
 using System.Configuration;
 using DataAccessLayer;
+using System.Diagnostics;
 
 namespace triggan.Server
 {
@@ -25,6 +26,7 @@ namespace triggan.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            Trace.TraceInformation("Configure services");
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -36,7 +38,9 @@ namespace triggan.Server
 #if DEBUG
             contextName = "trigganDev";
 #endif
+            Trace.TraceInformation("Retrieving DB context with name " + contextName);
             services.AddDbContext<TrigganDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString(contextName)));
+            Trace.TraceInformation("Retrieved DBContext");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

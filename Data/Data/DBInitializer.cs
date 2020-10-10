@@ -2,6 +2,7 @@
 using Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Data
@@ -10,10 +11,12 @@ namespace Data
     {
         public static void Initialize(TrigganDBContext context)
         {
+            Trace.TraceInformation("Migrating DB");
             context.Database.Migrate();
 
             if (!context.Posts.Any())
             {
+                Trace.TraceInformation("Add default posts");
                 var posts = new Post[]
                 {
                 new Post
@@ -60,6 +63,7 @@ namespace Data
 
             if (!context.Projects.Any())
             {
+                Trace.TraceInformation("Add default projects");
                 var projects = new Project[]
                 {
                     new Project
