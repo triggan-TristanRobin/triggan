@@ -29,7 +29,6 @@ else
     protected override async Task OnInitializedAsync()
     {
         TestValue = await Http.GetStringAsync($"Test/Get");
-        Config = await Http.GetStringAsync($"Test/GetConfig");
     }
 
 }
