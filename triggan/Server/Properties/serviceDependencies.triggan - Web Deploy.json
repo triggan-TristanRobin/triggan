@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/triggan/databases/trigganDB",
+      "type": "mssql.azure",
+      "connectionId": "trigganContext",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
