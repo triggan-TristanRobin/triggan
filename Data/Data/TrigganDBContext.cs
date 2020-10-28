@@ -29,9 +29,18 @@ namespace Data
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			var splitStringConverter = new ValueConverter<IEnumerable<string>, string>(v => string.Join(";", v), v => v.Split(new[] { ';' }));
-			modelBuilder.Entity<Post>().Property(nameof(Post.Tags)).HasConversion(splitStringConverter);
+			modelBuilder.Entity<Entity>().HasKey(e => e.Id);
+			modelBuilder.Entity<Entity>().Property(e => e.Id).ValueGeneratedOnAdd();
+			modelBuilder.Entity<Entity>().Property(e => e.Created).ValueGeneratedOnAdd();
 			modelBuilder.Entity<Entity>().HasIndex(e => e.Slug).IsUnique();
+
+			var splitStringConverter = new ValueConverter<IEnumerable<string>, string>(v => string.Join(";", v), v => v.Split(new[] { ';' }));
+			modelBuilder.Entity<Post>().Property(p => p.Tags).HasConversion(splitStringConverter);
+
+			modelBuilder.Entity<Message>().HasKey(e => e.Id);
+			modelBuilder.Entity<Message>().Property(e => e.Id).ValueGeneratedOnAdd();
+			modelBuilder.Entity<Message>().Property(e => e.Created).ValueGeneratedOnAdd();
+
 			base.OnModelCreating(modelBuilder);
 		}
 	}
