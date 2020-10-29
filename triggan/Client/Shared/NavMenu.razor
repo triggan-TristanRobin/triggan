@@ -1,27 +1,27 @@
 ﻿<nav class="navbar">
 	<a class="navbar-brand" href="#">triggan</a>
-	<div class="navbar-toggler nav-link" @onclick="ToggleNavMenu">
-	    <Icon Name="@("fa-bars")" />
-	</div>
+    <div class="navbar-toggler nav-link" @onclick="ToggleNavMenu">
+        <span class="fa fa-bars"></span>
+    </div>
     <ul class="nav nav-menu @NavMenuCssClass">
         <li class="nav-item">
             <NavLink class="nav-link" href="blog" Match="NavLinkMatch.All">
-                <span class="oi oi-copywriting" aria-hidden="true"></span> Blog
+                <span class="fa fa-align-left" aria-hidden="true"></span> Blog
             </NavLink>
         </li>
         <li class="nav-item">
             <NavLink class="nav-link" href="projects">
-                <span class="oi oi-project" aria-hidden="true"></span> Projects
+                <span class="fa fa-rocket" aria-hidden="true"></span> Projects
             </NavLink>
         </li>
         <li class="nav-item">
             <NavLink class="nav-link" href="work">
-                <span class="oi oi-people" aria-hidden="true"></span> Work together
+                <span class="fa fa-users" aria-hidden="true"></span> Work together
             </NavLink>
         </li>
         <li class="nav-item">
             <NavLink class="nav-link" href="now">
-                <span class="oi oi-pulse" aria-hidden="true"></span> Now
+                <span class="fa fa-plus" aria-hidden="true"></span> Now
             </NavLink>
         </li>
     </ul>

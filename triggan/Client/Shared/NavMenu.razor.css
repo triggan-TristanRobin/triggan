@@ -56,6 +56,11 @@
         color: var(--white);
     }
 
+.nav-link .fa {
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+}
+
 @media (min-width: 768px) {
     .navbar-toggler {
         display: none;

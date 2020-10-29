@@ -22,13 +22,13 @@
             @foreach (var skill in skills)
             {
             <div class="card skill-tile">
-                <Icon Name="@($"{skill.Modifier} fa-{skill.Icon}")" />
+                <span class="@($"{skill.Modifier ?? "fa"} fa-{skill.Icon}")"></span>
                 @skill.Name
             </div>
             }
         </div>
         <div id="contactme" class="card skill-tile" style="margin-left: auto;margin-right: auto">
-            <Icon Name="@($"{moreSkill.Modifier} fa-{moreSkill.Icon}")" />
+            <span class="@($"{moreSkill.Modifier ?? "fa"} fa-{moreSkill.Icon}")"></span>
             @moreSkill.Name
         </div>
     </section>
@@ -60,7 +60,7 @@
 
     private Skill[] skills = new[]{
     new Skill { Icon = "terminal", Name = "Software" },
-    new Skill { Icon = "", Name = ".NET" },
+    new Skill { Icon = "visual-studio", Name = ".NET" },
     new Skill { Icon = "gamepad", Name = "Video Games" },
     new Skill { Icon = "cubes", Name = "3D modeling" },
     new Skill { Icon = "users", Name = "Team Management" },
