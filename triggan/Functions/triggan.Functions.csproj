@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <LangVersion>9.0</LangVersion>
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
     <UserSecretsId>b94ad33d-7dfc-4d35-ae2a-0df8610503f4</UserSecretsId>
   </PropertyGroup>

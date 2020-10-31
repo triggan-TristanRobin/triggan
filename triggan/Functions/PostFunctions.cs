@@ -43,7 +43,7 @@ namespace triggan.Functions
         {
             log.LogInformation("Data fetched from PostContainer");
             var result = postSet.SingleOrDefault(post => post.Id == id && post.Type != PostType.Update);
-            return result != null ? new OkObjectResult(result) : new NotFoundObjectResult(result);
+            return result != null ? (ObjectResult)new OkObjectResult(result) : new NotFoundObjectResult(result);
         }
     }
 }
