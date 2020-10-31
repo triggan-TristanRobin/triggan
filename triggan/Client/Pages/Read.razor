@@ -23,7 +23,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        post = await Http.GetFromJsonAsync<Post>($"Post/Get?slug={Slug}");
+        post = await Http.GetFromJsonAsync<Post>($"/api/Post/{Slug}");
     }
 
 }

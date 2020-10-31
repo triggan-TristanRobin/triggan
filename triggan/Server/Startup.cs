@@ -58,17 +58,17 @@ namespace triggan.Server
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseBlazorFrameworkFiles();
-            app.UseStaticFiles();
+            //app.UseHttpsRedirection();
+            //app.UseBlazorFrameworkFiles();
+            //app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                //endpoints.MapRazorPages();
                 endpoints.MapControllers();
-                endpoints.MapFallbackToFile("index.html");
+                //endpoints.MapFallbackToFile("index.html");
             });
         }
     }
