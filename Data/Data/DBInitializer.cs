@@ -12,9 +12,12 @@ namespace Data
         public static void Initialize(TrigganDBContext context)
         {
             Trace.TraceInformation("Migrating DB");
-            context.Database.Migrate();
+#if DEBUG
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+#endif
 
-            if (!context.Posts.Any())
+            if (context.Posts.Count() == 0)
             {
                 Trace.TraceInformation("Add default posts");
                 var posts = new Post[]
@@ -57,11 +60,11 @@ namespace Data
                     }
                 };
 
-                context.Posts.AddRange(posts);
+                context.AddRange(posts);
                 context.SaveChanges();
             }
 
-            if (!context.Projects.Any())
+            if (context.Projects.Count() == 0)
             {
                 Trace.TraceInformation("Add default projects");
                 var projects = new Project[]
@@ -168,7 +171,7 @@ namespace Data
                     }
                 };
 
-                context.Projects.AddRange(projects);
+                context.AddRange(projects);
                 context.SaveChanges();
             }
         }

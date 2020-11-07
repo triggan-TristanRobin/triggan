@@ -34,12 +34,16 @@ namespace triggan.Server
             services.AddTransient<ISlugRepository<Post>, PostRepository>();
             services.AddTransient<ISlugRepository<Project>, Repository<Project>>();
             services.AddTransient<IRepository<Message>, MessageRepository>();
-            var contextName = "trigganContext";
-#if DEBUG
-            contextName = "trigganDev";
-#endif
+            var contextName = "trigganCosmos";
             Trace.TraceInformation("Retrieving DB context with name " + contextName);
-            services.AddDbContext<TrigganDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString(contextName)));
+#if DEBUG
+            services.AddDbContext<TrigganDBContext>(options => options.UseCosmos(
+                "https://localhost:8081",
+                "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
+                databaseName: "triggandb"));
+#else
+            services.AddDbContext<TrigganDBContext>(options => options.UseCosmos(Configuration.GetConnectionString(contextName), "triggandb"));
+#endif
             Trace.TraceInformation("Retrieved DBContext");
         }
 
@@ -58,17 +62,17 @@ namespace triggan.Server
                 app.UseHsts();
             }
 
-            //app.UseHttpsRedirection();
-            //app.UseBlazorFrameworkFiles();
-            //app.UseStaticFiles();
+            app.UseHttpsRedirection();
+            app.UseBlazorFrameworkFiles();
+            app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapRazorPages();
+                endpoints.MapRazorPages();
                 endpoints.MapControllers();
-                //endpoints.MapFallbackToFile("index.html");
+                endpoints.MapFallbackToFile("index.html");
             });
         }
     }

@@ -23,7 +23,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        posts = await Http.GetFromJsonAsync<List<Post>>($"https://trigganfunctionstest.azurewebsites.net/api/Posts/{PostCount}");
+        posts = await Http.GetFromJsonAsync<List<Post>>($"/Post/GetAll?count={PostCount}");
     }
 
 }

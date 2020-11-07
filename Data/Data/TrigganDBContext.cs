@@ -23,12 +23,14 @@ namespace Data
 			: base(options)
 		{ }
 
-        public TrigganDBContext()
+		public TrigganDBContext()
         {
         }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			modelBuilder.HasDefaultContainer("entities");
+			modelBuilder.Entity<Entity>().ToContainer("entities");
 			modelBuilder.Entity<Entity>().HasKey(e => e.Id);
 			modelBuilder.Entity<Entity>().Property(e => e.Id).ValueGeneratedOnAdd();
 			modelBuilder.Entity<Entity>().Property(e => e.Created).ValueGeneratedOnAdd();
@@ -37,6 +39,7 @@ namespace Data
 			var splitStringConverter = new ValueConverter<IEnumerable<string>, string>(v => string.Join(";", v), v => v.Split(new[] { ';' }));
 			modelBuilder.Entity<Post>().Property(p => p.Tags).HasConversion(splitStringConverter);
 
+			modelBuilder.Entity<Message>().ToContainer("messages");
 			modelBuilder.Entity<Message>().HasKey(e => e.Id);
 			modelBuilder.Entity<Message>().Property(e => e.Id).ValueGeneratedOnAdd();
 			modelBuilder.Entity<Message>().Property(e => e.Created).ValueGeneratedOnAdd();
