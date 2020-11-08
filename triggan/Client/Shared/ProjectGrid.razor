@@ -21,7 +21,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        projects = await Http.GetFromJsonAsync<List<Project>>($"https://trigganfunctionstest.azurewebsites.net/api/Project/{ProjectCount}");
+        projects = await Http.GetFromJsonAsync<List<Project>>($"https://trigganfunctions.azurewebsites.net/api/Project/{ProjectCount}");
     }
 }
 

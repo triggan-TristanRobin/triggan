@@ -6,6 +6,9 @@
     "storage1": {
       "type": "storage",
       "connectionId": "AzureWebJobsStorage"
+    },
+    "ConnectionStrings": {
+      "trigganCosmos": "AccountEndpoint=https://triggandb.documents.azure.com:443/;AccountKey=IMR4626zJIZWk3IhThvTA8J0XFx9ePMCMFPtcA5cCSA3yDljC6ZvvQ3VXnAqetuVd0A8Di6gyljSAeFVv6CiFw==;"
     }
   }
 }

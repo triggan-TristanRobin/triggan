@@ -12,13 +12,14 @@ namespace triggan.Functions
     public static class CosmosTools
     {
 #if DEBUG
-        private static CosmosClient cosmosClient = new CosmosClient("https://localhost:8081", "C2y6yDjf5/Rob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==");
+        private static CosmosClient cosmosClient = new CosmosClient("AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==");
 #else
         private static CosmosClient cosmosClient = new CosmosClient(ConfigurationManager.ConnectionStrings["trigganCosmos"].ConnectionString);
 #endif
 
         public async static Task<List<T>> GetEntities<T>(int count, string filter = "") where T : Entity
         {
+            var entities = new List<T>();
             var getAllQuery = $"SELECT * FROM c WHERE c.Discriminator = '{typeof(T).Name}'";
             if (count > 0)
             {
@@ -28,7 +29,6 @@ namespace triggan.Functions
             QueryDefinition queryDefinition = new QueryDefinition(getAllQuery);
 
             var iterator = container.GetItemQueryIterator<T>(queryDefinition);
-            var entities = new List<T>();
             var feedIterator = container.GetItemQueryIterator<T>(queryDefinition);
             while (feedIterator.HasMoreResults)
             {

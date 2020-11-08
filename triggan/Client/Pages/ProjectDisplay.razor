@@ -33,7 +33,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        project = await Http.GetFromJsonAsync<Project>($"https://trigganfunctionstest.azurewebsites.net/api/Project/{Slug}");
+        project = await Http.GetFromJsonAsync<Project>($"https://trigganfunctions.azurewebsites.net/api/Project/{Slug}");
     }
 
 }

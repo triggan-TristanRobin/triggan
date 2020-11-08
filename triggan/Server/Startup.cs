@@ -42,7 +42,8 @@ namespace triggan.Server
                 "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
                 databaseName: "triggandb"));
 #else
-            services.AddDbContext<TrigganDBContext>(options => options.UseCosmos(Configuration.GetConnectionString(contextName), "triggandb"));
+            var cosmosInfos = Configuration.GetConnectionString(contextName).Split(';');
+            services.AddDbContext<TrigganDBContext>(options => options.UseCosmos(cosmosInfos[0], cosmosInfos[1].Substring(11), "triggandb"));
 #endif
             Trace.TraceInformation("Retrieved DBContext");
         }
