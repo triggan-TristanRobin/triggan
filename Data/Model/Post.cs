@@ -16,7 +16,7 @@ namespace Model
         public string Excerpt { get; set; }
         public string CoverImagePath { get; set; }
         public bool Public { get; set; }
-        public PostType Type { get; set; } = PostType.Blog;
+        public PostType Type { get; set; }
         public DateTime PublicationDate { get; set; }
         public IEnumerable<string> Tags { get; set; }
 

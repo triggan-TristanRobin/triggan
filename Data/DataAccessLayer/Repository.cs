@@ -25,12 +25,12 @@ namespace DataAccessLayer
             return dbSet.ToList();
         }
 
-        public TEntity Get(int id)
+        public virtual TEntity Get(int id)
         {
             return dbSet.Find(id);
         }
 
-        public TEntity Get(string slug)
+        public virtual TEntity Get(string slug)
         {
             return dbSet.FirstOrDefault(e => e.Slug == slug);
         }

@@ -11,6 +11,9 @@ using System.Collections.Generic;
 using Model;
 using System.Linq;
 using Model.Enums;
+using Microsoft.Azure.Cosmos;
+using System.Collections.Immutable;
+using Microsoft.EntityFrameworkCore;
 
 namespace triggan.Functions
 {
@@ -18,32 +21,18 @@ namespace triggan.Functions
     {
         [FunctionName("Posts")]
         public static async Task<IActionResult> GetPosts(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Posts/{postCount:int?}")] HttpRequest req, int? postCount,
-        [CosmosDB(
-            databaseName:"triggandb",
-            collectionName:"postContainer",
-            ConnectionStringSetting = "trigganCosmos"
-            )] IEnumerable<Post> postSet,
-        ILogger log)
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Posts/{postCount:int?}")] HttpRequest req, int? postCount, ILogger log)
         {
-            log.LogInformation("Data fetched from PostContainer");
-            var result = postSet.Where(post => post.Type != PostType.Update).OrderBy(post => post.Updated);
-            return new OkObjectResult(postCount != null && postCount > 0 ? result.Take(postCount.Value) : result);
+            var posts = CosmosTools.GetEntities<Post>(postCount ?? 0).Result;
+            return posts.Any() ? (ObjectResult)new OkObjectResult(posts) : new NotFoundObjectResult(posts);
         }
 
         [FunctionName("Post")]
         public static async Task<IActionResult> GetPost(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Post/{id:int}")] HttpRequest req, int id,
-        [CosmosDB(
-            databaseName:"triggandb",
-            collectionName:"postContainer",
-            ConnectionStringSetting = "trigganCosmos"
-            )] IEnumerable<Post> postSet,
-        ILogger log)
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Post/{slug}")] HttpRequest req, string slug, ILogger log)
         {
-            log.LogInformation("Data fetched from PostContainer");
-            var result = postSet.SingleOrDefault(post => post.Id == id && post.Type != PostType.Update);
-            return result != null ? (ObjectResult)new OkObjectResult(result) : new NotFoundObjectResult(result);
+            var post = CosmosTools.GetEntity<Post>(slug).Result;
+            return post != null ? (ObjectResult)new OkObjectResult(post) : new NotFoundObjectResult(post);
         }
     }
 }

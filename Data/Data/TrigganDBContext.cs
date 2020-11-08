@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.Linq;
 
 namespace Data
 {
@@ -36,8 +37,11 @@ namespace Data
 			modelBuilder.Entity<Entity>().Property(e => e.Created).ValueGeneratedOnAdd();
 			modelBuilder.Entity<Entity>().HasIndex(e => e.Slug).IsUnique();
 
-			var splitStringConverter = new ValueConverter<IEnumerable<string>, string>(v => string.Join(";", v), v => v.Split(new[] { ';' }));
-			modelBuilder.Entity<Post>().Property(p => p.Tags).HasConversion(splitStringConverter);
+			//var splitStringConverter = new ValueConverter<IEnumerable<string>, string>(v => string.Join(";", v), v => v.Split(new[] { ';' }));
+			//modelBuilder.Entity<Post>().Property(p => p.Tags).HasConversion(splitStringConverter);
+
+			modelBuilder.Entity<Post>().Ignore(p => p.Tags);
+			modelBuilder.Entity<Project>().OwnsMany(p => p.Updates);
 
 			modelBuilder.Entity<Message>().ToContainer("messages");
 			modelBuilder.Entity<Message>().HasKey(e => e.Id);

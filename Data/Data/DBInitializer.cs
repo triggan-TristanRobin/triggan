@@ -77,25 +77,19 @@ namespace Data
                         CoverImagePath = "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
                         Public = true,
                         PublicationDate = DateTime.Now.AddDays(-5),
-                        Updates = new List<Post>
+                        Updates = new List<Update>
                         {
-                            new Post
+                            new Update
                             {
                                 Content = "Update number 1, hell yeah!",
-                                Slug = "pr1u1" + DateTime.Now.AddDays(-3).ToString("yyyyMMdd"),
-                                Public = true,
                                 PublicationDate = DateTime.Now.AddDays(-3),
-                                Type = Model.Enums.PostType.Update,
                             },
-                            new Post
+                            new Update
                             {
                                 Content = "Update number 2, hell yeah!",
-                                Slug = "pr1u2" + DateTime.Now.AddDays(-1).ToString("yyyyMMdd"),
-                                Public = true,
                                 PublicationDate = DateTime.Now.AddDays(-1),
-                                Type = Model.Enums.PostType.Update,
                             },
-                            new Post
+                            new Update
                             {
                                 Content = "# Hello world\nThis is update number 3!\n"+
                                             "**Lorem** ipsum dolor sit"+
@@ -103,10 +97,7 @@ namespace Data
                                             "eu est nec metus luctus tempus. Pellentesque"+
                                             "at elementum sapien, ac faucibus sem"+
                                             "![surprise](https://media.giphy.com/media/fdyZ3qI0GVZC0/giphy.gif)",
-                                Slug = "pr1u3" + DateTime.Now.ToString("yyyyMMdd"),
-                                Public = true,
                                 PublicationDate = DateTime.Now,
-                                Type = Model.Enums.PostType.Update,
                             },
                         }
                     },
@@ -118,17 +109,15 @@ namespace Data
                         CoverImagePath = "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
                         Public = true,
                         PublicationDate = DateTime.Now.AddDays(-10),
-                        Updates = new List<Post>
+                        Updates = new List<Update>
                         {
-                            new Post
+                            new Update
                             {
+                                Title = "This is an important update so there is a title",
                                 Content = "Update number 1, hell yeah!",
-                                Slug = "pr2u1" + DateTime.Now.AddDays(-5).ToString("yyyyMMdd"),
-                                Public = true,
                                 PublicationDate = DateTime.Now.AddDays(-5),
-                                Type = Model.Enums.PostType.Update,
                             },
-                            new Post
+                            new Update
                             {
                                 Content = "# Hello world\nThis is update number 3!\n"+
                                             "**Lorem** ipsum dolor sit"+
@@ -136,18 +125,12 @@ namespace Data
                                             "eu est nec metus luctus tempus. Pellentesque"+
                                             "at elementum sapien, ac faucibus sem"+
                                             "![surprise](https://media.giphy.com/media/fdyZ3qI0GVZC0/giphy.gif)",
-                                Slug = "pr2u2" + DateTime.Now.AddDays(-6).ToString("yyyyMMdd"),
-                                Public = true,
                                 PublicationDate = DateTime.Now.AddDays(-6),
-                                Type = Model.Enums.PostType.Update,
                             },
-                            new Post
+                            new Update
                             {
                                 Content = "Update number 2, hell yeah!",
-                                Slug = "pr2u3" + DateTime.Now.AddDays(-3).ToString("yyyyMMdd"),
-                                Public = true,
                                 PublicationDate = DateTime.Now.AddDays(-3),
-                                Type = Model.Enums.PostType.Update,
                             },
                         }
                     },

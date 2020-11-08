@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Model;
 using System.Linq;
 using Model.Enums;
+using Microsoft.Azure.Cosmos;
 
 namespace triggan.Functions
 {
@@ -18,32 +19,18 @@ namespace triggan.Functions
     {
         [FunctionName("Projects")]
         public static async Task<IActionResult> GetProjects(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Projects/{projectCount:int?}")] HttpRequest req, int? projectCount,
-        [CosmosDB(
-            databaseName:"triggandb",
-            collectionName:"projectContainer",
-            ConnectionStringSetting = "trigganCosmos"
-            )] IEnumerable<Project> projectSet,
-        ILogger log)
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Projects/{projectCount:int?}")] HttpRequest req, int? projectCount, ILogger log)
         {
-            log.LogInformation("Data fetched from PostContainer");
-            var result = projectSet.OrderBy(p => p.Updated);
-            return new OkObjectResult(projectCount != null && projectCount > 0 ? result.Take(projectCount.Value) : result);
+            var projects = CosmosTools.GetEntities<Project>(projectCount ?? 0).Result;
+            return projects.Any() ? (ObjectResult)new OkObjectResult(projects) : new NotFoundObjectResult(projects);
         }
 
         [FunctionName("Project")]
         public static async Task<IActionResult> GetProject(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Project/{id:int}")] HttpRequest req, int id,
-        [CosmosDB(
-            databaseName:"triggandb",
-            collectionName:"projectContainer",
-            ConnectionStringSetting = "trigganCosmos"
-            )] IEnumerable<Project> projectSet,
-        ILogger log)
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Project/{slug}")] HttpRequest req, string slug, ILogger log)
         {
-            log.LogInformation("Data fetched from PostContainer");
-            var result = projectSet.SingleOrDefault(p => p.Id == id);
-            return result != null ? (ObjectResult)new OkObjectResult(result) : new NotFoundObjectResult(result);
+            var project = CosmosTools.GetEntity<Project>(slug).Result;
+            return project != null ? (ObjectResult)new OkObjectResult(project) : new NotFoundObjectResult(project);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Model.Enums
 {
     public enum PostType
     {
-        Blog,
+        Blog = 0,
         Update,
     }
 }

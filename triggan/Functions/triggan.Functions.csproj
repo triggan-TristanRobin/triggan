@@ -4,13 +4,20 @@
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
     <UserSecretsId>b94ad33d-7dfc-4d35-ae2a-0df8610503f4</UserSecretsId>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;NU1605</NoWarn>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.CosmosDB" Version="3.0.7" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage" Version="4.0.3" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.9" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\DataAccessLayer\DataAccessLayer.csproj" />
+    <ProjectReference Include="..\..\Data\Data\Data.csproj" />
     <ProjectReference Include="..\..\Data\Model\Model.csproj" />
+    <ProjectReference Include="..\Interfaces\triggan.Interfaces.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
