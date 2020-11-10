@@ -3,30 +3,33 @@
 <EditForm Model=@Message OnSubmit=@Send class="form-group">
     <div class="form-row">
         <div>
-            <label for="Name"><Icon Name="@("far fa-user")" />Name</label>
+            <label for="Name"><span class="@("far fa-user")"></span>Name</label>
             <InputText @bind-Value=Message.Name />
         </div>
         <div style="flex-shrink: 3;"></div>
         <div>
-            <label for="EMail"><Icon Name="@("far fa-envelope")" />EMail</label>
+            <label for="EMail"><span class="@("far fa-envelope")"></span>EMail</label>
             <InputText @bind-Value=Message.EMail />
         </div>
     </div>
     <div class="form-group">
-        <label for="Content"><Icon Name="@("far fa-question-circle")" />How can I help you?</label>
+        <label for="Content"><span class="@("far fa-question-circle")"></span>How can I help you?</label>
         <InputTextArea @bind-Value=Message.Content Rows="10" />
     </div>
-    <button type="submit" class=""><Icon Name="@("far fa-paper-plane")" />Submit</button>
+    <button type="submit" class=""><span class="@("far fa-paper-plane")"></span>Submit</button>
 </EditForm>
 
 
 @code
 {
     private Message Message = new Message();
+    private string result;
 
     private async Task Send()
     {
-        await Http.PostAsJsonAsync("Message", Message);
-        return;
+        result = string.Empty;
+        var success = await Http.PostAsJsonAsync($"https://trigganfunctions.azurewebsites.net/api/Message", Message);
+        Console.WriteLine(success);
+        result = "Your message have been sent!";
     }
 }

@@ -69,5 +69,12 @@ namespace triggan.Functions
             logger?.LogInformation($"Found {entities.Count()} results");
             return entities.SingleOrDefault();
         }
+
+        public async static Task<bool> AddMessage(Message message)
+        {
+            var container = cosmosClient.GetContainer("triggandb", "messages");
+            var result = await container.CreateItemAsync(message);
+            return result.StatusCode.ToString().StartsWith("2");
+        }
     }
 }
