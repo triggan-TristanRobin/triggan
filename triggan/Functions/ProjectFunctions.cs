@@ -21,7 +21,7 @@ namespace triggan.Functions
         public static async Task<IActionResult> GetProjects(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Projects/{projectCount:int?}")] HttpRequest req, int? projectCount, ILogger log)
         {
-            var projects = CosmosTools.GetEntities<Project>(projectCount ?? 0).Result;
+            var projects = CosmosTools.GetEntities<Project>(projectCount ?? 0, logger: log).Result;
             return projects.Any() ? (ObjectResult)new OkObjectResult(projects) : new NotFoundObjectResult(projects);
         }
 
@@ -29,7 +29,7 @@ namespace triggan.Functions
         public static async Task<IActionResult> GetProject(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Project/{slug}")] HttpRequest req, string slug, ILogger log)
         {
-            var project = CosmosTools.GetEntity<Project>(slug).Result;
+            var project = CosmosTools.GetEntity<Project>(slug, logger: log).Result;
             return project != null ? (ObjectResult)new OkObjectResult(project) : new NotFoundObjectResult(project);
         }
     }

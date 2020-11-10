@@ -23,7 +23,8 @@ namespace triggan.Functions
         public static async Task<IActionResult> GetPosts(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Posts/{postCount:int?}")] HttpRequest req, int? postCount, ILogger log)
         {
-            var posts = CosmosTools.GetEntities<Post>(postCount ?? 0).Result;
+            log.LogInformation($"Retrieving {postCount} posts");
+            var posts = CosmosTools.GetEntities<Post>(postCount ?? 0, logger: log).Result;
             return posts.Any() ? (ObjectResult)new OkObjectResult(posts) : new NotFoundObjectResult(posts);
         }
 
@@ -31,7 +32,8 @@ namespace triggan.Functions
         public static async Task<IActionResult> GetPost(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Post/{slug}")] HttpRequest req, string slug, ILogger log)
         {
-            var post = CosmosTools.GetEntity<Post>(slug).Result;
+            log.LogInformation("Data fetched from PostContainer");
+            var post = CosmosTools.GetEntity<Post>(slug, logger: log).Result;
             return post != null ? (ObjectResult)new OkObjectResult(post) : new NotFoundObjectResult(post);
         }
     }

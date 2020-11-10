@@ -6,6 +6,7 @@ using Model;
 using System.Linq;
 using Microsoft.Azure.Cosmos;
 using System.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace triggan.Functions
 {
@@ -14,10 +15,10 @@ namespace triggan.Functions
 #if DEBUG
         private static CosmosClient cosmosClient = new CosmosClient("AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==");
 #else
-        private static CosmosClient cosmosClient = new CosmosClient(ConfigurationManager.ConnectionStrings["trigganCosmos"].ConnectionString);
+        private static CosmosClient cosmosClient = new CosmosClient(Environment.GetEnvironmentVariable("trigganCosmos"));
 #endif
 
-        public async static Task<List<T>> GetEntities<T>(int count, string filter = "") where T : Entity
+        public async static Task<List<T>> GetEntities<T>(int count, string filter = "", ILogger logger = null) where T : Entity
         {
             var entities = new List<T>();
             var getAllQuery = $"SELECT * FROM c WHERE c.Discriminator = '{typeof(T).Name}'";
@@ -25,15 +26,18 @@ namespace triggan.Functions
             {
                 getAllQuery += $" OFFSET 0 LIMIT {count}";
             }
+            logger?.LogInformation($"Get entities for {typeof(T).Name}");
+
             var container = cosmosClient.GetContainer("triggandb", "entities");
             QueryDefinition queryDefinition = new QueryDefinition(getAllQuery);
 
-            var iterator = container.GetItemQueryIterator<T>(queryDefinition);
             var feedIterator = container.GetItemQueryIterator<T>(queryDefinition);
             while (feedIterator.HasMoreResults)
             {
+                logger?.LogInformation($"Getting iterator results");
                 foreach (var entity in await feedIterator.ReadNextAsync())
                 {
+                    logger?.LogInformation($"Adding entity {entity.Slug} to result list");
                     entities.Add(entity);
                 }
             }
@@ -41,9 +45,11 @@ namespace triggan.Functions
             return entities;
         }
 
-        public async static Task<T> GetEntity<T>(string slug) where T : Entity
+        public async static Task<T> GetEntity<T>(string slug, ILogger logger = null) where T : Entity
         {
             var getAllQuery = $"SELECT * FROM c WHERE c.Slug = '{slug}'";
+            logger?.LogInformation($"Get entity for {typeof(T).Name} ({slug})");
+
             var container = cosmosClient.GetContainer("triggandb", "entities");
             QueryDefinition queryDefinition = new QueryDefinition(getAllQuery);
 
@@ -52,12 +58,15 @@ namespace triggan.Functions
             var feedIterator = container.GetItemQueryIterator<T>(queryDefinition);
             while (feedIterator.HasMoreResults)
             {
+                logger?.LogInformation($"Getting iterator results");
                 foreach (var entity in await feedIterator.ReadNextAsync())
                 {
+                    logger?.LogInformation($"Adding entity {entity.Slug} to result list");
                     entities.Add(entity);
                 }
             }
 
+            logger?.LogInformation($"Found {entities.Count()} results");
             return entities.SingleOrDefault();
         }
     }
