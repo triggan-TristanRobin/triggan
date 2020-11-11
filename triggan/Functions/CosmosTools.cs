@@ -72,9 +72,18 @@ namespace triggan.Functions
 
         public async static Task<bool> AddMessage(Message message)
         {
-            var container = cosmosClient.GetContainer("triggandb", "messages");
-            var result = await container.CreateItemAsync(message);
-            return result.StatusCode.ToString().StartsWith("2");
+            try
+            {
+                var container = cosmosClient.GetContainer("triggandb", "messages");
+                var result = await container.CreateItemAsync(message);
+                Console.WriteLine("Created item in database with id: {0} Operation consumed {1} RUs.\n"
+                    , result.Resource.Id, result.RequestCharge);
+                return result.StatusCode.ToString().StartsWith("2");
+            }
+            catch(Exception e)
+            {
+                throw;
+            }
         }
     }
 }

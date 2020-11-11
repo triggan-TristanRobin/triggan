@@ -35,6 +35,7 @@ namespace Data
 			modelBuilder.Entity<Entity>().HasKey(e => e.Id);
 			modelBuilder.Entity<Entity>().Property(e => e.Id).ValueGeneratedOnAdd();
 			modelBuilder.Entity<Entity>().Property(e => e.Created).ValueGeneratedOnAdd();
+			modelBuilder.Entity<Entity>().Property(e => e.Updated).ValueGeneratedOnAddOrUpdate();
 			modelBuilder.Entity<Entity>().HasIndex(e => e.Slug).IsUnique();
 
 			//var splitStringConverter = new ValueConverter<IEnumerable<string>, string>(v => string.Join(";", v), v => v.Split(new[] { ';' }));
@@ -47,6 +48,7 @@ namespace Data
 			modelBuilder.Entity<Message>().HasKey(e => e.Id);
 			modelBuilder.Entity<Message>().Property(e => e.Id).ValueGeneratedOnAdd();
 			modelBuilder.Entity<Message>().Property(e => e.Created).ValueGeneratedOnAdd();
+			modelBuilder.Entity<Message>().Property(e => e.Updated).ValueGeneratedOnAddOrUpdate();
 
 			base.OnModelCreating(modelBuilder);
 		}
