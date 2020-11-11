@@ -75,6 +75,7 @@ namespace triggan.Functions
             try
             {
                 var container = cosmosClient.GetContainer("triggandb", "messages");
+                message.Id = Guid.NewGuid().ToString();
                 var result = await container.CreateItemAsync(message);
                 Console.WriteLine("Created item in database with id: {0} Operation consumed {1} RUs.\n"
                     , result.Resource.Id, result.RequestCharge);
