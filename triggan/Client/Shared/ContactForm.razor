@@ -1,20 +1,20 @@
 ﻿@inject HttpClient Http
 
-<EditForm Model=@Message OnSubmit=@Send class="form-group">
-    <div class="form-row">
+<EditForm Model=@message OnSubmit=@Send class="form-group">
+    <div class="row">
         <div>
             <label for="Name"><span class="@("far fa-user")"></span>Name</label>
-            <InputText @bind-Value=Message.Name />
+            <InputText @bind-Value=message.Name />
         </div>
         <div style="flex-shrink: 3;"></div>
         <div>
             <label for="EMail"><span class="@("far fa-envelope")"></span>EMail</label>
-            <InputText @bind-Value=Message.EMail />
+            <InputText @bind-Value=message.EMail />
         </div>
     </div>
     <div class="form-group">
         <label for="Content"><span class="@("far fa-question-circle")"></span>How can I help you?</label>
-        <InputTextArea @bind-Value=Message.Content Rows="10" />
+        <InputTextArea @bind-Value=message.Content Rows="10" />
     </div>
     <button type="submit" class=""><span class="@("far fa-paper-plane")"></span>Submit</button>
 </EditForm>
@@ -22,13 +22,13 @@
 
 @code
 {
-    private Message Message = new Message();
+    private Message message = new Message();
     private string result;
 
     private async Task Send()
     {
         result = string.Empty;
-        var success = await Http.PostAsJsonAsync($"https://trigganfunctions.azurewebsites.net/api/Message", Message);
+        var success = await Http.PostAsJsonAsync($"https://trigganfunctions.azurewebsites.net/api/Message", message);
         Console.WriteLine(success);
         result = "Your message have been sent!";
     }

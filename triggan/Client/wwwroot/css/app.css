@@ -161,7 +161,7 @@ form {
         width: 100%;
     }
 
-.form-row {
+.row {
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -177,7 +177,7 @@ form input, form textarea {
     font-size: 1.1em;
 }
 
-.form-row div {
+.row div {
     flex-shrink: 2;
 }
 
@@ -188,6 +188,11 @@ form label {
 
 form i {
     padding-right: 0.5em;
+}
+
+form .row label, form .row input, form .row textarea {
+    max-width: max-content;
+    min-width: auto;
 }
 
 button {
@@ -262,7 +267,7 @@ img {
     }
 
 @media (max-width: 767.98px) {
-    .form-row {
+    .row {
         flex-direction: column !important;
     }
 }

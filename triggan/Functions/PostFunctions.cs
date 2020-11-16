@@ -36,5 +36,22 @@ namespace triggan.Functions
             var post = CosmosTools.GetEntity<Post>(slug, logger: log).Result;
             return post != null ? (ObjectResult)new OkObjectResult(post) : new NotFoundObjectResult(post);
         }
+
+        [FunctionName("Write")]
+        public static async Task<IActionResult> WritePost(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "Write/{slug}")] HttpRequest req, string slug, ILogger log)
+        {
+            log.LogInformation($"Trying to save post to cosmos db");
+            var content = await new StreamReader(req.Body).ReadToEndAsync();
+            var post = JsonConvert.DeserializeObject<Post>(content);
+
+            if (post == null)
+            {
+                return new UnprocessableEntityObjectResult(post);
+            }
+
+            var result = CosmosTools.UpsertEntity(post, logger: log).Result;
+            return result ? (ObjectResult)new OkObjectResult(post) : new UnprocessableEntityObjectResult(post);
+        }
     }
 }

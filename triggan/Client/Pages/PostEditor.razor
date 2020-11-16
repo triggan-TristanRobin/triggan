@@ -1,0 +1,88 @@
+﻿@page "/blog/edit"
+@page "/blog/edit/{Slug}"
+@inject HttpClient Http
+
+<section class="editor">
+    @if (post == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <div class="row">
+            <EditForm Model=@post OnSubmit="@Write" class="form-group" style="max-width: 50%;">
+                <div class="form-group">
+                    <div>
+                        <label for="Title">Title</label>
+                        <KeystrokeTextInput @bind-Value=post.Title />
+                    </div>
+                    <div class="row" style="flex-wrap: wrap;padding-top: 0.5em;padding-bottom: 0.5em;">
+                        <label for="Slug">Slug</label>
+                        <InputText @bind-Value=post.Slug />
+                        <label for="Public">Public</label>
+                        <InputCheckbox @bind-Value=post.Public />
+                    </div>
+                    <div>
+                        <label for="CoverImagePath">CoverImagePath</label>
+                        <InputText @bind-Value=post.CoverImagePath />
+                    </div>
+                    <div>
+                        <label for="Excerpt">Excerpt</label>
+                        <InputTextArea @bind-Value=post.Excerpt />
+                    </div>
+                    <div>
+                        <label for="PublicationDate">PublicationDate</label>
+                        <InputDate @bind-Value=post.PublicationDate />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Content">Post content</label>
+                    <KeystrokeTextArea @bind-Value=post.Content Rows="30" />
+                </div>
+                <button type="submit" class="">Submit</button>
+            </EditForm>
+            
+            @if (!string.IsNullOrEmpty(post.Content))
+            {
+                <div class="post" style="max-width: 50%;">
+                    <h1>@post.Title</h1>
+                    <p class="content">
+                        @((MarkupString)Markdig.Markdown.ToHtml(post.Content))
+                    </p>
+                </div>
+            }
+        </div>
+        <a href="/blog">Back</a>
+    }
+</section>
+
+@code {
+    [Parameter]
+    public string Slug { get; set; }
+    private Post post;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!string.IsNullOrEmpty(Slug))
+        {
+            Console.WriteLine($"Trying to get post for edit");
+            post = await Http.GetFromJsonAsync<Post>($"http://localhost:7071/api/Post/{Slug}");
+        }
+        else
+        {
+            Console.WriteLine($"New post");
+            post = new Post();
+            post.PublicationDate = DateTime.Today;
+        }
+    }
+
+    private string result;
+    private async Task Write()
+    {
+        result = string.Empty;
+        var success = await Http.PostAsJsonAsync($"http://localhost:7071/api/Write/{post.Slug}", post);
+        Console.WriteLine(success);
+        result = $"Your post is written";
+    }
+
+}
