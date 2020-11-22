@@ -1,0 +1,83 @@
+﻿@page "/project/update"
+@page "/project/update/{Slug}"
+@inject HttpClient Http
+
+<section class="editor">
+    @if (project == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <img class="" src="@project.CoverImagePath" alt="Project banner">
+        <h1>@project.Title</h1>
+        <span class="small">@project.State</span>
+        <p class="content">
+            @((MarkupString)Markdig.Markdown.ToHtml(project.Excerpt))
+        </p>
+        <div>
+            <h3>@newUpdate.Title</h3>
+            <span class="small">@newUpdate.Created</span>
+            <EditForm Model=@newUpdate OnSubmit="@UpdateProject" class="form-group">
+                <div class="form-group">
+                    <div>
+                        <label for="Title">Title</label>
+                        <KeystrokeTextInput @bind-Value=newUpdate.Title />
+                    </div>
+                    <div>
+                        <label for="PublicationDate">PublicationDate</label>
+                        <InputDate @bind-Value=newUpdate.PublicationDate />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Content">Update content</label>
+                    <KeystrokeTextArea @bind-Value=newUpdate.Content Rows="30" />
+                </div>
+                if(!string.IsNullOrEmpty(newUpdate.Content))
+                {
+                    @((MarkupString)Markdig.Markdown.ToHtml(newUpdate.Content))
+                }
+                <button type="submit" class="">Submit</button>
+            </EditForm>
+        </div>
+        @foreach(var update in project.Updates)
+        {
+            <div>
+                <h3>@update.Title</h3>
+                <span class="small">@update.Created</span>
+                @((MarkupString)Markdig.Markdown.ToHtml(update.Content))
+            </div>
+        }
+        <a href="/blog">Back</a>
+    }
+</section>
+
+@code {
+    private Project project;
+    private Update newUpdate = new Update();
+    [Parameter]
+    public string Slug { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!string.IsNullOrEmpty(Slug))
+        {
+            Console.WriteLine($"Trying to get project for update");
+            project = await Http.GetFromJsonAsync<Project>($"https://trigganfunctions.azurewebsites.net/api/Project/{Slug}");
+        }
+        else
+        {
+            Console.WriteLine($"Project doesn't exist");
+        }
+    }
+
+    private string result;
+    private async Task UpdateProject()
+    {
+        result = string.Empty;
+        var success = await Http.PostAsJsonAsync($"https://trigganfunctions.azurewebsites.net/api/Project/Update/{project.Slug}", newUpdate);
+        Console.WriteLine(success);
+        result = $"Your project is set in db";
+    }
+
+}
