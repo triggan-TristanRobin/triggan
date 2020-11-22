@@ -22,7 +22,14 @@ namespace triggan.Functions
                 }
             });
 #else
-        private static CosmosClient cosmosClient = new CosmosClient(Environment.GetEnvironmentVariable("trigganCosmos"));
+        private static CosmosClient cosmosClient = new CosmosClient(Environment.GetEnvironmentVariable("trigganCosmos"),
+            new CosmosClientOptions
+            {
+                SerializerOptions = new CosmosSerializationOptions()
+                {
+                    PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
+                }
+            });
 #endif
 
         public async static Task<List<T>> GetEntities<T>(int count, string filter = "", ILogger logger = null) where T : Entity

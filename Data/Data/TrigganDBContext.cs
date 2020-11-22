@@ -32,23 +32,59 @@ namespace Data
 		{
 			modelBuilder.HasDefaultContainer("entities");
 			modelBuilder.Entity<Entity>().ToContainer("entities");
-			modelBuilder.Entity<Entity>().HasKey(e => e.Id);
+			modelBuilder.Entity<Entity>().HasPartitionKey(e => e.Id);
+			modelBuilder.Entity<Post>().HasPartitionKey(e => e.Id);
+			modelBuilder.Entity<Project>().HasPartitionKey(e => e.Id);
 			modelBuilder.Entity<Entity>().Property(e => e.Id).ValueGeneratedOnAdd();
 			modelBuilder.Entity<Entity>().Property(e => e.Created).ValueGeneratedOnAdd();
 			modelBuilder.Entity<Entity>().Property(e => e.Updated).ValueGeneratedOnAddOrUpdate();
 			modelBuilder.Entity<Entity>().HasIndex(e => e.Slug).IsUnique();
+			modelBuilder.Entity<Project>().OwnsMany(p => p.Updates);
+
+			foreach (var property in typeof(Entity).GetProperties())
+			{
+				var name = property.Name;
+				if(name != "Id")
+                {
+                    modelBuilder.Entity<Entity>().Property(name).ToJsonProperty($"{name.First().ToString().ToLowerInvariant()}{name.Substring(1)}");
+                }
+            }
+			foreach (var property in typeof(Post).GetProperties())
+			{
+				var name = property.Name;
+				if (name != "Id")
+				{
+					modelBuilder.Entity<Post>().Property(name).ToJsonProperty($"{name.First().ToString().ToLowerInvariant()}{name.Substring(1)}");
+				}
+			}
+			foreach (var property in typeof(Project).GetProperties())
+			{
+				var name = property.Name;
+				if (name != "Id" && name != "Updates")
+				{
+					modelBuilder.Entity<Project>().Property(name).ToJsonProperty($"{name.First().ToString().ToLowerInvariant()}{name.Substring(1)}");
+				}
+			}
 
 			//var splitStringConverter = new ValueConverter<IEnumerable<string>, string>(v => string.Join(";", v), v => v.Split(new[] { ';' }));
 			//modelBuilder.Entity<Post>().Property(p => p.Tags).HasConversion(splitStringConverter);
 
 			modelBuilder.Entity<Post>().Ignore(p => p.Tags);
-			modelBuilder.Entity<Project>().OwnsMany(p => p.Updates);
 
 			modelBuilder.Entity<Message>().ToContainer("messages");
-			modelBuilder.Entity<Message>().HasKey(e => e.Id);
+			modelBuilder.Entity<Message>().HasPartitionKey(e => e.Id);
 			modelBuilder.Entity<Message>().Property(e => e.Id).ValueGeneratedOnAdd();
 			modelBuilder.Entity<Message>().Property(e => e.Created).ValueGeneratedOnAdd();
 			modelBuilder.Entity<Message>().Property(e => e.Updated).ValueGeneratedOnAddOrUpdate();
+
+			foreach (var property in typeof(Message).GetProperties())
+			{
+				var name = property.Name;
+				if (name != "Id")
+				{
+					modelBuilder.Entity<Message>().Property(name).ToJsonProperty($"{name.First().ToString().ToLowerInvariant()}{name.Substring(1)}");
+				}
+			}
 
 			base.OnModelCreating(modelBuilder);
 		}
