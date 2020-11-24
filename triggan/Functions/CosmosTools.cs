@@ -35,7 +35,7 @@ namespace triggan.Functions
         public async static Task<List<T>> GetEntities<T>(int count, string filter = "", ILogger logger = null) where T : Entity
         {
             var entities = new List<T>();
-            var getAllQuery = $"SELECT * FROM c";
+            var getAllQuery = $"SELECT * FROM c WHERE c.public = true";
             if (count > 0)
             {
                 getAllQuery += $" OFFSET 0 LIMIT {count}";
@@ -61,7 +61,7 @@ namespace triggan.Functions
 
         public async static Task<T> GetEntity<T>(string slug, ILogger logger = null) where T : Entity
         {
-            var getAllQuery = $"SELECT * FROM c WHERE c.Slug = '{slug}'";
+            var getAllQuery = $"SELECT * FROM c WHERE c.slug = '{slug}'";
             logger?.LogInformation($"Get entity for {typeof(T).Name} ({slug})");
 
             var container = cosmosClient.GetContainer("triggandb", $"{typeof(T).Name.ToLower()[0] + typeof(T).Name.Substring(1)}s");

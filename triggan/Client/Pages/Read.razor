@@ -9,12 +9,22 @@
     else
     {
         <h1>@post.Title</h1>
-        <p class="content">
-            @((MarkupString)Markdig.Markdown.ToHtml(post.Content))
-        </p>
+        <span class="small">
+            @foreach (var tag in post.Tags)
+            {
+                <a class="tag" href="/tag/@tag">@tag</a>
+            }
+        </span>
+        <br />
+        @if (post.Content != null)
+        {
+            <p>
+                @((MarkupString)Markdig.Markdown.ToHtml(post.Content))
+            </p>
+        }
         <a href="/blog">Back</a>
     }
-</section>
+    </section>
 
 @code {
     private Post post;
