@@ -51,7 +51,7 @@ namespace triggan.Functions
         }
 
         [FunctionName("Update")]
-        public static async Task<IActionResult> WritePost(
+        public static async Task<IActionResult> UpdateProject(
         [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "Project/Update/{slug}")] HttpRequest req, string slug, ILogger log)
         {
             log.LogInformation($"Trying to set update to project in cosmos db");

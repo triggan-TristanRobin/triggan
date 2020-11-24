@@ -80,7 +80,7 @@
     private async Task Write()
     {
         result = string.Empty;
-        var success = await Http.PostAsJsonAsync($"https://trigganfunctions.azurewebsites.net/api/Write/{post.Slug}", post);
+        var success = await Http.PostAsJsonAsync($"https://trigganfunctions.azurewebsites.net/api/Post/{post.Slug}", post);
         Console.WriteLine(success);
         result = $"Your post is written";
     }

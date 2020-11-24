@@ -39,7 +39,7 @@ namespace triggan.Functions
 
         [FunctionName("Write")]
         public static async Task<IActionResult> WritePost(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "Write/{slug}")] HttpRequest req, string slug, ILogger log)
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "Post/{slug}")] HttpRequest req, string slug, ILogger log)
         {
             log.LogInformation($"Trying to save post to cosmos db");
             var content = await new StreamReader(req.Body).ReadToEndAsync();

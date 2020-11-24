@@ -31,14 +31,18 @@ namespace Data
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.HasDefaultContainer("entities");
-			modelBuilder.Entity<Entity>().ToContainer("entities");
-			modelBuilder.Entity<Entity>().HasPartitionKey(e => e.Id);
+			modelBuilder.Entity<Post>().ToContainer("posts");
+			modelBuilder.Entity<Project>().ToContainer("entities");
 			modelBuilder.Entity<Post>().HasPartitionKey(e => e.Id);
-			modelBuilder.Entity<Project>().HasPartitionKey(e => e.Id);
-			modelBuilder.Entity<Entity>().Property(e => e.Id).ValueGeneratedOnAdd();
-			modelBuilder.Entity<Entity>().Property(e => e.Created).ValueGeneratedOnAdd();
-			modelBuilder.Entity<Entity>().Property(e => e.Updated).ValueGeneratedOnAddOrUpdate();
-			modelBuilder.Entity<Entity>().HasIndex(e => e.Slug).IsUnique();
+			modelBuilder.Entity<Post>().HasPartitionKey(e => e.Id);
+			modelBuilder.Entity<Post>().Property(e => e.Id).ValueGeneratedOnAdd();
+			modelBuilder.Entity<Post>().Property(e => e.Created).ValueGeneratedOnAdd();
+			modelBuilder.Entity<Post>().Property(e => e.Updated).ValueGeneratedOnAddOrUpdate();
+			modelBuilder.Entity<Post>().HasIndex(e => e.Slug).IsUnique();
+			modelBuilder.Entity<Project>().Property(e => e.Id).ValueGeneratedOnAdd();
+			modelBuilder.Entity<Project>().Property(e => e.Created).ValueGeneratedOnAdd();
+			modelBuilder.Entity<Project>().Property(e => e.Updated).ValueGeneratedOnAddOrUpdate();
+			modelBuilder.Entity<Project>().HasIndex(e => e.Slug).IsUnique();
 			modelBuilder.Entity<Project>().OwnsMany(p => p.Updates);
 
 			foreach (var property in typeof(Entity).GetProperties())
@@ -49,6 +53,7 @@ namespace Data
                     modelBuilder.Entity<Entity>().Property(name).ToJsonProperty($"{name.First().ToString().ToLowerInvariant()}{name.Substring(1)}");
                 }
             }
+			var prop = typeof(Post).GetProperties();
 			foreach (var property in typeof(Post).GetProperties())
 			{
 				var name = property.Name;

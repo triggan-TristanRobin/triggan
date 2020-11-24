@@ -19,7 +19,7 @@ namespace triggan.Functions
                 SerializerOptions = new CosmosSerializationOptions()
                 {
                     PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
-                }
+                },
             });
 #else
         private static CosmosClient cosmosClient = new CosmosClient(Environment.GetEnvironmentVariable("trigganCosmos"),
@@ -35,14 +35,14 @@ namespace triggan.Functions
         public async static Task<List<T>> GetEntities<T>(int count, string filter = "", ILogger logger = null) where T : Entity
         {
             var entities = new List<T>();
-            var getAllQuery = $"SELECT * FROM c WHERE c.Discriminator = '{typeof(T).Name}'";
+            var getAllQuery = $"SELECT * FROM c";
             if (count > 0)
             {
                 getAllQuery += $" OFFSET 0 LIMIT {count}";
             }
             logger?.LogInformation($"Get entities for {typeof(T).Name}");
 
-            var container = cosmosClient.GetContainer("triggandb", "entities");
+            var container = cosmosClient.GetContainer("triggandb", $"{typeof(T).Name.ToLower()[0] + typeof(T).Name.Substring(1)}s");
             QueryDefinition queryDefinition = new QueryDefinition(getAllQuery);
 
             var feedIterator = container.GetItemQueryIterator<T>(queryDefinition);
@@ -64,7 +64,7 @@ namespace triggan.Functions
             var getAllQuery = $"SELECT * FROM c WHERE c.Slug = '{slug}'";
             logger?.LogInformation($"Get entity for {typeof(T).Name} ({slug})");
 
-            var container = cosmosClient.GetContainer("triggandb", "entities");
+            var container = cosmosClient.GetContainer("triggandb", $"{typeof(T).Name.ToLower()[0] + typeof(T).Name.Substring(1)}s");
             QueryDefinition queryDefinition = new QueryDefinition(getAllQuery);
 
             var iterator = container.GetItemQueryIterator<T>(queryDefinition);
@@ -88,7 +88,7 @@ namespace triggan.Functions
         {
             try
             {
-                var container = cosmosClient.GetContainer("triggandb", "entities");
+                var container = cosmosClient.GetContainer("triggandb", $"{typeof(T).Name.ToLower()[0] + typeof(T).Name.Substring(1)}s");
                 ItemResponse<T> result;
                 if(string.IsNullOrEmpty(entity.Id))
                 {
