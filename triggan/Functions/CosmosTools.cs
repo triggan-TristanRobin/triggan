@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.IO;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -102,7 +103,7 @@ namespace triggan.Functions
 
                 logger?.LogInformation($"Upserted entity{typeof(T).Name} ({entity.Slug}) in database with id: {0} Operation consumed {1} RUs.\n"
                     , result.Resource.Id, result.RequestCharge);
-                return result.StatusCode.ToString().StartsWith("2");
+                return result.StatusCode == (HttpStatusCode.Created | HttpStatusCode.OK);
             }
             catch (Exception e)
             {
@@ -121,7 +122,7 @@ namespace triggan.Functions
                 var result = await container.CreateItemAsync(message, new PartitionKey(message.Id));
                 Console.WriteLine("Created item in database with id: {0} Operation consumed {1} RUs.\n"
                     , result.Resource.Id, result.RequestCharge);
-                return result.StatusCode.ToString().StartsWith("2");
+                return result.StatusCode == (HttpStatusCode.Created | HttpStatusCode.OK);
             }
             catch (Exception e)
             {
