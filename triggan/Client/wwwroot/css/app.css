@@ -278,3 +278,7 @@ img {
 #blazor-error-ui {
     width: auto !important;
 }
+
+.fa, .fas, .far {
+    margin: 0.5em;
+}

@@ -1,5 +1,6 @@
 ﻿@page "/project/edit"
 @page "/project/edit/{Slug}"
+@inject NavigationManager NavigationManager
 @inject HttpClient Http
 
 <section class="editor">
@@ -35,9 +36,10 @@
                     <label for="Content">Post content</label>
                     <KeystrokeTextArea @bind-Value=project.Excerpt Rows="30" />
                 </div>
-                <button type="submit" class="">Submit</button>
+                <button type="submit" class=""><span class="@submitClass"></span>@submitText</button>
+                <span class="small" style="{ margin: 1em auto; }">@result</span>
             </EditForm>
-            
+
             <div class="post" style="width: 50%;">
                 <img class="" src="@project.CoverImagePath" alt="Project banner">
                 <h1>@project.Title</h1>
@@ -58,6 +60,9 @@
     private Project project;
     [Parameter]
     public string Slug { get; set; }
+    private string result;
+    private string submitClass = "";
+    private string submitText = "Submit";
 
     protected override async Task OnInitializedAsync()
     {
@@ -74,13 +79,22 @@
         }
     }
 
-    private string result;
     private async Task UploadProject()
     {
+        submitClass = "fas fa-spinner fa-pulse";
+        submitText = "";
+        StateHasChanged();
         result = string.Empty;
         var success = await Http.PostAsJsonAsync($"https://trigganfunctions.azurewebsites.net/api/Project/{project.Slug}", project);
         Console.WriteLine(success);
-        result = $"Your project is set in db";
+        result = success.IsSuccessStatusCode ? "Your project is saved on the site! Redirecting..." : "Unfortunately, an error occurred while saving your project.Please try again later.";
+        submitClass = success.IsSuccessStatusCode ? "fa fa-check" : "fa fa-times";
+        submitText = "Submit";
+        StateHasChanged();
+        if(success.IsSuccessStatusCode)
+        {
+            await Task.Delay(500);
+            NavigationManager.NavigateTo($"/blog/{project.Slug}", true);
+        }
     }
-
 }

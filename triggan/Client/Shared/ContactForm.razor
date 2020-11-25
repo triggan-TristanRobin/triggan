@@ -3,20 +3,21 @@
 <EditForm Model=@message OnSubmit=@Send class="form-group">
     <div class="row">
         <div>
-            <label for="Name"><span class="@("far fa-user")"></span>Name</label>
+            <label for="Name"><span class="far fa-user"></span>Name</label>
             <InputText @bind-Value=message.Name />
         </div>
         <div style="flex-shrink: 3;"></div>
         <div>
-            <label for="EMail"><span class="@("far fa-envelope")"></span>EMail</label>
+            <label for="EMail"><span class="far fa-envelope"></span>EMail</label>
             <InputText @bind-Value=message.EMail />
         </div>
     </div>
     <div class="form-group">
-        <label for="Content"><span class="@("far fa-question-circle")"></span>How can I help you?</label>
+        <label for="Content"><span class="far fa-question-circle"></span>How can I help you?</label>
         <InputTextArea @bind-Value=message.Content Rows="10" />
     </div>
-    <button type="submit" class=""><span class="@("far fa-paper-plane")"></span>Submit</button>
+    <button type="submit" class=""><span class="@submitClass"></span>@submitText</button>
+    <span class="small" style="{ margin: 1em auto; }">@result</span>
 </EditForm>
 
 
@@ -24,12 +25,21 @@
 {
     private Message message = new Message();
     private string result;
+    private string submitClass = "far fa-paper-plane";
+    private string submitText = "Submit";
 
     private async Task Send()
     {
+        var tmpIconClass = submitClass;
+        submitClass = "fas fa-spinner fa-pulse";
+        submitText = "";
+        StateHasChanged();
         result = string.Empty;
         var success = await Http.PostAsJsonAsync($"https://trigganfunctions.azurewebsites.net/api/Message", message);
         Console.WriteLine(success);
-        result = "Your message have been sent!";
+        result = success.IsSuccessStatusCode ? "Your message have been sent!" : "Unfortunately, an error occurred while sending your message.\nPlease try again later.";
+        submitClass = success.IsSuccessStatusCode ? "fa fa-check" : "fa fa-times";
+        submitText = "Submit";
+        StateHasChanged();
     }
 }

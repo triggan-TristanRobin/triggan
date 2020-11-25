@@ -1,5 +1,6 @@
 ﻿@page "/blog/edit"
 @page "/blog/edit/{Slug}"
+@inject NavigationManager NavigationManager
 @inject HttpClient Http
 
 <section class="editor">
@@ -39,9 +40,10 @@
                     <label for="Content">Post content</label>
                     <KeystrokeTextArea @bind-Value=post.Content Rows="30" />
                 </div>
-                <button type="submit" class="">Submit</button>
+                <button type="submit" class=""><span class="@submitClass"></span>@submitText</button>
+                <span class="small" style="{ margin: 1em auto; }">@result</span>
             </EditForm>
-            
+
             <div class="post" style="width: 50%;">
                 <h1>@post.Title</h1>
                 @if (!string.IsNullOrEmpty(post.Content))
@@ -60,6 +62,9 @@
     [Parameter]
     public string Slug { get; set; }
     private Post post;
+    private string result;
+    private string submitClass = "";
+    private string submitText = "Submit";
 
     protected override async Task OnInitializedAsync()
     {
@@ -76,13 +81,23 @@
         }
     }
 
-    private string result;
     private async Task Write()
     {
+        submitClass = "fas fa-spinner fa-pulse";
+        submitText = "";
+        StateHasChanged();
         result = string.Empty;
         var success = await Http.PostAsJsonAsync($"https://trigganfunctions.azurewebsites.net/api/Post/{post.Slug}", post);
         Console.WriteLine(success);
-        result = $"Your post is written";
+        result = success.IsSuccessStatusCode ? "Your post is saved on the site! Redirecting..." : "Unfortunately, an error occurred while saving your post.Please try again later.";
+        submitClass = success.IsSuccessStatusCode ? "fa fa-check" : "fa fa-times";
+        submitText = "Submit";
+        StateHasChanged();
+        if (success.IsSuccessStatusCode)
+        {
+            await Task.Delay(500);
+            NavigationManager.NavigateTo($"/blog/{post.Slug}", true);
+        }
     }
 
 }
