@@ -167,7 +167,7 @@ form {
     align-items: stretch;
 }
 
-form input, form textarea {
+form input, form textarea, form select {
     max-width: 100%;
     min-width: 95%;
     background-color: var(--grey-blue);
@@ -282,3 +282,22 @@ img {
 .fa, .fas, .far, .fab {
     margin: 0.5em;
 }
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}
+
+    select::-ms-expand {
+        display: none;
+    }
+
+    select + i.fa, select + i.fas {
+        float: right;
+        margin-top: -26px;
+        margin-right: 10px;
+        pointer-events: none;
+        padding-right: 5px;
+    }
