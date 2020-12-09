@@ -15,6 +15,7 @@
                 <a class="tag" href="/tag/@tag">@tag</a>
             }
         </span>
+        <StarCounter Slug="@post.Slug" Type="Post" @bind-Count=@post.Stars />
         <br />
         @if (post.Content != null)
         {

@@ -1,0 +1,39 @@
+﻿@inject HttpClient Http
+
+<button @onclick="Star" class="counter button">
+    <i class="fa fa-star"></i>
+    @if (inError)
+    {
+        <span style="color: var(--danger)">!</span>
+    }
+    <span>@Count</span>
+</button>
+
+
+@code
+{
+    [Parameter]
+    public int Count { get; set; }
+    [Parameter]
+    public string Slug { get; set; }
+    [Parameter]
+    public string Type { get; set; }
+    private bool inError;
+    private bool clicked;
+
+    [Parameter]
+    public EventCallback<int> CountChanged { get; set; }
+
+    private async Task Star()
+    {
+        if (clicked) return;
+        clicked = true;
+        Count++;
+        StateHasChanged();
+        //await CountValueChanged.InvokeAsync(Count);
+        var success = await Http.GetAsync($"https://trigganfunctions.azurewebsites.net/api/{Type}/Star/{Slug}");
+        Console.WriteLine(success);
+        inError = success.IsSuccessStatusCode;
+        StateHasChanged();
+    }
+}

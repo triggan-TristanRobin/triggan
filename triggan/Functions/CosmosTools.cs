@@ -85,6 +85,13 @@ namespace triggan.Functions
             return entities.SingleOrDefault();
         }
 
+        public async static Task<int> StarEntity<T>(string slug, ILogger logger) where T : Entity
+        {
+            var entity = await GetEntity<T>(slug, logger);
+            entity.Stars++;
+            return await UpsertEntity<T>(entity, logger) ? entity.Stars : -1;
+        }
+
         public async static Task<bool> UpsertEntity<T>(T entity, ILogger logger = null) where T : Entity
         {
             try
