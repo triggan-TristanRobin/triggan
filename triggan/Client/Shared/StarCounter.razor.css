@@ -1,0 +1,14 @@
+﻿.counter {
+    margin: initial;
+    font-size: small;
+    padding-right: 1em;
+}
+
+    .counter:focus {
+        color: var(--light);
+        background-image: initial;
+        background-color: initial;
+        color: var(--blue);
+        border: 3px solid var(--blue);
+        background: 0 0;
+    }

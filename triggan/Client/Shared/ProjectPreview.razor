@@ -4,10 +4,13 @@
     <h3>@Project.Title</h3>
     <span class="small">>@StateToString(Project.State)</span>
     <div class="">
-        <img src="@Project.CoverImagePath" alt="Card Image">
+        @if (!string.IsNullOrEmpty(Project.CoverImagePath))
+        {
+            <img class="" src="@Project.CoverImagePath" alt="Project banner">
+        }
         <div>
             <p>
-                @if(Project.Excerpt != null)
+                @if (Project.Excerpt != null)
                 {
                     @((MarkupString)Markdig.Markdown.ToHtml(Project.Excerpt))
                 }

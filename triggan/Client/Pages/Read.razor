@@ -15,7 +15,6 @@
                 <a class="tag" href="/tag/@tag">@tag</a>
             }
         </span>
-        <StarCounter Slug="@post.Slug" Type="Post" @bind-Count=@post.Stars />
         <br />
         @if (post.Content != null)
         {
@@ -23,9 +22,11 @@
                 @((MarkupString)Markdig.Markdown.ToHtml(post.Content))
             </p>
         }
+        <StarCounter Slug="@post.Slug" Type="Post" @bind-Count=@post.Stars />
+        <br />
         <a href="/blog">Back</a>
     }
-    </section>
+</section>
 
 @code {
     private Post post;
