@@ -1,4 +1,5 @@
 ﻿@inject HttpClient Http
+@inject Task<ContentManager> contentManager
 
 <button @onclick="Star" class="counter">
     <i class="fa fa-star"></i>
@@ -30,10 +31,16 @@
         clicked = true;
         Count++;
         StateHasChanged();
-        //await CountValueChanged.InvokeAsync(Count);
-        var success = await Http.GetAsync($"https://trigganfunctions.azurewebsites.net/api/{Type}/Star/{Slug}");
-        Console.WriteLine(success);
-        inError = success.IsSuccessStatusCode;
+        var concreteType = typeof(Entity).Assembly.GetType($"Model.{Type}");
+        var success = false;
+        if (concreteType.IsSubclassOf(typeof(Entity)))
+        {
+            Console.WriteLine(concreteType);
+            var task = (Task)typeof(ContentManager).GetMethod("StarEntity").MakeGenericMethod(concreteType).Invoke(await contentManager, new object[] { Slug });
+            await task.ConfigureAwait(false);
+            success = (bool)task.GetType().GetProperty("Result").GetValue(task);
+        }
+        inError = success;
         StateHasChanged();
     }
 }

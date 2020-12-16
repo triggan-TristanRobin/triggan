@@ -2,6 +2,7 @@
 @page "/project/edit/{Slug}"
 @inject NavigationManager NavigationManager
 @inject HttpClient Http
+@inject Task<ContentManager> contentManager
 
 <section class="editor">
     @if (project == null)
@@ -97,13 +98,12 @@
         submitText = "";
         StateHasChanged();
         result = string.Empty;
-        var success = await Http.PostAsJsonAsync($"https://trigganfunctions.azurewebsites.net/api/Project/{project.Slug}", project);
-        Console.WriteLine(success);
-        result = success.IsSuccessStatusCode ? "Your project is saved on the site! Redirecting..." : "Unfortunately, an error occurred while saving your project.Please try again later.";
-        submitClass = success.IsSuccessStatusCode ? "fa fa-check" : "fa fa-times";
+        var success = await (await contentManager).PostEntityAsync<Project>(project);
+        result = success ? "Your project is saved on the site! Redirecting..." : "Unfortunately, an error occurred while saving your project.Please try again later.";
+        submitClass = success ? "fa fa-check" : "fa fa-times";
         submitText = "Submit";
         StateHasChanged();
-        if (success.IsSuccessStatusCode)
+        if (success)
         {
             await Task.Delay(500);
             NavigationManager.NavigateTo($"/blog/{project.Slug}", true);

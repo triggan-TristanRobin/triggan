@@ -19,15 +19,18 @@ namespace triggan.Client
         protected Settings Settings { get; set; }
         protected HttpClient Http { get; set; }
 
-        public async Task<List<T>> GetEntitiesAsync<T>(int count) where T : Entity
+        public async Task<List<T>> GetEntitiesAsync<T>(int count = 0) where T : Entity
         {
-            Console.WriteLine($"Getting Entities ({typeof(T).Name})");
-            return await Http.GetFromJsonAsync<List<T>>(Settings.GetFullUrl($"{typeof(T).Name}{(Settings.UseLocal ? "" : "s")}", count.ToString()));
+            var list = await Http.GetFromJsonAsync<List<T>>(Settings.GetFullUrl($"{typeof(T).Name}{(Settings.UseLocal ? "" : "s")}", count.ToString()));
+            if(Settings.UseLocal)
+            {
+                list = list.Take(count).ToList();
+            }
+            return list;
         }
 
         public async Task<T> GetEntityAsync<T>(string slug) where T : Entity
         {
-            Console.WriteLine($"Getting Entity ({typeof(T).Name}) with slug {slug}");
             T entity;
             var result = await Http.GetAsync(Settings.GetFullUrl(typeof(T).Name, slug));
             if (Settings.UseLocal)
@@ -39,6 +42,59 @@ namespace triggan.Client
                 entity = result as T;
             }
             return entity;
+        }
+
+        public async Task<bool> PostEntityAsync<T>(T entity) where T : Entity
+        {
+            var success = await Http.PostAsJsonAsync(Settings.GetFullUrl(typeof(T).Name, entity.Slug, forceLocal: false), entity);
+            if (success.IsSuccessStatusCode)
+            {
+                var entities = await GetEntitiesAsync<T>();
+                T oldEntity;
+                if ((oldEntity = entities.SingleOrDefault(e => e.Slug == entity.Slug)) != null)
+                {
+                    oldEntity = entity;
+                }
+                await Http.PostAsJsonAsync(Settings.GetFullUrl(typeof(T).Name, forceLocal: true), entities);
+            }
+
+            return success.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> UpdateProjectAsync(string slug, Update update)
+        {
+            var success = await Http.PostAsJsonAsync(Settings.GetFullUrl("Project", slug, "Update", false), update);
+            if (success.IsSuccessStatusCode)
+            {
+                var projects = await GetEntitiesAsync<Project>();
+                Project oldProject;
+                if ((oldProject = projects.SingleOrDefault(e => e.Slug == slug)) != null)
+                {
+                    oldProject.Updates.Add(update);
+                }
+                await Http.PostAsJsonAsync(Settings.GetFullUrl("Project", forceLocal: true), projects);
+            }
+
+            return success.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> StarEntity<T>(string slug) where T : Entity
+        {
+            var entity = await GetEntityAsync<T>(slug);
+            entity.Stars++;
+            var success = await Http.GetAsync(Settings.GetFullUrl(typeof(T).Name, entity.Slug, "Star", forceLocal: false));
+            if (success.IsSuccessStatusCode)
+            {
+                var entities = await GetEntitiesAsync<T>();
+                T oldEntity;
+                if ((oldEntity = entities.SingleOrDefault(e => e.Slug == entity.Slug)) != null)
+                {
+                    oldEntity = entity;
+                }
+                await Http.PostAsJsonAsync(Settings.GetFullUrl(typeof(T).Name, forceLocal: true), entities);
+            }
+
+            return success.IsSuccessStatusCode;
         }
     }
 }

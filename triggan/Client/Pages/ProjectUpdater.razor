@@ -1,6 +1,7 @@
 ﻿@page "/project/update"
 @page "/project/update/{Slug}"
 @inject HttpClient Http
+@inject Task<ContentManager> contentManager
 
 <section class="editor">
     @if (project == null)
@@ -75,7 +76,7 @@
     private async Task UpdateProject()
     {
         result = string.Empty;
-        var success = await Http.PostAsJsonAsync($"https://trigganfunctions.azurewebsites.net/api/Project/Update/{project.Slug}", newUpdate);
+        var success = await (await contentManager).UpdateProjectAsync(project.Slug, newUpdate);
         Console.WriteLine(success);
         result = $"Your project is set in db";
     }

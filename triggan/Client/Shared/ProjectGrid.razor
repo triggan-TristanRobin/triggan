@@ -22,7 +22,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        projects = await (await contentManager).GetEntitiesAsync<Project>(ProjectCount);//await Http.GetFromJsonAsync<List<Project>>($"https://trigganfunctions.azurewebsites.net/api/Projects/{ProjectCount}");
+        projects = await (await contentManager).GetEntitiesAsync<Project>(ProjectCount);
     }
 }
 

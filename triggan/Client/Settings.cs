@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace triggan.Client
 {
@@ -8,14 +9,10 @@ namespace triggan.Client
         public string LocalUrl { get; set; }
         public bool UseLocal { get; set; }
 
-        public string GetFullUrl(string type, string param = null)
+        public string GetFullUrl(string type, string param = null, string route = null, bool? forceLocal = null)
         {
-            Console.WriteLine("Settings:");
-            Console.WriteLine(OnlineUrl);
-            Console.WriteLine(LocalUrl);
-            Console.WriteLine(UseLocal);
-            Console.WriteLine((UseLocal ? LocalUrl : OnlineUrl).Replace("{type}", type).Replace("{param}", param));
-            return (UseLocal ? LocalUrl : OnlineUrl).Replace("{type}", type).Replace("{param}", param);
+            var local = forceLocal.HasValue ? forceLocal.Value : UseLocal;
+            return (local ? LocalUrl : OnlineUrl).Replace("{type}", type).Replace("{route}", route).Replace("{param}", param).Replace("//", "/");
         }
     }
 }
