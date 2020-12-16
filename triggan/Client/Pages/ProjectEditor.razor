@@ -36,9 +36,9 @@
                         <div class="row">
                             <InputSelect @bind-Value=project.State>
                                 @foreach (var state in Enum.GetValues<Model.Enums.ProjectState>())
-                                {
-                                    <option value ="@state" label="@StateToString(state)"></option>
-                                }               
+                                    {
+                                    <option value="@state" label="@StateToString(state)"></option>
+                                    }
                             </InputSelect>
                             <i class="fas fa-angle-down"></i>
                         </div>
@@ -103,7 +103,7 @@
         submitClass = success.IsSuccessStatusCode ? "fa fa-check" : "fa fa-times";
         submitText = "Submit";
         StateHasChanged();
-        if(success.IsSuccessStatusCode)
+        if (success.IsSuccessStatusCode)
         {
             await Task.Delay(500);
             NavigationManager.NavigateTo($"/blog/{project.Slug}", true);

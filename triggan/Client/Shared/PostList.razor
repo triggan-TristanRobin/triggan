@@ -1,4 +1,5 @@
 ﻿@inject HttpClient Http
+@inject Task<ContentManager> contentManager
 
 @if (posts?.Any() != true)
 {
@@ -7,12 +8,12 @@
 else
 {
     <ul class="content-list">
-    @foreach (var post in posts)
-    {
-        <li>
-            <PostPreview Post=@post />
-        </li>
-    }
+        @foreach (var post in posts)
+        {
+            <li>
+                <PostPreview Post=@post />
+            </li>
+        }
     </ul>
 }
 
@@ -23,7 +24,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        posts = await Http.GetFromJsonAsync<List<Post>>($"https://trigganfunctions.azurewebsites.net/api/Posts/{PostCount}");
+        posts = await (await contentManager).GetEntitiesAsync<Post>(PostCount);
+        //Http.GetFromJsonAsync<List<Post>>($"https://trigganfunctions.azurewebsites.net/api/Posts/{PostCount}");
     }
-
 }

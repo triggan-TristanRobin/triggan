@@ -1,0 +1,5 @@
+{
+  "onlineUrl": "https://trigganfunctions.azurewebsites.net/api/{type}/{param}",
+  "localUrl": "{type}/content.json",
+  "useLocal": true
+}

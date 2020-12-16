@@ -1,5 +1,6 @@
 ﻿@page "/blog/{Slug}"
 @inject HttpClient Http
+@inject Task<ContentManager> contentManager
 
 <section class="post">
     @if (post == null)
@@ -35,7 +36,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        post = await Http.GetFromJsonAsync<Post>($"https://trigganfunctions.azurewebsites.net/api/Post/{Slug}");
+        post = await (await contentManager).GetEntityAsync<Post>(Slug);//await Http.GetFromJsonAsync<Post>($"https://trigganfunctions.azurewebsites.net/api/Post/{Slug}");
     }
 
 }

@@ -1,5 +1,6 @@
 ﻿@page "/project/{slug}"
 @inject HttpClient Http
+@inject Task<ContentManager> contentManager
 
 <section class="post">
     @if (project == null)
@@ -38,7 +39,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        project = await Http.GetFromJsonAsync<Project>($"https://trigganfunctions.azurewebsites.net/api/Project/{Slug}");
+        project = await (await contentManager).GetEntityAsync<Project>(Slug);
     }
 
     private string StateToString(Model.Enums.ProjectState state)
