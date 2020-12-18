@@ -21,16 +21,16 @@ namespace triggan.Functions
         public static async Task<IActionResult> GetProjects(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Projects/{projectCount:int?}")] HttpRequest req, int? projectCount, ILogger log)
         {
-            var projects = CosmosTools.GetEntities<Project>(projectCount ?? 0, logger: log).Result;
-            return projects.Any() ? (ObjectResult)new OkObjectResult(projects) : new NotFoundObjectResult(projects);
+            var projects = await CosmosTools.GetEntities<Project>(projectCount ?? 0, logger: log);
+            return projects.Any() ? new OkObjectResult(projects) : new NotFoundObjectResult(projects);
         }
 
         [FunctionName("Project")]
         public static async Task<IActionResult> GetProject(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Project/{slug}")] HttpRequest req, string slug, ILogger log)
         {
-            var project = CosmosTools.GetEntity<Project>(slug, logger: log).Result;
-            return project != null ? (ObjectResult)new OkObjectResult(project) : new NotFoundObjectResult(project);
+            var project = await CosmosTools.GetEntity<Project>(slug, logger: log);
+            return project != null ? new OkObjectResult(project) : new NotFoundObjectResult(project);
         }
 
         [FunctionName("Create")]
@@ -46,8 +46,8 @@ namespace triggan.Functions
                 return new UnprocessableEntityObjectResult(project);
             }
 
-            var result = CosmosTools.UpsertEntity(project, logger: log).Result;
-            return result ? (ObjectResult)new OkObjectResult(project) : new UnprocessableEntityObjectResult(project);
+            var result = await CosmosTools.UpsertEntity(project, logger: log);
+            return result ? new OkObjectResult(project) : new UnprocessableEntityObjectResult(project);
         }
 
         [FunctionName("Update")]
@@ -56,7 +56,7 @@ namespace triggan.Functions
         {
             log.LogInformation($"Trying to set update to project in cosmos db");
             var content = await new StreamReader(req.Body).ReadToEndAsync();
-            var project = CosmosTools.GetEntity<Project>(slug, logger: log).Result;
+            var project = await CosmosTools.GetEntity<Project>(slug, logger: log);
             var update = JsonConvert.DeserializeObject<Update>(content);
 
             if (update == null)
@@ -71,8 +71,8 @@ namespace triggan.Functions
             update.Created = DateTime.Now;
             project.Updates.Add(update);
 
-            var result = CosmosTools.UpsertEntity(project, logger: log).Result;
-            return result ? (ObjectResult)new OkObjectResult(project) : new UnprocessableEntityObjectResult(project);
+            var result = await CosmosTools.UpsertEntity(project, logger: log);
+            return result ? new OkObjectResult(project) : new UnprocessableEntityObjectResult(project);
         }
     }
 }

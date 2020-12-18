@@ -34,7 +34,7 @@ namespace triggan.Functions
                 result = (int)task.GetType().GetProperty("Result").GetValue(task);
             }
 
-            return result != -1 ? (ObjectResult)new OkObjectResult(result) : new UnprocessableEntityObjectResult(result);
+            return result != -1 ? new OkObjectResult(result) : new UnprocessableEntityObjectResult(result);
         }
     }
 }

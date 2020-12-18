@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using System.Text.Json;
+using System.IO;
 
 namespace triggan.Client
 {
@@ -17,7 +19,8 @@ namespace triggan.Client
             Http = httpClient;
         }
         protected Settings Settings { get; set; }
-        protected HttpClient Http { get; set; }
+        protected HttpClient Http { get; }
+        protected HttpClient FunctionsHttp { get; } = new HttpClient { BaseAddress = new Uri("https://trigganfunctions.azurewebsites.net") };
 
         public async Task<List<T>> GetEntitiesAsync<T>(int count = 0) where T : Entity
         {
@@ -49,13 +52,7 @@ namespace triggan.Client
             var success = await Http.PostAsJsonAsync(Settings.GetFullUrl(typeof(T).Name, entity.Slug, forceLocal: false), entity);
             if (success.IsSuccessStatusCode)
             {
-                var entities = await GetEntitiesAsync<T>();
-                T oldEntity;
-                if ((oldEntity = entities.SingleOrDefault(e => e.Slug == entity.Slug)) != null)
-                {
-                    oldEntity = entity;
-                }
-                await Http.PostAsJsonAsync(Settings.GetFullUrl(typeof(T).Name, forceLocal: true), entities);
+                await WriteNewEntityToFile(entity);
             }
 
             return success.IsSuccessStatusCode;
@@ -72,7 +69,12 @@ namespace triggan.Client
                 {
                     oldProject.Updates.Add(update);
                 }
-                await Http.PostAsJsonAsync(Settings.GetFullUrl("Project", forceLocal: true), projects);
+                var serializedProjects = JsonSerializer.Serialize(projects, new JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                });
+                using var streamWriter = new StreamWriter(Settings.GetFullUrl("Project", forceLocal: true));
+                streamWriter.Write(serializedProjects);
             }
 
             return success.IsSuccessStatusCode;
@@ -82,19 +84,38 @@ namespace triggan.Client
         {
             var entity = await GetEntityAsync<T>(slug);
             entity.Stars++;
+            Console.WriteLine("Sending star on url " + Settings.GetFullUrl(typeof(T).Name, entity.Slug, "Star", forceLocal: false));
             var success = await Http.GetAsync(Settings.GetFullUrl(typeof(T).Name, entity.Slug, "Star", forceLocal: false));
+            await FunctionsHttp.GetAsync(Settings.GetFullUrl(typeof(T).Name, entity.Slug, "Star", forceLocal: false));
             if (success.IsSuccessStatusCode)
             {
-                var entities = await GetEntitiesAsync<T>();
-                T oldEntity;
-                if ((oldEntity = entities.SingleOrDefault(e => e.Slug == entity.Slug)) != null)
-                {
-                    oldEntity = entity;
-                }
-                await Http.PostAsJsonAsync(Settings.GetFullUrl(typeof(T).Name, forceLocal: true), entities);
+                await WriteNewEntityToFile(entity);
             }
 
             return success.IsSuccessStatusCode;
+        }
+
+        private async Task WriteNewEntityToFile<T>(T entity) where T : Entity
+        {
+            var entities = await GetEntitiesAsync<T>();
+            T oldEntity;
+            if ((oldEntity = entities.SingleOrDefault(e => e.Slug == entity.Slug)) != null)
+            {
+                oldEntity = entity;
+            }
+            var serializedEntities = JsonSerializer.Serialize(entities, new JsonSerializerOptions
+            {
+                WriteIndented = true,
+            });
+            Console.WriteLine("Trying shit");
+            Console.WriteLine("Didn't fail?");
+            Console.WriteLine(File.ReadAllText($"{Directory.GetCurrentDirectory()}{@"\wwwroot\Post\content.json"}"));
+            Console.WriteLine("Didn't fail too?");
+            using var sr = new StreamReader(Path.Combine(Http.BaseAddress.ToString(), Settings.GetFullUrl(typeof(T).Name, forceLocal: true)));
+            Console.WriteLine("Current content: ");
+            Console.WriteLine(sr.ReadToEnd());
+            using var streamWriter = new StreamWriter(Path.Combine(Http.BaseAddress.ToString(), Settings.GetFullUrl(typeof(T).Name, forceLocal: true)));
+            streamWriter.Write(serializedEntities);
         }
     }
 }

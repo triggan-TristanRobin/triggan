@@ -24,8 +24,8 @@ namespace triggan.Functions
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Posts/{postCount:int?}")] HttpRequest req, int? postCount, ILogger log)
         {
             log.LogInformation($"Retrieving {postCount} posts");
-            var posts = CosmosTools.GetEntities<Post>(postCount ?? 0, logger: log).Result;
-            return posts.Any() ? (ObjectResult)new OkObjectResult(posts) : new NotFoundObjectResult(posts);
+            var posts = await CosmosTools.GetEntities<Post>(postCount ?? 0, logger: log);
+            return posts.Any() ? new OkObjectResult(posts) : new NotFoundObjectResult(posts);
         }
 
         [FunctionName("Post")]
@@ -33,8 +33,8 @@ namespace triggan.Functions
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Post/{slug}")] HttpRequest req, string slug, ILogger log)
         {
             log.LogInformation("Data fetched from PostContainer");
-            var post = CosmosTools.GetEntity<Post>(slug, logger: log).Result;
-            return post != null ? (ObjectResult)new OkObjectResult(post) : new NotFoundObjectResult(post);
+            var post = await CosmosTools.GetEntity<Post>(slug, logger: log);
+            return post != null ? new OkObjectResult(post) : new NotFoundObjectResult(post);
         }
 
         [FunctionName("Write")]
@@ -50,8 +50,8 @@ namespace triggan.Functions
                 return new UnprocessableEntityObjectResult(post);
             }
 
-            var result = CosmosTools.UpsertEntity(post, logger: log).Result;
-            return result ? (ObjectResult)new OkObjectResult(post) : new UnprocessableEntityObjectResult(post);
+            var result = await CosmosTools.UpsertEntity(post, logger: log);
+            return result ? new OkObjectResult(post) : new UnprocessableEntityObjectResult(post);
         }
     }
 }

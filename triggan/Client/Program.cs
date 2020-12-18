@@ -1,3 +1,4 @@
+using BlazorDownloadFile;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,7 @@ namespace triggan.Client
                     .ConfigureAwait(false);
             });
             builder.Services.AddSingleton(async p => new ContentManager(await p.GetRequiredService<Task<Settings>>(), p.GetRequiredService<HttpClient>()));
+            builder.Services.AddBlazorDownloadFile();
 
             await builder.Build().RunAsync();
         }
