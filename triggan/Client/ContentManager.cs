@@ -18,13 +18,15 @@ namespace triggan.Client
             Settings = settings;
             Http = httpClient;
         }
+
+        public bool UseLocalDb => Settings?.UseLocal ?? false;
         protected Settings Settings { get; set; }
         protected HttpClient Http { get; }
         protected HttpClient FunctionsHttp { get; } = new HttpClient { BaseAddress = new Uri("https://trigganfunctions.azurewebsites.net") };
 
         public async Task<List<T>> GetEntitiesAsync<T>(int count = 0) where T : Entity
         {
-            var list = await Http.GetFromJsonAsync<List<T>>(Settings.GetFullUrl($"{typeof(T).Name}{(Settings.UseLocal ? "" : "s")}", count.ToString()));
+            var list = await (UseLocalDb ? Http : FunctionsHttp).GetFromJsonAsync<List<T>>(Settings.GetFullUrl($"{typeof(T).Name}{(Settings.UseLocal ? "" : "s")}", count.ToString())); ;
             if(Settings.UseLocal)
             {
                 list = list.Take(count).ToList();
@@ -35,21 +37,14 @@ namespace triggan.Client
         public async Task<T> GetEntityAsync<T>(string slug) where T : Entity
         {
             T entity;
-            var result = await Http.GetAsync(Settings.GetFullUrl(typeof(T).Name, slug));
-            if (Settings.UseLocal)
-            {
-                entity = (await result.Content.ReadFromJsonAsync<List<T>>()).SingleOrDefault(e => e.Slug == slug);
-            }
-            else
-            {
-                entity = result as T;
-            }
+            var result = await (UseLocalDb ? Http : FunctionsHttp).GetAsync(Settings.GetFullUrl(typeof(T).Name, slug));
+            entity = Settings.UseLocal ? (await result.Content.ReadFromJsonAsync<List<T>>()).SingleOrDefault(e => e.Slug == slug) : result as T;
             return entity;
         }
 
         public async Task<bool> PostEntityAsync<T>(T entity) where T : Entity
         {
-            var success = await Http.PostAsJsonAsync(Settings.GetFullUrl(typeof(T).Name, entity.Slug, forceLocal: false), entity);
+            var success = await FunctionsHttp.PostAsJsonAsync(Settings.GetFullUrl(typeof(T).Name, entity.Slug, forceLocal: false), entity);
             if (success.IsSuccessStatusCode)
             {
                 await WriteNewEntityToFile(entity);
@@ -80,42 +75,47 @@ namespace triggan.Client
             return success.IsSuccessStatusCode;
         }
 
-        public async Task<bool> StarEntity<T>(string slug) where T : Entity
+        public async Task<int> StarEntity<T>(string slug) where T : Entity
         {
             var entity = await GetEntityAsync<T>(slug);
             entity.Stars++;
-            Console.WriteLine("Sending star on url " + Settings.GetFullUrl(typeof(T).Name, entity.Slug, "Star", forceLocal: false));
-            var success = await Http.GetAsync(Settings.GetFullUrl(typeof(T).Name, entity.Slug, "Star", forceLocal: false));
-            await FunctionsHttp.GetAsync(Settings.GetFullUrl(typeof(T).Name, entity.Slug, "Star", forceLocal: false));
+            var success = await FunctionsHttp.GetAsync(Settings.GetFullUrl(typeof(T).Name, entity.Slug, "Star", forceLocal: false));
             if (success.IsSuccessStatusCode)
             {
                 await WriteNewEntityToFile(entity);
             }
-
-            return success.IsSuccessStatusCode;
+            Console.WriteLine("Star result: " + await success.Content.ReadAsStringAsync());
+            return int.Parse(await success.Content.ReadAsStringAsync());
         }
 
         private async Task WriteNewEntityToFile<T>(T entity) where T : Entity
         {
-            var entities = await GetEntitiesAsync<T>();
-            T oldEntity;
-            if ((oldEntity = entities.SingleOrDefault(e => e.Slug == entity.Slug)) != null)
+            try
             {
-                oldEntity = entity;
+                var entities = await GetEntitiesAsync<T>();
+                T oldEntity;
+                if ((oldEntity = entities.SingleOrDefault(e => e.Slug == entity.Slug)) != null)
+                {
+                    oldEntity = entity;
+                }
+                var serializedEntities = JsonSerializer.Serialize(entities, new JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                });
+                Console.WriteLine("Trying shit");
+                Console.WriteLine("Didn't fail?");
+                Console.WriteLine(File.ReadAllText($"{Directory.GetCurrentDirectory()}{@"\wwwroot\Post\content.json"}"));
+                Console.WriteLine("Didn't fail too?");
+                using var sr = new StreamReader(Path.Combine(Http.BaseAddress.ToString(), Settings.GetFullUrl(typeof(T).Name, forceLocal: true)));
+                Console.WriteLine("Current content: ");
+                Console.WriteLine(sr.ReadToEnd());
+                using var streamWriter = new StreamWriter(Path.Combine(Http.BaseAddress.ToString(), Settings.GetFullUrl(typeof(T).Name, forceLocal: true)));
+                streamWriter.Write(serializedEntities);
             }
-            var serializedEntities = JsonSerializer.Serialize(entities, new JsonSerializerOptions
+            catch(Exception e)
             {
-                WriteIndented = true,
-            });
-            Console.WriteLine("Trying shit");
-            Console.WriteLine("Didn't fail?");
-            Console.WriteLine(File.ReadAllText($"{Directory.GetCurrentDirectory()}{@"\wwwroot\Post\content.json"}"));
-            Console.WriteLine("Didn't fail too?");
-            using var sr = new StreamReader(Path.Combine(Http.BaseAddress.ToString(), Settings.GetFullUrl(typeof(T).Name, forceLocal: true)));
-            Console.WriteLine("Current content: ");
-            Console.WriteLine(sr.ReadToEnd());
-            using var streamWriter = new StreamWriter(Path.Combine(Http.BaseAddress.ToString(), Settings.GetFullUrl(typeof(T).Name, forceLocal: true)));
-            streamWriter.Write(serializedEntities);
+                Console.WriteLine("Exception with local writing: " + e.Message);
+            }
         }
     }
 }

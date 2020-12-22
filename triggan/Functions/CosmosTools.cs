@@ -108,8 +108,7 @@ namespace triggan.Functions
                     result = await container.UpsertItemAsync(entity);
                 }
 
-                logger?.LogInformation($"Upserted entity{typeof(T).Name} ({entity.Slug}) in database with id: {0} Operation consumed {1} RUs.\n"
-                    , result.Resource.Id, result.RequestCharge);
+                logger?.LogInformation($"Upserted entity{typeof(T).Name} ({entity.Slug}) in database with id: {result.Resource.Id} Operation consumed {result.RequestCharge} RUs, Returned {result.StatusCode}.\n");
                 return result.StatusCode == (HttpStatusCode.Created | HttpStatusCode.OK);
             }
             catch (Exception e)
@@ -127,8 +126,7 @@ namespace triggan.Functions
                 var container = cosmosClient.GetContainer("triggandb", "messages");
                 message.Id = Guid.NewGuid().ToString();
                 var result = await container.CreateItemAsync(message, new PartitionKey(message.Id));
-                Console.WriteLine("Created item in database with id: {0} Operation consumed {1} RUs.\n"
-                    , result.Resource.Id, result.RequestCharge);
+                Console.WriteLine($"Created item in database with id: {result.Resource.Id} Operation consumed {result.RequestCharge} RUs.\n");
                 return result.StatusCode == (HttpStatusCode.Created | HttpStatusCode.OK);
             }
             catch (Exception e)

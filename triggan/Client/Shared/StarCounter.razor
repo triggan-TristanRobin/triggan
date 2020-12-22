@@ -7,7 +7,10 @@
     {
         <span style="color: var(--danger)">!</span>
     }
-    <span>@Count</span>
+    @if (IsCounter || Count != 0)
+    {
+        <span>@Count</span>
+    }
 </button>
 
 
@@ -19,6 +22,8 @@
     public string Slug { get; set; }
     [Parameter]
     public string Type { get; set; }
+    [Parameter]
+    public bool IsCounter { get; set; } = true;
     private bool inError;
     private bool clicked;
 
@@ -29,18 +34,20 @@
     {
         if (clicked) return;
         clicked = true;
-        Count++;
+        Count += IsCounter ? 1 : 0;
         StateHasChanged();
+        var result = -1;
         var concreteType = typeof(Entity).Assembly.GetType($"Model.{Type}");
-        var success = false;
         if (concreteType.IsSubclassOf(typeof(Entity)))
         {
             Console.WriteLine(concreteType);
             var task = (Task)typeof(ContentManager).GetMethod("StarEntity").MakeGenericMethod(concreteType).Invoke(await contentManager, new object[] { Slug });
             await task.ConfigureAwait(false);
-            success = (bool)task.GetType().GetProperty("Result").GetValue(task);
+            result = (int)task.GetType().GetProperty("Result").GetValue(task);
+            Console.WriteLine("Found? " + Count);
         }
-        inError = success;
+        inError = result == -1;
+        Count = inError ? Count : result;
         StateHasChanged();
     }
 }

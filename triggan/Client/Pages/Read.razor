@@ -23,7 +23,7 @@
                 @((MarkupString)Markdig.Markdown.ToHtml(post.Content))
             </p>
         }
-        <StarCounter Slug="@post.Slug" Type="Post" @bind-Count=@post.Stars />
+        <StarCounter Slug="@post.Slug" Type="Post" IsCounter="false" @bind-Count=@post.Stars />
         <br />
         <a href="/blog">Back</a>
     }

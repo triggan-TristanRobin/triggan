@@ -34,9 +34,6 @@
     <Content Update="wwwroot\Post\content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Update="wwwroot\routes.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
