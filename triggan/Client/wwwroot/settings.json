@@ -1,5 +1,4 @@
 {
   "onlineUrl": "api/{type}/{route}/{param}",
-  "localUrl": "{type}/content.json",
-  "useLocal": true
+  "localUrl": "{type}/content.json"
 }

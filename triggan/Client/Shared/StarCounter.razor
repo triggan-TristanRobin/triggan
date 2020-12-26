@@ -24,30 +24,32 @@
     public string Type { get; set; }
     [Parameter]
     public bool IsCounter { get; set; } = true;
-    private bool inError;
+    private bool inError = false;
     private bool clicked;
 
     [Parameter]
     public EventCallback<int> CountChanged { get; set; }
 
-    private async Task Star()
+    private void Star()
     {
         if (clicked) return;
         clicked = true;
         Count += IsCounter ? 1 : 0;
         StateHasChanged();
-        var result = -1;
-        var concreteType = typeof(Entity).Assembly.GetType($"Model.{Type}");
-        if (concreteType.IsSubclassOf(typeof(Entity)))
-        {
-            Console.WriteLine(concreteType);
-            var task = (Task)typeof(ContentManager).GetMethod("StarEntity").MakeGenericMethod(concreteType).Invoke(await contentManager, new object[] { Slug });
-            await task.ConfigureAwait(false);
-            result = (int)task.GetType().GetProperty("Result").GetValue(task);
-            Console.WriteLine("Found? " + Count);
-        }
-        inError = result == -1;
-        Count = inError ? Count : result;
-        StateHasChanged();
+        
+        // Actual feature currently desable.
+        //var result = -1;
+        //var concreteType = typeof(Entity).Assembly.GetType($"Model.{Type}");
+        //if (concreteType.IsSubclassOf(typeof(Entity)))
+        //{
+        //    Console.WriteLine(concreteType);
+        //    var task = (Task)typeof(ContentManager).GetMethod("StarEntity").MakeGenericMethod(concreteType).Invoke(await contentManager, new object[] { Slug });
+        //    await task.ConfigureAwait(false);
+        //    result = (int)task.GetType().GetProperty("Result").GetValue(task);
+        //    Console.WriteLine("Found? " + Count);
+        //}
+        //inError = result == -1;
+        //Count = inError ? Count : result;
+        //StateHasChanged();
     }
 }
