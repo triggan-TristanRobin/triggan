@@ -9,15 +9,32 @@ namespace Data
 {
     public static class DbInitializer
     {
-        public static void Initialize(TrigganDBContext context)
+        public static void Initialize(TrigganContext context)
         {
             Trace.TraceInformation("Migrating DB");
-#if DEBUG
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
-#endif
 
-            if (context.Posts.Count() == 0)
+            switch(context.Database.ProviderName)
+            {
+                case "Cosmos":
+                    context.DbType = Helpers.DBProvider.Cosmos;
+                    break;
+                case "SqlServer":
+                default:
+                    context.DbType = Helpers.DBProvider.MSSQL;
+                    break;
+            }
+
+
+            if (context.DbType == Helpers.DBProvider.MSSQL)
+            {
+                context.Database.Migrate();
+#if DEBUG
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+#endif
+            }
+
+            if (!context.Posts.Any())
             {
                 Trace.TraceInformation("Add default posts");
                 var posts = new Post[]
@@ -64,7 +81,7 @@ namespace Data
                 context.SaveChanges();
             }
 
-            if (context.Projects.Count() == 0)
+            if (!context.Projects.Any())
             {
                 Trace.TraceInformation("Add default projects");
                 var projects = new Project[]

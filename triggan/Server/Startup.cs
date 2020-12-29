@@ -10,6 +10,8 @@ using Model;
 using System.Configuration;
 using DataAccessLayer;
 using System.Diagnostics;
+using System;
+using Data.Helpers;
 
 namespace triggan.Server
 {
@@ -34,17 +36,34 @@ namespace triggan.Server
             services.AddTransient<ISlugRepository<Post>, PostRepository>();
             services.AddTransient<ISlugRepository<Project>, Repository<Project>>();
             services.AddTransient<IRepository<Message>, MessageRepository>();
-            var contextName = "trigganCosmos";
-            Trace.TraceInformation("Retrieving DB context with name " + contextName);
+
+            SetDBContextService(services, Enum.Parse<DBProvider>(Configuration["DBConfig:Type"]));
+        }
+
+        public void SetDBContextService(IServiceCollection services, DBProvider dbType)
+        {
+            var contextName = string.Empty;
+            switch (dbType)
+            {
+                case DBProvider.MSSQL:
+                    contextName = "trigganContext";
+                    Trace.TraceInformation("Retrieving MSSQL DB context with name " + contextName);
+                    services.AddDbContext<TrigganContext>(options => options.UseSqlServer(Configuration.GetConnectionString(contextName)));
+                    break;
+                case DBProvider.Cosmos:
+                    contextName = "trigganCosmos";
+                    Trace.TraceInformation("Retrieving cosmos DB context with name " + contextName);
 #if DEBUG
-            services.AddDbContext<TrigganDBContext>(options => options.UseCosmos(
-                "https://localhost:8081",
-                "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
-                databaseName: "triggandb"));
-#else
-            var cosmosInfos = Configuration.GetConnectionString(contextName).Split(';');
-            services.AddDbContext<TrigganDBContext>(options => options.UseCosmos(Configuration.GetConnectionString(contextName), "triggandb"));
+                    contextName = "trigganCosmosDebug";
 #endif
+                    var cosmosInfos = Configuration.GetConnectionString(contextName).Split(';');
+                    services.AddDbContext<TrigganContext>(options => options.UseCosmos(Configuration.GetConnectionString(contextName), "triggandb"));
+
+                    break;
+                default:
+                    // TODO: DO. Error case? I don't know mate.
+                    break;
+            }
             Trace.TraceInformation("Retrieved DBContext");
         }
 

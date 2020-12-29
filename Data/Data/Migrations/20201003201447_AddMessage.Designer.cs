@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
-    [DbContext(typeof(TrigganDBContext))]
+    [DbContext(typeof(TrigganContext))]
     [Migration("20201003201447_AddMessage")]
     partial class AddMessage
     {

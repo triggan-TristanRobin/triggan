@@ -13,7 +13,7 @@ namespace DataAccessLayer
     {
         private ISlugRepository<Post> postRepository;
 
-        public ProjectRepository(ISlugRepository<Post> postRepo, TrigganDBContext context)
+        public ProjectRepository(ISlugRepository<Post> postRepo, TrigganContext context)
             : base(context)
         {
             postRepository = postRepo;

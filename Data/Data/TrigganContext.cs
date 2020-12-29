@@ -1,34 +1,57 @@
 ﻿using Model;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
-using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Data.Helpers;
 using System.Linq;
 
 namespace Data
 {
-    public class TrigganDBContext : DbContext
+    public class TrigganContext : DbContext
 	{
 		public DbSet<Post> Posts { get; set; }
 		public DbSet<Project> Projects { get; set; }
 		public DbSet<Message> Messages { get; set; }
+        public DBProvider DbType { get; set; }
 
-		static TrigganDBContext()
+        public TrigganContext(DbContextOptions<TrigganContext> options)
+			: base(options)
 		{
-			
 		}
 
-		public TrigganDBContext(DbContextOptions<TrigganDBContext> options)
-			: base(options)
-		{ }
-
-		public TrigganDBContext()
-        {
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+            switch (DbType)
+            {
+                case DBProvider.MSSQL:
+					OnMSModelCreating(modelBuilder);
+					break;
+                case DBProvider.Cosmos:
+					OnCosmosModelCreating(modelBuilder);
+					break;
+            }
         }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected void OnMSModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Entity>().HasKey(e => e.Id);
+			modelBuilder.Entity<Entity>().Property(e => e.Id).ValueGeneratedOnAdd();
+			modelBuilder.Entity<Entity>().Property(e => e.Created).ValueGeneratedOnAdd();
+			modelBuilder.Entity<Entity>().Property(e => e.Updated).ValueGeneratedOnAddOrUpdate();
+			modelBuilder.Entity<Entity>().HasIndex(e => e.Slug).IsUnique();
+
+			var splitStringConverter = new ValueConverter<IEnumerable<string>, string>(v => string.Join(";", v), v => v.Split(new[] { ';' }));
+			modelBuilder.Entity<Post>().Property(p => p.Tags).HasConversion(splitStringConverter);
+			modelBuilder.Entity<Project>().OwnsMany(p => p.Updates);
+
+			modelBuilder.Entity<Message>().HasKey(e => e.Id);
+			modelBuilder.Entity<Message>().Property(e => e.Id).ValueGeneratedOnAdd();
+			modelBuilder.Entity<Message>().Property(e => e.Created).ValueGeneratedOnAdd();
+			modelBuilder.Entity<Message>().Property(e => e.Updated).ValueGeneratedOnAddOrUpdate();
+
+			base.OnModelCreating(modelBuilder);
+		}
+		protected void OnCosmosModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.HasDefaultContainer("entities");
 			modelBuilder.Entity<Post>().ToContainer("posts");
@@ -48,11 +71,11 @@ namespace Data
 			foreach (var property in typeof(Entity).GetProperties())
 			{
 				var name = property.Name;
-				if(name != "Id")
-                {
-                    modelBuilder.Entity<Entity>().Property(name).ToJsonProperty($"{name.First().ToString().ToLowerInvariant()}{name.Substring(1)}");
-                }
-            }
+				if (name != "Id")
+				{
+					modelBuilder.Entity<Entity>().Property(name).ToJsonProperty($"{name.First().ToString().ToLowerInvariant()}{name.Substring(1)}");
+				}
+			}
 			var prop = typeof(Post).GetProperties();
 			foreach (var property in typeof(Post).GetProperties())
 			{
@@ -93,5 +116,5 @@ namespace Data
 
 			base.OnModelCreating(modelBuilder);
 		}
-	}
+    }
 }

@@ -11,10 +11,10 @@ namespace DataAccessLayer
 {
     public class Repository<TEntity> : ISlugRepository<TEntity> where TEntity : Entity
     {
-        internal TrigganDBContext context;
+        internal TrigganContext context;
         internal DbSet<TEntity> dbSet;
 
-        public Repository(TrigganDBContext context)
+        public Repository(TrigganContext context)
         {
             this.context = context;
             this.dbSet = context.Set<TEntity>();

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
-    [DbContext(typeof(TrigganDBContext))]
+    [DbContext(typeof(TrigganContext))]
     [Migration("20201002000000_Initial")]
     partial class Initial
     {

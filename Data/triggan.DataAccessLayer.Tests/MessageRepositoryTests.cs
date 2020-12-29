@@ -18,7 +18,7 @@ namespace DataAccessLayer.Tests
 			var testObject = new Message();
 			var testList = new List<Message>() { testObject };
 
-			var context = new Mock<TrigganDBContext>();
+			var context = new Mock<TrigganContext>();
 			var dbSetMock = new Mock<DbSet<Message>>();
 
 			context.Setup(x => x.Set<Message>()).Returns(dbSetMock.Object);
@@ -41,7 +41,7 @@ namespace DataAccessLayer.Tests
 			// Arrange
 			var testObject = new Message();
 
-			var context = new Mock<TrigganDBContext>();
+			var context = new Mock<TrigganContext>();
 			var dbSetMock = new Mock<DbSet<Message>>();
 
 			context.Setup(x => x.Set<Message>()).Returns(dbSetMock.Object);

@@ -12,14 +12,9 @@ namespace DataAccessLayer
 {
     public class PostRepository : ISlugRepository<Post>
     {
-        private readonly TrigganDBContext context;
+        private readonly TrigganContext context;
 
-        public PostRepository()
-        {
-            context = new TrigganDBContext();
-        }
-
-        public PostRepository(TrigganDBContext context)
+        public PostRepository(TrigganContext context)
         {
             this.context = context;
         }

@@ -27,7 +27,7 @@ namespace triggan.Server
 
                 try
                 {
-                    var context = services.GetRequiredService<TrigganDBContext>();
+                    var context = services.GetRequiredService<TrigganContext>();
                     DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)

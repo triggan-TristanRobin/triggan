@@ -11,14 +11,9 @@ namespace DataAccessLayer
 {
     public class MessageRepository : IRepository<Message>
     {
-        private readonly TrigganDBContext context;
+        private readonly TrigganContext context;
 
-        public MessageRepository()
-        {
-            context = new TrigganDBContext();
-        }
-
-        public MessageRepository(TrigganDBContext context)
+        public MessageRepository(TrigganContext context)
         {
             this.context = context;
         }

@@ -20,7 +20,7 @@ namespace DataAccessLayer.Tests
 			// Arrange
 			var testObject = new TestClass();
 
-			var context = new Mock<TrigganDBContext>();
+			var context = new Mock<TrigganContext>();
 			var dbSetMock = new Mock<DbSet<TestClass>>();
 
 			context.Setup(x => x.Set<TestClass>()).Returns(dbSetMock.Object);
