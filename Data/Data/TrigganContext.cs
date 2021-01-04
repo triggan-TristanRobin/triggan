@@ -51,6 +51,7 @@ namespace Data
 
 			base.OnModelCreating(modelBuilder);
 		}
+
 		protected void OnCosmosModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.HasDefaultContainer("entities");
