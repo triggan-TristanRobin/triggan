@@ -37,7 +37,7 @@ namespace triggan.Client
 
         public async Task<bool> PostEntityAsync<T>(T entity) where T : Entity
         {
-            var success = await Http.PostAsJsonAsync(Settings.GetFullUrl(typeof(T).Name, entity.Slug, local: false), entity);
+            var success = await Http.PostAsJsonAsync($"Commit/{typeof(T).Name}/{entity.Slug}", entity);
 
             return success.IsSuccessStatusCode;
         }

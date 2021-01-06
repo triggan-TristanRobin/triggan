@@ -28,7 +28,7 @@ namespace triggan.Server
                 try
                 {
                     var context = services.GetRequiredService<TrigganContext>();
-                    DbInitializer.Initialize(context);
+                    //DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)
                 {

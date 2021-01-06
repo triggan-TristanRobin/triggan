@@ -12,9 +12,9 @@ namespace triggan.Server.Controllers
 {
     public class GitController : Controller
     {
-        private LibGit2Sharp.Credentials credentials = null;
+        private static LibGit2Sharp.Credentials credentials = null;
 
-        [HttpPost("[action]")]
+        [HttpPost("[controller]/[action]")]
         public void Authenticate([FromBody] Model.Credentials creds)
         {
             credentials = new UsernamePasswordCredentials
@@ -27,14 +27,14 @@ namespace triggan.Server.Controllers
         [HttpPost("[action]/Post/{slug}")]
         public bool Commit(string slug, [FromBody] Post entity)
         {
-            return Commit(slug, entity);
+            return Commit<Post>(slug, entity);
         }
 
 
         [HttpPost("[action]/Project/{slug}")]
         public bool Commit(string slug, [FromBody] Project entity)
         {
-            return Commit(slug, entity);
+            return Commit<Project>(slug, entity);
         }
 
         public bool Commit<T>(string slug, [FromBody] T entity) where T: Entity
@@ -50,21 +50,28 @@ namespace triggan.Server.Controllers
             {
                 CredentialsProvider = (_url, _user, _cred) => credentials
             };
-            string clonedRepoPath = Repository.Clone("https://github.com/triggan-TristanRobin/triggan", Path.Combine(Directory.GetCurrentDirectory(), "Clone"), options);
+            var clonePath = @"C:\trigganClone";
+            //var clonePath = Path.Combine(Directory.GetCurrentDirectory(), "trigganClone");
+            string clonedRepoPath = Repository.Clone("https://github.com/triggan-TristanRobin/triggan", clonePath, options);
             Console.WriteLine($"Cloned here : {clonedRepoPath}");
 
             using (var repo = new Repository(clonedRepoPath))
             {
-                Branch currentBranch = Commands.Checkout(repo, repo.Branches["publication"]);
+                var remotePublicationBranch = repo.Branches["refs/remotes/origin/publication"];
+                var localbranch = repo.CreateBranch("local", remotePublicationBranch.Tip);
+                var updatedBranch = repo.Branches.Update(localbranch,
+                        b => { b.TrackedBranch = remotePublicationBranch.CanonicalName; });
+                var currentBranch = Commands.Checkout(repo, localbranch);
 
-                var contentPath = Path.Combine(clonedRepoPath, @"triggan\Client\wwwroot", typeof(T).Name, "content.json");
+                var contentPath = Path.Combine(clonePath, @"triggan\Client\wwwroot", typeof(T).Name, "content.json");
                 var entities = JsonSerializer.Deserialize<List<T>>(System.IO.File.ReadAllText(contentPath));
 
                 // Upsert the entity
                 var oldEntity = entities.SingleOrDefault(e => e.Slug == entity.Slug);
                 if (oldEntity != null)
                 {
-                    oldEntity = entity;
+                    entity.Updated = DateTime.Now;
+                    entities[entities.IndexOf(oldEntity)] = entity;
                 }
                 else
                 {
@@ -75,12 +82,14 @@ namespace triggan.Server.Controllers
                 System.IO.File.WriteAllText(contentPath, JsonSerializer.Serialize(entities, new JsonSerializerOptions { WriteIndented = true }));
 
                 // commit
+                StageChanges(repo);
                 var author = new Signature("triggan", "writer@triggan.com", DateTimeOffset.Now);
                 repo.Commit($"Wrote {typeof(T).Name} slugged {entity.Slug}", author, author);
 
                 // push
                 repo.Network.Push(currentBranch, new PushOptions { CredentialsProvider = (_url, _user, _cred) => credentials });
             }
+            Directory.Delete(clonePath, true);
 
             return true;
         }
