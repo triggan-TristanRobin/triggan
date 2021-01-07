@@ -1,22 +1,22 @@
 [
   {
-    "title": "First post",
-    "views": 0,
-    "content": "So this is my first post.\n\n<strong>I can try some markdown stuff randomly.</strong>\nIt seems that line break is not really working here.\n\nBut double line break is. It might be enough at first.",
-    "excerpt": "Let's try to create a post!",
-    "coverImagePath": "",
-    "public": true,
-    "type": 0,
-    "publicationDate": "2020-11-23T23:00:00+00:00",
-    "tags": [
+    "Title": "First post",
+    "Views": 0,
+    "Content": "So this is my first post.\n\n<strong>I can try some markdown stuff randomly.</strong>\nIt seems that line break is not really working here.\n\nBut double line break is. It might be enough at first.",
+    "Excerpt": "Let's try to create a post!",
+    "CoverImagePath": "",
+    "Public": true,
+    "Type": 0,
+    "PublicationDate": "2020-11-23T23:00:00+00:00",
+    "Tags": [
       "Tag1",
       "Tag2"
     ],
-    "id": "70bb8664-d56d-4215-82bc-3d0a388aa6b9",
-    "created": "2020-11-24T15:48:31.035+00:00",
-    "updated": "2020-11-24T15:48:31.035+00:00",
-    "slug": "p1",
-    "stars": 2,
-    "deleted": false
+    "Id": "70bb8664-d56d-4215-82bc-3d0a388aa6b9",
+    "Created": "2020-11-24T15:48:31.035+00:00",
+    "Updated": "2020-11-24T15:48:31.035+00:00",
+    "Slug": "p1",
+    "Stars": 2,
+    "Deleted": false
   }
 ]
