@@ -1,20 +1,20 @@
 [
   {
-    "Title": "First post",
+    "Title": "First post edited",
     "Views": 0,
-    "Content": "So this is my first post.\n\n<strong>I can try some markdown stuff randomly.</strong>\nIt seems that line break is not really working here.\n\nBut double line break is. It might be enough at first.",
-    "Excerpt": "Let's try to create a post!",
+    "Content": "So this is my first post.\n\n\u003Cstrong\u003EI can try some markdown stuff randomly.\u003C/strong\u003E\nIt seems that line break is not really working here.\n\nBut double line break is. It might be enough at first.\n\nEDIT: It\u0027s the same first useless empty post. Except I updated it using the new git commit method with asp core server api.",
+    "Excerpt": "Let\u0027s try to create a post!",
     "CoverImagePath": "",
     "Public": true,
     "Type": 0,
-    "PublicationDate": "2020-11-23T23:00:00+00:00",
+    "PublicationDate": "2020-11-24T00:00:00+01:00",
     "Tags": [
       "Tag1",
       "Tag2"
     ],
     "Id": "70bb8664-d56d-4215-82bc-3d0a388aa6b9",
-    "Created": "2020-11-24T15:48:31.035+00:00",
-    "Updated": "2020-11-24T15:48:31.035+00:00",
+    "Created": "2020-11-24T16:48:31.035+01:00",
+    "Updated": "2021-01-07T09:07:33.5242708+01:00",
     "Slug": "p1",
     "Stars": 2,
     "Deleted": false
