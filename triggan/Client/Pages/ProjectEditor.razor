@@ -12,6 +12,13 @@
     else
     {
         <div class="row">
+            <div class="form-group">
+                <label for="creds">Git credentils</label>
+                <div>
+                    <InputText @bind-Value=creds.Id />
+                    <InputText type="password" placeholder="Password" @bind-Value=creds.Id />
+                </div>
+            </div>
             <EditForm Model=@project OnSubmit="@UploadProject" class="form-group" style="width: 50%;">
                 <div class="form-group">
                     <div>
@@ -76,13 +83,14 @@
     private string result;
     private string submitClass = "";
     private string submitText = "Submit";
+    private Credentials creds = new Credentials();
 
     protected override async Task OnInitializedAsync()
     {
         if (!string.IsNullOrEmpty(Slug))
         {
             Console.WriteLine($"Trying to get post for edit");
-            project = await Http.GetFromJsonAsync<Project>($"https://trigganfunctions.azurewebsites.net/api/Project/{Slug}");
+            project = await (await contentManager).GetEntityAsync<Project>(Slug);
         }
         else
         {
@@ -97,16 +105,27 @@
         submitClass = "fas fa-spinner fa-pulse";
         submitText = "";
         StateHasChanged();
-        result = string.Empty;
-        var success = await (await contentManager).PostEntityAsync<Project>(project);
-        result = success ? "Your project is saved on the site! Redirecting..." : "Unfortunately, an error occurred while saving your project.Please try again later.";
+        var success = false;
+        result = "Cannot currently save a project without credentials for git";
+        if (creds.Id != null)
+        {
+            var authenticated = await Http.PostAsJsonAsync<Credentials>("/Git/Authenticate", creds);
+            if (authenticated.IsSuccessStatusCode)
+            {
+                result = "Unfortunately, an error occurred while saving your project.Please try again later.";
+                success = await (await contentManager).PostEntityAsync<Project>(project);
+            }
+            else
+                result = "Could not login with these credentials.";
+        }
+        result = success ? "Your project is saved on the site! Redirecting..." : result;
         submitClass = success ? "fa fa-check" : "fa fa-times";
         submitText = "Submit";
         StateHasChanged();
         if (success)
         {
             await Task.Delay(500);
-            NavigationManager.NavigateTo($"/blog/{project.Slug}", true);
+            NavigationManager.NavigateTo($"/project/{project.Slug}", true);
         }
     }
 
