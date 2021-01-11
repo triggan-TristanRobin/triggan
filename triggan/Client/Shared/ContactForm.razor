@@ -1,6 +1,8 @@
 ﻿@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@using System.Net;
 
-<EditForm Model=@message OnSubmit=@Send class="form-group">
+<EditForm Model=@message OnSubmit=@SendMail class="form-group">
     <div class="row">
         <div>
             <label for="Name"><span class="far fa-user"></span>Name</label>
@@ -18,27 +20,38 @@
     </div>
     <button type="submit" class=""><span class="@submitClass"></span>@submitText</button>
     <span class="small" style="margin: 1em auto;">@result</span>
+    @if (inError)
+    {
+        <button type="button" class="" style="transition: all 2s;">
+            <a href=@($"mailto:tristan.robin69@gmail.com?subject=Hey%20from%20{message.Name}&body={WebUtility.UrlEncode(message.Content)}")>
+                <span class="far fa-paper-plane"></span>Click to send mail with your mail app/website
+            </a>
+        </button>
+    }
 </EditForm>
 
 
 @code
 {
-    private Message message = new Message();
+    private Model.Message message = new Model.Message();
     private string result;
+    private bool inError;
     private string submitClass = "far fa-paper-plane";
     private string submitText = "Submit";
 
-    private async Task Send()
+    private async Task SendMail()
     {
         var tmpIconClass = submitClass;
         submitClass = "fas fa-spinner fa-pulse";
         submitText = "";
+        inError = false;
         StateHasChanged();
         result = string.Empty;
-        var success = await Http.PostAsJsonAsync($"https://trigganfunctions.azurewebsites.net/api/Message", message);
+        var success = await Http.PostAsJsonAsync($"Message/Contact", message);
         Console.WriteLine(success);
-        result = success.IsSuccessStatusCode ? "Your message have been sent!" : "Unfortunately, an error occurred while sending your message.\nPlease try again later.";
-        submitClass = success.IsSuccessStatusCode ? "fa fa-check" : "fa fa-times";
+        inError = !success.IsSuccessStatusCode;
+        result = !inError ? "Your message have been sent!" : "Unfortunately, an error occurred while sending your message.\nPlease try again later.";
+        submitClass = !inError ? "fa fa-check" : "fa fa-times";
         submitText = "Submit";
         StateHasChanged();
     }
