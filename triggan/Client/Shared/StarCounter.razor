@@ -27,6 +27,12 @@
     private bool inError = false;
     private bool clicked;
 
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        Count = IsCounter ? Count : 0;
+    }
+
     [Parameter]
     public EventCallback<int> CountChanged { get; set; }
 
@@ -36,7 +42,7 @@
         clicked = true;
         Count += IsCounter ? 1 : 0;
         StateHasChanged();
-        
+
         // Actual feature currently desable.
         //var result = -1;
         //var concreteType = typeof(Entity).Assembly.GetType($"Model.{Type}");
