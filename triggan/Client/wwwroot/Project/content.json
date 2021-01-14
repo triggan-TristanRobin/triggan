@@ -7,10 +7,17 @@
     "Public": true,
     "State": 0,
     "PublicationDate": "2020-11-25T00:00:00+01:00",
-    "Updates": [],
+    "Updates": [
+      {
+        "Title": "Sketched and checked!",
+        "Content": "I love word play.\n\nBeing more serious, we finished what I could call the storyboard! We did premilinary sketches of all the story (which is fully written).\n\nNext step: start actual drawings or visual search.",
+        "Created": "2021-01-14T10:40:05.931+01:00",
+        "PublicationDate": "2021-01-07T00:00:00"
+      }
+    ],
     "Id": "b0cff91f-f85d-4438-bccc-708924dde6ec",
     "Created": "2020-11-25T21:24:58.392+01:00",
-    "Updated": "2020-11-25T21:24:58.392+01:00",
+    "Updated": "2021-01-14T11:05:31.8689686+01:00",
     "Slug": "loganwillow",
     "Stars": 0,
     "Deleted": false
