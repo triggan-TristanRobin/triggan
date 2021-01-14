@@ -12,15 +12,7 @@
     else
     {
         <div class="row">
-            <EditForm Model=@creds class="form-group">
-                <div class="form-group">
-                    <label for="creds">Git credentils</label>
-                    <div class="row">
-                        <InputText @bind-Value=creds.Id />
-                        <InputText type="password" placeholder="Password" @bind-Value=creds.Password />
-                    </div>
-                </div>
-            </EditForm>
+            <GitLogger @ref="logger" />
             <EditForm Model=@post OnSubmit="@Write" class="form-group" style="width: 50%;">
                 <div class="form-group">
                     <div>
@@ -75,7 +67,7 @@
     private string result;
     private string submitClass = "";
     private string submitText = "Submit";
-    private Credentials creds = new Credentials();
+    private GitLogger logger;
 
     protected override async Task OnInitializedAsync()
     {
@@ -98,18 +90,9 @@
         submitText = "";
         StateHasChanged();
         var success = false;
-        result = "Cannot currently save a post without credentials for git";
-        if (creds.Id != null)
-        {
-            var authenticated = await Http.PostAsJsonAsync<Credentials>("/Git/Authenticate", creds);
-            if (authenticated.IsSuccessStatusCode)
-            {
-                result = "Unfortunately, an error occurred while saving your post.Please try again later.";
-                success = await (await contentManager).PostEntityAsync<Post>(post);
-            }
-            else
-                result = "Could not login with these credentials.";
-        }
+        var tupleResult = await logger.RunWithLogin(async () => await (await contentManager).PostEntityAsync<Post>(post));
+        result = tupleResult.Item1;
+        success = tupleResult.Item2;
         result = success ? "Your post is saved on the site! Redirecting..." : result;
         submitClass = success ? "fa fa-check" : "fa fa-times";
         submitText = "Submit";

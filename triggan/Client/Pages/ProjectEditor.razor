@@ -12,13 +12,7 @@
     else
     {
         <div class="row">
-            <div class="form-group">
-                <label for="creds">Git credentils</label>
-                <div>
-                    <InputText @bind-Value=creds.Id />
-                    <InputText type="password" placeholder="Password" @bind-Value=creds.Id />
-                </div>
-            </div>
+            <GitLogger @ref="logger"/>
             <EditForm Model=@project OnSubmit="@UploadProject" class="form-group" style="width: 50%;">
                 <div class="form-group">
                     <div>
@@ -83,18 +77,18 @@
     private string result;
     private string submitClass = "";
     private string submitText = "Submit";
-    private Credentials creds = new Credentials();
+    private GitLogger logger;
 
     protected override async Task OnInitializedAsync()
     {
         if (!string.IsNullOrEmpty(Slug))
         {
-            Console.WriteLine($"Trying to get post for edit");
+            Console.WriteLine($"Trying to get project for edit");
             project = await (await contentManager).GetEntityAsync<Project>(Slug);
         }
         else
         {
-            Console.WriteLine($"New post");
+            Console.WriteLine($"New project");
             project = new Project();
             project.PublicationDate = DateTime.Today;
         }
@@ -106,18 +100,9 @@
         submitText = "";
         StateHasChanged();
         var success = false;
-        result = "Cannot currently save a project without credentials for git";
-        if (creds.Id != null)
-        {
-            var authenticated = await Http.PostAsJsonAsync<Credentials>("/Git/Authenticate", creds);
-            if (authenticated.IsSuccessStatusCode)
-            {
-                result = "Unfortunately, an error occurred while saving your project.Please try again later.";
-                success = await (await contentManager).PostEntityAsync<Project>(project);
-            }
-            else
-                result = "Could not login with these credentials.";
-        }
+        var tupleResult = await logger.RunWithLogin(async () => await (await contentManager).PostEntityAsync<Project>(project));
+        result = tupleResult.Item1;
+        success = tupleResult.Item2;
         result = success ? "Your project is saved on the site! Redirecting..." : result;
         submitClass = success ? "fa fa-check" : "fa fa-times";
         submitText = "Submit";
