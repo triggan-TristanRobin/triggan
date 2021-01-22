@@ -30,6 +30,7 @@
     flex-direction: column;
     flex-basis: 100%;
     margin: 0;
+    align-items: center;
 }
 
 .nav-item {
