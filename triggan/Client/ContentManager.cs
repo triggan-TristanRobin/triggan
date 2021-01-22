@@ -44,9 +44,9 @@ namespace triggan.Client
 
         public async Task<bool> UpdateProjectAsync(string slug, Update update)
         {
-            var success = await Http.PostAsJsonAsync(Settings.GetFullUrl("Project", slug, "Update", false), update);
-
-            return success.IsSuccessStatusCode;
+            var savedProject = await GetEntityAsync<Project>(slug);
+            savedProject.Updates.Add(update);
+            return await PostEntityAsync(savedProject);
         }
 
         public async Task<int> StarEntity<T>(string slug) where T : Entity

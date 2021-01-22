@@ -15,6 +15,7 @@
         }
         <h1>@project.Title</h1>
         <span class="small">@StateToString(project.State)</span>
+        <span class="small">@project.PublicationDate.ToShortDateString()</span>
         <p class="content">
             @((MarkupString)Markdig.Markdown.ToHtml(project.Excerpt))
         </p>
@@ -22,7 +23,7 @@
         {
             <div>
                 <h3>@update.Title</h3>
-                <span class="small">@update.Created</span>
+                <span class="small">@update.PublicationDate.ToShortDateString()</span>
                 @((MarkupString)Markdig.Markdown.ToHtml(update.Content))
             </div>
         }
