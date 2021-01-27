@@ -270,6 +270,10 @@ img {
     .row {
         flex-direction: column !important;
     }
+
+    .card {
+        max-width: 100%;
+    }
 }
 
 @media (min-width: 768px) {
