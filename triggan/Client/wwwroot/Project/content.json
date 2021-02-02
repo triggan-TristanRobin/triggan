@@ -49,27 +49,14 @@
     "Title": "triggan",
     "Views": 0,
     "Excerpt": "This starts to look like a mise en abyme.  \nAnyway, here you might find stuff regard this specific website.\n\nThe updates will cover functionalities and else. But let\u0027s be honest it\u0027s mostly interesting if you\u0027re interested in .NET or related development stuff!",
-    "CoverImagePath": null,
+    "CoverImagePath": "https://lh3.googleusercontent.com/OulCwYl29JOorS1gY3E72ZmNJaN2k2zcr26K9oU0U5vsDTBsTCxFfuBgGz-lCrs-PCh2IIk1clDjyWUAcljmjaZN-VTFxX3eWjxMquIeJ7bcqGflKOfB5zcMvGSjaL6uWL48qbeBb34=w2400",
     "Public": true,
-    "State": 0,
+    "State": 2,
     "PublicationDate": "2020-11-25T00:00:00+01:00",
-    "Updates": [
-      {
-        "Title": "Finally a functionning website!",
-        "Content": "After spending very little time on creating this website during October 2020, I quickly stumbled upon issues.\n\nThe website itself was good too me but... choosing .NET 5 while in preview blocked a few things. I wasn\u0027t able to publish anything usable! Getting from unusable feature such as Azure Functions, a DAL which wouldn\u0027t run on various host (allowing only previous .NET versions) or some very expensives ideas (Azure Functions cumulate almost all the issues).\n\nBut in the end I found it! I found a way to make it work. The actuall website [triggan.com](https://www.triggan.com) is a static blazor website, using two json files as \u0022database\u0022.\n\nWhen I want to update stuff, I run the server version locally (which I should fully deploy to avoid the need to run VS each time). The server app possess git feature. When I save stuff, it commits and push to a publication branch, which triggers github actions and TADA!\n\nThis update is actually the final test...\n\n_Hourray!_",
-        "Created": "2021-01-13T22:49:00.214+01:00",
-        "PublicationDate": "2021-01-13T22:49:00.214+01:00"
-      },
-      {
-        "Title": "Some drawings",
-        "Content": "Maybe I should stop to work on this website and switch to something else...\n\nAnyway I did some drawings and here it goes!\nI\u0027ve ended up using a PNG file however as the SVG wasn\u0027t displayed correctly.\n\n\nThis is clearly not an issue reagarding the website as I opend the file in various browser separately and found that edge/chrome and android browser wouldn\u0027t display my file correctly...\nI can\u0027t understand why though.",
-        "Created": "2021-01-27T13:57:06.257+01:00",
-        "PublicationDate": "2021-01-25T00:00:00"
-      }
-    ],
+    "Updates": [],
     "Id": "8f136252-6e21-4e1a-86e9-1c916f9fc04d",
     "Created": "2020-11-25T21:38:31.661+01:00",
-    "Updated": "2021-01-27T14:03:14.3709512+01:00",
+    "Updated": "2021-02-02T22:28:15.2819993+01:00",
     "Slug": "triggan",
     "Stars": 0,
     "Deleted": false
