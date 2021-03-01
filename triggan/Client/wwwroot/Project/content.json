@@ -30,7 +30,14 @@
     "Public": true,
     "State": 1,
     "PublicationDate": "2020-11-25T00:00:00+01:00",
-    "Updates": [],
+    "Updates": [
+      {
+        "Title": "Settling on video edit",
+        "Content": "I\u0027ve been putting this project aside for some time now for a various of bad reasons.\n\nFrom the first list of recipes I should do for this series, I\u0027ve filmed 5 out of 10. Some of the remaining recipes should be done sometime else (red fruits or tomato in winter? Nope).\n\nFrom these filmed cooking sessions, I\u0027ve struggled to get a good result. But I also thought that if I keep delaying the video editing part, the publish part, I wouldn\u0027t do it at all. So after a few hours of reviewing, I decided upon a recipe (which one? surprise) and though it\u0027s far from perfect, I\u0027ll edit what I have before trying to film something else.\n\n\nSee you soon for more food!",
+        "Created": "2021-01-14T11:25:56.333+01:00",
+        "PublicationDate": "2021-01-12T00:00:00"
+      }
+	],
     "Id": "e5cbd844-08c4-421f-ac85-721a6e39e2d3",
     "Created": "2020-11-25T21:32:39.105+01:00",
     "Updated": "2021-03-01T11:01:03.1357192+01:00",
