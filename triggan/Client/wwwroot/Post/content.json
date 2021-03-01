@@ -1,9 +1,9 @@
 [
   {
-    "Title": "First post edited",
+    "Title": "Energy management",
     "Views": 0,
-    "Content": "So this is my first post.\n\n\u003Cstrong\u003EI can try some markdown stuff randomly.\u003C/strong\u003E\nIt seems that line break is not really working here.\n\nBut double line break is. It might be enough at first.\n\nEDIT: It\u0027s the same first useless empty post. Except I updated it using the new git commit method with asp core server api.",
-    "Excerpt": "Let\u0027s try to create a post!",
+    "Content": "I\u0027ve recently been hearing Tim Ferriss talking a few times about how he went from focusing on time management to energy management last year.\n\nI must admit that this resonated quite a lot in my head. My son has *so much* more energy than my wife and I do. And these days I cannot seem to handle any type of schedule outside of work meetings.\n\n\nBut then there is the energy. When your time is limited (it always is), you need to use it wisely.\nThen why are you watching that Netflix show you don\u0027t like that much when you could start writing on the book you have been thinking about for so long?\nWhy are you eating that bag of chips when you could easily cook some delicious healthy meal for the week?\n\nMaybe you will tell yourself and others you don\u0027t have the motivation to do so. but we all know that motivation isn\u0027t reliable. If you want to stick to your plans, you need the energy to fight your inner lazy self. So think just a little bit about how to have more energy.\n\nAfter that, get to work and show us what you can do!",
+    "Excerpt": "Is there a point managing anything if you lack the energy to move forward?",
     "CoverImagePath": "",
     "Public": true,
     "Type": 0,
@@ -14,8 +14,8 @@
     ],
     "Id": "70bb8664-d56d-4215-82bc-3d0a388aa6b9",
     "Created": "2020-11-24T16:48:31.035+01:00",
-    "Updated": "2021-01-07T09:07:33.5242708+01:00",
-    "Slug": "p1",
+    "Updated": "2021-03-01T11:34:28.6873582+01:00",
+    "Slug": "energy",
     "Stars": 2,
     "Deleted": false
   }
