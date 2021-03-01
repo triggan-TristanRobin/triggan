@@ -5,7 +5,7 @@
     "Excerpt": "This year my wife and I felt the need to work on a shared project.  What could be better than a projet about our son?  \nSo we came out with this crazy idea of writing a *children\u0027s book*.\n\nTake a look at the story of **Logan and Willow**!\n",
     "CoverImagePath": null,
     "Public": true,
-    "State": 0,
+    "State": 1,
     "PublicationDate": "2020-11-25T00:00:00+01:00",
     "Updates": [
       {
@@ -17,7 +17,7 @@
     ],
     "Id": "b0cff91f-f85d-4438-bccc-708924dde6ec",
     "Created": "2020-11-25T21:24:58.392+01:00",
-    "Updated": "2021-01-14T11:05:31.8689686+01:00",
+    "Updated": "2021-03-01T11:18:42.5231235+01:00",
     "Slug": "loganwillow",
     "Stars": 0,
     "Deleted": false
@@ -37,7 +37,7 @@
         "Created": "2021-01-14T11:25:56.333+01:00",
         "PublicationDate": "2021-01-12T00:00:00"
       }
-	],
+    ],
     "Id": "e5cbd844-08c4-421f-ac85-721a6e39e2d3",
     "Created": "2020-11-25T21:32:39.105+01:00",
     "Updated": "2021-03-01T11:01:03.1357192+01:00",
