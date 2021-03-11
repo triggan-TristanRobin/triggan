@@ -67,7 +67,7 @@ namespace triggan.Server.Controllers
                 var entities = JsonSerializer.Deserialize<List<T>>(System.IO.File.ReadAllText(contentPath));
 
                 // Upsert the entity
-                var oldEntity = entities.SingleOrDefault(e => e.Slug == entity.Slug);
+                var oldEntity = entities.SingleOrDefault(e => e.Slug == slug);
                 if (oldEntity != null)
                 {
                     entity.Updated = DateTime.Now;
@@ -84,7 +84,7 @@ namespace triggan.Server.Controllers
                 // commit
                 StageChanges(repo);
                 var author = new Signature("triggan", "writer@triggan.com", DateTimeOffset.Now);
-                repo.Commit($"Wrote {typeof(T).Name} slugged {entity.Slug}", author, author);
+                repo.Commit($"Wrote {typeof(T).Name} slugged {slug}", author, author);
 
                 // push
                 repo.Network.Push(currentBranch, new PushOptions { CredentialsProvider = (_url, _user, _cred) => credentials });

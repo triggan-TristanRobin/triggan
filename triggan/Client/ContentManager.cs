@@ -35,9 +35,9 @@ namespace triggan.Client
             return (await Http.GetFromJsonAsync<IEnumerable<T>>(Settings.GetFullUrl(typeof(T).Name))).SingleOrDefault(e => e.Slug == slug);
         }
 
-        public async Task<bool> PostEntityAsync<T>(T entity) where T : Entity
+        public async Task<bool> PostEntityAsync<T>(string Slug, T entity) where T : Entity
         {
-            var success = await Http.PostAsJsonAsync($"Commit/{typeof(T).Name}/{entity.Slug}", entity);
+            var success = await Http.PostAsJsonAsync($"Commit/{typeof(T).Name}/{Slug}", entity);
 
             return success.IsSuccessStatusCode;
         }
@@ -46,7 +46,7 @@ namespace triggan.Client
         {
             var savedProject = await GetEntityAsync<Project>(slug);
             savedProject.Updates.Add(update);
-            return await PostEntityAsync(savedProject);
+            return await PostEntityAsync(slug, savedProject);
         }
 
         public async Task<int> StarEntity<T>(string slug) where T : Entity

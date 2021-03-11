@@ -90,7 +90,7 @@
         submitText = "";
         StateHasChanged();
         var success = false;
-        var tupleResult = await logger.RunWithLogin(async () => await (await contentManager).PostEntityAsync<Post>(post));
+        var tupleResult = await logger.RunWithLogin(async () => await (await contentManager).PostEntityAsync<Post>(Slug, post));
         result = tupleResult.Item1;
         success = tupleResult.Item2;
         result = success ? "Your post is saved on the site! Redirecting..." : result;
