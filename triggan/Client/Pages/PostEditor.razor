@@ -12,39 +12,41 @@
     else
     {
         <div class="row">
-            <GitLogger @ref="logger" />
-            <EditForm Model=@post OnSubmit="@Write" class="form-group" style="width: 50%;">
-                <div class="form-group">
-                    <div>
-                        <label for="Title">Title</label>
-                        <KeystrokeTextInput @bind-Value=post.Title />
+            <div style="width: 50%;">
+                <GitLogger @ref="logger" />
+                <EditForm Model=@post OnSubmit="@Write" class="form-group">
+                    <div class="form-group">
+                        <div>
+                            <label for="Title">Title</label>
+                            <KeystrokeTextInput @bind-Value=post.Title />
+                        </div>
+                        <div class="row" style="flex-wrap: wrap;padding-top: 0.5em;padding-bottom: 0.5em;">
+                            <label for="Slug">Slug</label>
+                            <InputText @bind-Value=post.Slug />
+                            <label for="Public">Public</label>
+                            <InputCheckbox @bind-Value=post.Public />
+                        </div>
+                        <div>
+                            <label for="CoverImagePath">CoverImagePath</label>
+                            <InputText @bind-Value=post.CoverImagePath />
+                        </div>
+                        <div>
+                            <label for="Excerpt">Excerpt</label>
+                            <InputTextArea @bind-Value=post.Excerpt />
+                        </div>
+                        <div>
+                            <label for="PublicationDate">PublicationDate</label>
+                            <InputDate @bind-Value=post.PublicationDate />
+                        </div>
                     </div>
-                    <div class="row" style="flex-wrap: wrap;padding-top: 0.5em;padding-bottom: 0.5em;">
-                        <label for="Slug">Slug</label>
-                        <InputText @bind-Value=post.Slug />
-                        <label for="Public">Public</label>
-                        <InputCheckbox @bind-Value=post.Public />
+                    <div class="form-group">
+                        <label for="Content">Post content</label>
+                        <KeystrokeTextArea @bind-Value=post.Content Rows="30" />
                     </div>
-                    <div>
-                        <label for="CoverImagePath">CoverImagePath</label>
-                        <InputText @bind-Value=post.CoverImagePath />
-                    </div>
-                    <div>
-                        <label for="Excerpt">Excerpt</label>
-                        <InputTextArea @bind-Value=post.Excerpt />
-                    </div>
-                    <div>
-                        <label for="PublicationDate">PublicationDate</label>
-                        <InputDate @bind-Value=post.PublicationDate />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Content">Post content</label>
-                    <KeystrokeTextArea @bind-Value=post.Content Rows="30" />
-                </div>
-                <button type="submit" class=""><span class="@submitClass"></span>@submitText</button>
-                <span class="small" style="margin: 1em auto;">@result</span>
-            </EditForm>
+                    <button type="submit" class=""><span class="@submitClass"></span>@submitText</button>
+                    <span class="small" style="margin: 1em auto;">@result</span>
+                </EditForm>
+            </div>
 
             <div class="post" style="width: 50%;">
                 <h1>@post.Title</h1>
@@ -90,7 +92,7 @@
         submitText = "";
         StateHasChanged();
         var success = false;
-        var tupleResult = await logger.RunWithLogin(async () => await (await contentManager).PostEntityAsync<Post>(Slug, post));
+        var tupleResult = await logger.RunWithLogin(async () => await (await contentManager).PostEntityAsync<Post>(Slug ?? post.Slug, post));
         result = tupleResult.Item1;
         success = tupleResult.Item2;
         result = success ? "Your post is saved on the site! Redirecting..." : result;

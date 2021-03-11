@@ -11,9 +11,12 @@
     {
         <h1>@post.Title</h1>
         <span class="small">
-            @foreach (var tag in post.Tags)
+            @if (post.Tags != null)
             {
-                <a class="tag" href="/tag/@tag">@tag</a>
+                foreach (var tag in post.Tags)
+                {
+                    <a class="tag" href="/tag/@tag">@tag</a>
+                }
             }
         </span>
         <span class="small">@post.PublicationDate.ToShortDateString()</span>
