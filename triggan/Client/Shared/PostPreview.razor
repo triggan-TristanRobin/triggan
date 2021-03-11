@@ -4,9 +4,12 @@
     <h3 @onclick=@Read>@Post.Title</h3>
     <p>
         <span class="small">
-            @foreach (var tag in Post.Tags)
+            @if (Post.Tags != null)
             {
-                <a class="tag" href="/tag/@tag">@tag</a>
+                foreach (var tag in Post.Tags)
+                {
+                    <a class="tag" href="/tag/@tag">@tag</a>
+                }
             }
         </span>
         <br />
