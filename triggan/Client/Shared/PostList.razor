@@ -24,6 +24,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        posts = await (await contentManager).GetEntitiesAsync<Post>(PostCount);
+        posts = (await (await contentManager).GetEntitiesAsync<Post>(PostCount)).OrderByDescending(p => p.PublicationDate).ToList();
     }
 }
