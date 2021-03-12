@@ -17,5 +17,7 @@ namespace Model
         public ProjectState State { get; set; }
         public DateTime PublicationDate { get; set; }
         public List<Update> Updates { get; set; } = new List<Update>();
+
+        public DateTime LastUpdate => Updates?.Any() == true ? Updates.Max(u => u.PublicationDate) : PublicationDate;
     }
 }
