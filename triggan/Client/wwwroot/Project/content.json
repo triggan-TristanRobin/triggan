@@ -15,6 +15,7 @@
         "PublicationDate": "2021-01-07T00:00:00"
       }
     ],
+    "LastUpdate": "2021-01-07T00:00:00",
     "Id": "b0cff91f-f85d-4438-bccc-708924dde6ec",
     "Created": "2020-11-25T21:24:58.392+01:00",
     "Updated": "2021-03-01T11:18:42.5231235+01:00",
@@ -38,6 +39,7 @@
         "PublicationDate": "2021-01-12T00:00:00"
       }
     ],
+    "LastUpdate": "2021-01-12T00:00:00",
     "Id": "e5cbd844-08c4-421f-ac85-721a6e39e2d3",
     "Created": "2020-11-25T21:32:39.105+01:00",
     "Updated": "2021-03-01T11:01:03.1357192+01:00",
@@ -54,6 +56,7 @@
     "State": 2,
     "PublicationDate": "2020-11-25T00:00:00+01:00",
     "Updates": [],
+    "LastUpdate": "2020-11-25T00:00:00+01:00",
     "Id": "8f136252-6e21-4e1a-86e9-1c916f9fc04d",
     "Created": "2020-11-25T21:38:31.661+01:00",
     "Updated": "2021-02-02T22:28:15.2819993+01:00",
@@ -70,10 +73,28 @@
     "State": 1,
     "PublicationDate": "2020-11-25T00:00:00+01:00",
     "Updates": [],
+    "LastUpdate": "2020-11-25T00:00:00+01:00",
     "Id": "7abab4bd-6833-4be7-ab38-1fbdf34ea3b2",
     "Created": "2020-11-25T21:45:36.657+01:00",
     "Updated": "2021-03-01T11:20:46.0266193+01:00",
     "Slug": "poudrapatate",
+    "Stars": 0,
+    "Deleted": false
+  },
+  {
+    "Title": "Last Week App",
+    "Views": 0,
+    "Excerpt": "You like self-help habits?\\\nYou like iterative improvement?\\\nYou like tools?\n\n\nWell, I do. I started using Ryan Hildebrandt\u0027s weekly review technic a while ago. You can learn more about my view [here](https://www.triggan.com/blog/weekly).\n\nI will share my progress here, feel free to reach out to me if you want to try it out!",
+    "CoverImagePath": null,
+    "Public": true,
+    "State": 1,
+    "PublicationDate": "2021-05-11T00:00:00+02:00",
+    "Updates": [],
+    "LastUpdate": "2021-05-11T00:00:00+02:00",
+    "Id": null,
+    "Created": "2021-05-11T16:49:57.678+02:00",
+    "Updated": "2021-05-11T16:49:57.678+02:00",
+    "Slug": "lw",
     "Stars": 0,
     "Deleted": false
   }
