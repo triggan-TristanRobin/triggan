@@ -89,11 +89,18 @@
     "Public": true,
     "State": 1,
     "PublicationDate": "2021-05-11T00:00:00+02:00",
-    "Updates": [],
-    "LastUpdate": "2021-05-11T00:00:00+02:00",
+    "Updates": [
+      {
+        "Title": "Current state",
+        "Content": "Let\u0027s summarize the current state of this application!\n\nI am developing the app using full .NET C# with the help of the cross platform component to be mobile. It\u0027s also my \u0022presentation\u0022 application: something I can share and talk about technically.\u003Csup\u003E\u003Csub\u003E_(thought it\u0027s currently not very complex)_\u003C/sub\u003E\u003C/sup\u003E\n\nTo get a grasp of the goal: I wanted something to help me do my weekly reviews. So you can fill in your reviews all week long and only validate it when the time comes. You can set a few different type of modules to make the review, and more will come.\n\nAn app I\u0027ve been working on from time to time. It\u0027s now time to get to something more reliable and enjoyable!",
+        "Created": "2021-05-11T16:58:13.815+02:00",
+        "PublicationDate": "2021-05-11T16:58:13.815+02:00"
+      }
+    ],
+    "LastUpdate": "2021-05-11T16:58:13.815+02:00",
     "Id": null,
     "Created": "2021-05-11T16:49:57.678+02:00",
-    "Updated": "2021-05-11T16:49:57.678+02:00",
+    "Updated": "2021-05-11T16:59:31.6179148+02:00",
     "Slug": "lw",
     "Stars": 0,
     "Deleted": false
