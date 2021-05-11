@@ -32,5 +32,22 @@
     "Slug": "driver",
     "Stars": 0,
     "Deleted": false
+  },
+  {
+    "Title": "How was your week?",
+    "Views": 0,
+    "Content": "I learnt about Ryan Hildebrandt\u0027s habit called the [weekly review](http://ryanhildebrandt.com/weekly-review/) in 2018.\nThough I didn\u0027t do as many crazy stuff as he had since, I can clearly tell this is a habit worth trying.\n\nThere are _many_ habits you can find to help you improved your life, productivity, health and so on. I won\u0027t lie to you, not every one of them will be useful for you. Sometimes you can even come across utterly useless methods.\n\nSo what I\u0027m discussing here is just something I tried.\nThe weekly review is just something really simple to help you take a step back from the events of your life. As you go through a list of questions to view your last week with positivity and in an __improvement focused__ mindset, you will find yourself enjoying more the days that you are checking. You will see more ways to improve rather than just \u0022bad\u0022 behaviors your might have had.\n\nAs a software engineer, I can\u0027t help but to think of it as the agile method \u0022sprint retrospective\u0022 adapted weekly to your life.\n\n\nI am currently working on an application called [Last Week](http://localhost:6593/project/lw) to help me fill the reviews, check it out!\n\n\nAnd if you try the habit, in any way, please share it, I would love to discuss!",
+    "Excerpt": "Do you know how was your last week?\nA review can sometimes be useful!",
+    "CoverImagePath": null,
+    "Public": true,
+    "Type": 0,
+    "PublicationDate": "2021-05-11T00:00:00+02:00",
+    "Tags": null,
+    "Id": null,
+    "Created": "2021-05-11T11:21:18.067+02:00",
+    "Updated": "2021-05-11T11:21:18.067+02:00",
+    "Slug": "weekly",
+    "Stars": 0,
+    "Deleted": false
   }
 ]
