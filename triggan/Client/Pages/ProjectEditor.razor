@@ -12,47 +12,49 @@
     else
     {
         <div class="row">
-            <GitLogger @ref="logger"/>
-            <EditForm Model=@project OnSubmit="@UploadProject" class="form-group" style="width: 50%;">
-                <div class="form-group">
-                    <div>
-                        <label for="Title">Title</label>
-                        <KeystrokeTextInput @bind-Value=project.Title />
-                    </div>
-                    <div class="row" style="flex-wrap: wrap;padding-top: 0.5em;padding-bottom: 0.5em;">
-                        <label for="Slug">Slug</label>
-                        <InputText @bind-Value=project.Slug />
-                        <label for="Public">Public</label>
-                        <InputCheckbox @bind-Value=project.Public />
-                    </div>
-                    <div>
-                        <label for="CoverImagePath">CoverImagePath</label>
-                        <InputText @bind-Value=project.CoverImagePath />
-                    </div>
-                    <div class="row" style="flex-wrap: wrap;padding-top: 0.5em;padding-bottom: 0.5em;">
-                        <div class="form-group">
-                            <label for="PublicationDate">Publication Date</label>
-                            <InputDate @bind-Value=project.PublicationDate />
+            <div style="width: 50%;">
+                <GitLogger @ref="logger"/>
+                <EditForm Model=@project OnSubmit="@UploadProject" class="form-group">
+                    <div class="form-group">
+                        <div>
+                            <label for="Title">Title</label>
+                            <KeystrokeTextInput @bind-Value=project.Title />
                         </div>
-                        <label for="Sate">State</label>
-                        <div class="row">
-                            <InputSelect @bind-Value=project.State>
-                                @foreach (var state in Enum.GetValues<Model.Enums.ProjectState>())
-                                    {
-                                    <option value="@state" label="@StateToString(state)"></option>
-                                    }
-                            </InputSelect>
-                            <i class="fas fa-angle-down"></i>
+                        <div class="row" style="flex-wrap: wrap;padding-top: 0.5em;padding-bottom: 0.5em;">
+                            <label for="Slug">Slug</label>
+                            <InputText @bind-Value=project.Slug />
+                            <label for="Public">Public</label>
+                            <InputCheckbox @bind-Value=project.Public />
+                        </div>
+                        <div>
+                            <label for="CoverImagePath">CoverImagePath</label>
+                            <InputText @bind-Value=project.CoverImagePath />
+                        </div>
+                        <div class="row" style="flex-wrap: wrap;padding-top: 0.5em;padding-bottom: 0.5em;">
+                            <div class="form-group">
+                                <label for="PublicationDate">Publication Date</label>
+                                <InputDate @bind-Value=project.PublicationDate />
+                            </div>
+                            <label for="Sate">State</label>
+                            <div class="row">
+                                <InputSelect @bind-Value=project.State>
+                                    @foreach (var state in Enum.GetValues<Model.Enums.ProjectState>())
+                                        {
+                                        <option value="@state" label="@StateToString(state)"></option>
+                                        }
+                                </InputSelect>
+                                <i class="fas fa-angle-down"></i>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="Content">Project excerpt</label>
-                    <KeystrokeTextArea @bind-Value=project.Excerpt Rows="30" />
-                </div>
-                <button type="submit" class=""><span class="@submitClass"></span>@submitText</button>
-                <span class="small" style="margin: 1em auto;">@result</span>
-            </EditForm>
+                    <div class="form-group">
+                        <label for="Content">Project excerpt</label>
+                        <KeystrokeTextArea @bind-Value=project.Excerpt Rows="30" />
+                    </div>
+                    <button type="submit" class=""><span class="@submitClass"></span>@submitText</button>
+                    <span class="small" style="margin: 1em auto;">@result</span>
+                </EditForm>
+            </div>
 
             <div class="post" style="width: 50%;">
                 <img class="" src="@project.CoverImagePath" alt="Project banner">
@@ -100,7 +102,7 @@
         submitText = "";
         StateHasChanged();
         var success = false;
-        var tupleResult = await logger.RunWithLogin(async () => await (await contentManager).PostEntityAsync<Project>(Slug, project));
+        var tupleResult = await logger.RunWithLogin(async () => await (await contentManager).PostEntityAsync<Project>(Slug ?? project.Slug, project));
         result = tupleResult.Item1;
         success = tupleResult.Item2;
         result = success ? "Your project is saved on the site! Redirecting..." : result;

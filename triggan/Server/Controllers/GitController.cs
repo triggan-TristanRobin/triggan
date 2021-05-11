@@ -50,8 +50,11 @@ namespace triggan.Server.Controllers
             {
                 CredentialsProvider = (_url, _user, _cred) => credentials
             };
-            var clonePath = @"C:\trigganClone";
-            //var clonePath = Path.Combine(Directory.GetCurrentDirectory(), "trigganClone");
+#if DEBUG
+            var clonePath = @"E:\Programs\triggan\Temp";
+#else
+            var clonePath = Path.Combine(Directory.GetCurrentDirectory(), "Temp");
+#endif
             string clonedRepoPath = Repository.Clone("https://github.com/triggan-TristanRobin/triggan", clonePath, options);
             Console.WriteLine($"Cloned here : {clonedRepoPath}");
 
@@ -89,9 +92,27 @@ namespace triggan.Server.Controllers
                 // push
                 repo.Network.Push(currentBranch, new PushOptions { CredentialsProvider = (_url, _user, _cred) => credentials });
             }
-            Directory.Delete(clonePath, true);
+            var directory = Directory.CreateDirectory(clonePath);
+            RemoveReadOnlyAttributes(directory);
+            directory.Delete(true);
 
             return true;
+        }
+
+        public void RemoveReadOnlyAttributes(DirectoryInfo directory, bool recursive = true)
+        {
+            directory.Attributes = directory.Attributes & ~FileAttributes.ReadOnly;
+
+            if(recursive)
+            {
+                var files = directory.GetFiles();
+                var subDirs = directory.GetDirectories();
+                Array.ForEach(files, (f) =>
+                {
+                    System.IO.File.SetAttributes(f.FullName, FileAttributes.Normal);
+                });
+                Array.ForEach(subDirs, d => RemoveReadOnlyAttributes(d));
+            }
         }
 
         public void StageChanges(Repository repo)
