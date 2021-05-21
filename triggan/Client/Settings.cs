@@ -9,9 +9,11 @@ namespace triggan.Client
         public string LocalUrl { get; set; }
         public bool UseLocal { get; set; }
 
-        public string GetFullUrl(string type, string param = null, string route = null, bool local = true)
+        public string GetFullUrl(string type, string param = null, string route = null, bool? local = null)
         {
-            return (local ? LocalUrl : OnlineUrl).Replace("{type}", type).Replace("{route}", route).Replace("{param}", param).Replace("//", "/");
+            var path = ((local ?? UseLocal) ? LocalUrl : OnlineUrl).Replace("{type}", type).Replace("{route}", route).Replace("{param}", param);
+            if (local ?? UseLocal) path = path.Replace("//", "/");
+            return path;
         }
     }
 }

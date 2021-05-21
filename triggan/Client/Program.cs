@@ -23,8 +23,10 @@ namespace triggan.Client
             builder.Services.AddSingleton(async p =>
             {
                 var httpClient = p.GetRequiredService<HttpClient>();
-                return await httpClient.GetFromJsonAsync<Settings>("settings.json")
+                var settings = await httpClient.GetFromJsonAsync<Settings>("settings.json")
                     .ConfigureAwait(false);
+                settings.UseLocal = true;
+                return settings;
             });
             builder.Services.AddSingleton(async p => new ContentManager(await p.GetRequiredService<Task<Settings>>(), p.GetRequiredService<HttpClient>()));
             builder.Services.AddBlazorDownloadFile();

@@ -26,7 +26,12 @@ namespace triggan.Client
 
         public async Task<List<T>> GetEntitiesAsync<T>(int count = 0) where T : Entity
         {
-            var tmp = (await Http.GetFromJsonAsync<IEnumerable<T>>(Settings.GetFullUrl($"{typeof(T).Name}", count.ToString())));
+            var url = Settings.GetFullUrl($"{typeof(T).Name}", count.ToString());
+            Console.WriteLine($"Retrieving entities from {url}");
+            var fullTextReply = await Http.GetAsync(url);
+            Console.WriteLine(fullTextReply.StatusCode);
+            Console.WriteLine(await fullTextReply.Content.ReadAsStringAsync());
+            var tmp = (await Http.GetFromJsonAsync<IEnumerable<T>>(url));
             return (count > 0 ? tmp.Take(count) : tmp).ToList();
         }
 
