@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Model;
-using triggan.Interfaces;
+using DataAccessLayer.Interfaces;
 
 namespace triggan.Server.Controllers
 {

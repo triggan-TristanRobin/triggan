@@ -3,15 +3,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Data;
 using Microsoft.EntityFrameworkCore;
-using triggan.Interfaces;
+using DataAccessLayer.Interfaces;
 using Model;
 using System.Configuration;
 using DataAccessLayer;
 using System.Diagnostics;
 using System;
-using Data.Helpers;
+using DataAccessLayer.Helpers;
 
 namespace triggan.Server
 {

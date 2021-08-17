@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Data.Migrations
+namespace DataAccessLayer.Migrations
 {
     public partial class AddMessage : Migration
     {

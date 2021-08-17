@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Model;
-using Data;
-using triggan.Interfaces;
 using System.Linq.Expressions;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using DataAccessLayer.Interfaces;
 
 namespace DataAccessLayer
 {

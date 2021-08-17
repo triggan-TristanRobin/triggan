@@ -1,0 +1,108 @@
+[
+  {
+    "Title": "Logan \u0026 Willow - The book",
+    "Views": 0,
+    "Excerpt": "This year my wife and I felt the need to work on a shared project.  What could be better than a projet about our son?  \nSo we came out with this crazy idea of writing a *children\u0027s book*.\n\nTake a look at the story of **Logan and Willow**!\n",
+    "CoverImagePath": null,
+    "Public": true,
+    "State": 1,
+    "PublicationDate": "2020-11-25T00:00:00+01:00",
+    "Updates": [
+      {
+        "Title": "Sketched and checked!",
+        "Content": "I love word play.\n\nBeing more serious, we finished what I could call the storyboard! We did premilinary sketches of all the story (which is fully written).\n\nNext step: start actual drawings or visual search.",
+        "Created": "2021-01-14T10:40:05.931+01:00",
+        "PublicationDate": "2021-01-07T00:00:00"
+      }
+    ],
+    "LastUpdate": "2021-01-07T00:00:00",
+    "Id": "b0cff91f-f85d-4438-bccc-708924dde6ec",
+    "Created": "2020-11-25T21:24:58.392+01:00",
+    "Updated": "2021-03-01T11:18:42.5231235+01:00",
+    "Slug": "loganwillow",
+    "Stars": 0,
+    "Deleted": false
+  },
+  {
+    "Title": "Little Chef Logan",
+    "Views": 0,
+    "Excerpt": "There are many ways to spend your time. But what I think is one of the best: *familly time*.  \nThat should definitively \u003Cu\u003Enot\u003C/u\u003E stop you from doing something else also.\n\nAs I *love* my son, and as I love cooking, what should I do? Well do both obviously!  \nThat\u0027s how **Little Chef Logan** was born: I wanted to enjoy spending time with him and take time to cook. I wanted to share some stuff I can do with my 2 years old son at cooking!",
+    "CoverImagePath": "https://lh3.googleusercontent.com/fULYKVBEuug7lb5UbM46-8eSTNpKDoeyZkbRbntXIHXm0gW3_P9gSBfDZDWt-aQHEjN-csOnBM_x3FdgzMPGtNKXDC9GH-9ugHSRX3rjtJOIOKPl18_li7TcCpHXTwZIIhbJNuUgN9I=w2400",
+    "Public": true,
+    "State": 1,
+    "PublicationDate": "2020-11-25T00:00:00+01:00",
+    "Updates": [
+      {
+        "Title": "Settling on video edit",
+        "Content": "I\u0027ve been putting this project aside for some time now for a various of bad reasons.\n\nFrom the first list of recipes I should do for this series, I\u0027ve filmed 5 out of 10. Some of the remaining recipes should be done sometime else (red fruits or tomato in winter? Nope).\n\nFrom these filmed cooking sessions, I\u0027ve struggled to get a good result. But I also thought that if I keep delaying the video editing part, the publish part, I wouldn\u0027t do it at all. So after a few hours of reviewing, I decided upon a recipe (which one? surprise) and though it\u0027s far from perfect, I\u0027ll edit what I have before trying to film something else.\n\n\nSee you soon for more food!",
+        "Created": "2021-01-14T11:25:56.333+01:00",
+        "PublicationDate": "2021-01-12T00:00:00"
+      }
+    ],
+    "LastUpdate": "2021-01-12T00:00:00",
+    "Id": "e5cbd844-08c4-421f-ac85-721a6e39e2d3",
+    "Created": "2020-11-25T21:32:39.105+01:00",
+    "Updated": "2021-03-01T11:01:03.1357192+01:00",
+    "Slug": "lcl",
+    "Stars": 0,
+    "Deleted": false
+  },
+  {
+    "Title": "triggan",
+    "Views": 0,
+    "Excerpt": "This starts to look like a mise en abyme.  \nAnyway, here you might find stuff regard this specific website.\n\nThe updates will cover functionalities and else. But let\u0027s be honest it\u0027s mostly interesting if you\u0027re interested in .NET or related development stuff!",
+    "CoverImagePath": "https://lh3.googleusercontent.com/OulCwYl29JOorS1gY3E72ZmNJaN2k2zcr26K9oU0U5vsDTBsTCxFfuBgGz-lCrs-PCh2IIk1clDjyWUAcljmjaZN-VTFxX3eWjxMquIeJ7bcqGflKOfB5zcMvGSjaL6uWL48qbeBb34=w2400",
+    "Public": true,
+    "State": 2,
+    "PublicationDate": "2020-11-25T00:00:00+01:00",
+    "Updates": [],
+    "LastUpdate": "2020-11-25T00:00:00+01:00",
+    "Id": "8f136252-6e21-4e1a-86e9-1c916f9fc04d",
+    "Created": "2020-11-25T21:38:31.661+01:00",
+    "Updated": "2021-02-02T22:28:15.2819993+01:00",
+    "Slug": "triggan",
+    "Stars": 0,
+    "Deleted": false
+  },
+  {
+    "Title": "Poudr\u0027a Patate",
+    "Views": 0,
+    "Excerpt": "My first card game! It all comes from a night out with some friends and trying not that interesting ideas with standard cards.\n\nThen, I ended up creating first fules of a card game bases on **potatoes**.\n\nAnd after a few years, here we are, with a fully (badly) designed game!",
+    "CoverImagePath": null,
+    "Public": true,
+    "State": 1,
+    "PublicationDate": "2020-11-25T00:00:00+01:00",
+    "Updates": [],
+    "LastUpdate": "2020-11-25T00:00:00+01:00",
+    "Id": "7abab4bd-6833-4be7-ab38-1fbdf34ea3b2",
+    "Created": "2020-11-25T21:45:36.657+01:00",
+    "Updated": "2021-03-01T11:20:46.0266193+01:00",
+    "Slug": "poudrapatate",
+    "Stars": 0,
+    "Deleted": false
+  },
+  {
+    "Title": "Last Week App",
+    "Views": 0,
+    "Excerpt": "You like self-help habits?\\\nYou like iterative improvement?\\\nYou like tools?\n\n\nWell, I do. I started using Ryan Hildebrandt\u0027s weekly review technic a while ago. You can learn more about my view [here](https://www.triggan.com/blog/weekly).\n\nI will share my progress here, feel free to reach out to me if you want to try it out!",
+    "CoverImagePath": null,
+    "Public": true,
+    "State": 1,
+    "PublicationDate": "2021-05-11T00:00:00+02:00",
+    "Updates": [
+      {
+        "Title": "Current state",
+        "Content": "Let\u0027s summarize the current state of this application!\n\nI am developing the app using full .NET C# with the help of the cross platform component to be mobile. It\u0027s also my \u0022presentation\u0022 application: something I can share and talk about technically.\u003Csup\u003E\u003Csub\u003E_(thought it\u0027s currently not very complex)_\u003C/sub\u003E\u003C/sup\u003E\n\nTo get a grasp of the goal: I wanted something to help me do my weekly reviews. So you can fill in your reviews all week long and only validate it when the time comes. You can set a few different type of modules to make the review, and more will come.\n\nAn app I\u0027ve been working on from time to time. It\u0027s now time to get to something more reliable and enjoyable!",
+        "Created": "2021-05-11T16:58:13.815+02:00",
+        "PublicationDate": "2021-05-11T16:58:13.815+02:00"
+      }
+    ],
+    "LastUpdate": "2021-05-11T16:58:13.815+02:00",
+    "Id": null,
+    "Created": "2021-05-11T16:49:57.678+02:00",
+    "Updated": "2021-05-11T16:59:31.6179148+02:00",
+    "Slug": "lw",
+    "Stars": 0,
+    "Deleted": false
+  }
+]

@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using Model.Enums;
-using triggan.Interfaces;
+using DataAccessLayer.Interfaces;
 
 namespace triggan.Server.Controllers
 {

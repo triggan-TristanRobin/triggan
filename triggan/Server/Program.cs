@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using Data;
+using DataAccessLayer;
 using System.Diagnostics;
 
 namespace triggan.Server

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Model;
-using Data;
-using triggan.Interfaces;
+using DataAccessLayer.Interfaces;
 using System.Linq.Expressions;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;

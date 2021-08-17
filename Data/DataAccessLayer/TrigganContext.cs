@@ -2,10 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Collections.Generic;
-using Data.Helpers;
+using DataAccessLayer.Helpers;
 using System.Linq;
 
-namespace Data
+namespace DataAccessLayer
 {
     public class TrigganContext : DbContext
 	{

@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\DataAccessLayer\DataAccessLayer.csproj" />
     <ProjectReference Include="..\..\Data\Model\Model.csproj" />
     <ProjectReference Include="..\Server\triggan.Server.csproj" />
   </ItemGroup>
