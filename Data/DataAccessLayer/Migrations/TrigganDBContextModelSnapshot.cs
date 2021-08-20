@@ -15,15 +15,16 @@ namespace DataAccessLayer.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.9")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Model.Entity", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
@@ -59,9 +60,10 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("Model.Message", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
@@ -157,13 +159,13 @@ namespace DataAccessLayer.Migrations
                 {
                     b.OwnsMany("Model.Update", "Updates", b1 =>
                         {
-                            b1.Property<string>("ProjectId")
-                                .HasColumnType("nvarchar(450)");
+                            b1.Property<int>("ProjectId")
+                                .HasColumnType("int");
 
                             b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int")
-                                .UseIdentityColumn();
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                             b1.Property<string>("Content")
                                 .HasColumnType("nvarchar(max)");

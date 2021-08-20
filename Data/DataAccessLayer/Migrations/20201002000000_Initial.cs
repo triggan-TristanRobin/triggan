@@ -15,6 +15,7 @@ namespace DataAccessLayer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Created = table.Column<DateTime>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: false),
+                    Stars = table.Column<int>(nullable: false),
                     Slug = table.Column<string>(nullable: true),
                     Deleted = table.Column<bool>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),

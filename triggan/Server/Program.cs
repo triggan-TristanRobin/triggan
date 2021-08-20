@@ -6,6 +6,10 @@ using Microsoft.Extensions.Logging;
 using System;
 using DataAccessLayer;
 using System.Diagnostics;
+using System.IO;
+using System.Text.Json;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace triggan.Server
 {
@@ -28,7 +32,7 @@ namespace triggan.Server
                 try
                 {
                     var context = services.GetRequiredService<TrigganContext>();
-                    //DbInitializer.Initialize(context);
+                    DbInitializer.Initialize(context, AppDomain.CurrentDomain.BaseDirectory);
                 }
                 catch (Exception ex)
                 {

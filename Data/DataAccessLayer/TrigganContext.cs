@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Collections.Generic;
 using DataAccessLayer.Helpers;
 using System.Linq;
+using System;
 
 namespace DataAccessLayer
 {
@@ -35,9 +36,6 @@ namespace DataAccessLayer
         protected void OnMSModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Entity>().HasKey(e => e.Id);
-			modelBuilder.Entity<Entity>().Property(e => e.Id).ValueGeneratedOnAdd();
-			modelBuilder.Entity<Entity>().Property(e => e.Created).ValueGeneratedOnAdd();
-			modelBuilder.Entity<Entity>().Property(e => e.Updated).ValueGeneratedOnAddOrUpdate();
 			modelBuilder.Entity<Entity>().HasIndex(e => e.Slug).IsUnique();
 
 			var splitStringConverter = new ValueConverter<IEnumerable<string>, string>(v => string.Join(";", v), v => v.Split(new[] { ';' }));
@@ -45,9 +43,6 @@ namespace DataAccessLayer
 			modelBuilder.Entity<Project>().OwnsMany(p => p.Updates);
 
 			modelBuilder.Entity<Message>().HasKey(e => e.Id);
-			modelBuilder.Entity<Message>().Property(e => e.Id).ValueGeneratedOnAdd();
-			modelBuilder.Entity<Message>().Property(e => e.Created).ValueGeneratedOnAdd();
-			modelBuilder.Entity<Message>().Property(e => e.Updated).ValueGeneratedOnAddOrUpdate();
 
 			base.OnModelCreating(modelBuilder);
 		}
@@ -117,5 +112,23 @@ namespace DataAccessLayer
 
 			base.OnModelCreating(modelBuilder);
 		}
-    }
+
+		public override int SaveChanges()
+		{
+			var entries = ChangeTracker.Entries().Where(e => e.Entity is Entity && ( e.State == EntityState.Added || e.State == EntityState.Modified));
+
+			foreach (var entityEntry in entries)
+			{
+				var entity = (Entity)entityEntry.Entity;
+				entity.Updated = DateTime.Now;
+
+				if (entityEntry.State == EntityState.Added)
+				{
+					entity.Created = entity.Created == DateTime.MinValue ? DateTime.Now : entity.Created;
+				}
+			}
+
+			return base.SaveChanges();
+		}
+	}
 }

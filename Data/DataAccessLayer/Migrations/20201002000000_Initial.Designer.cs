@@ -39,6 +39,9 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Stars")
+                        .HasColumnType("int");
+
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(450)");
 

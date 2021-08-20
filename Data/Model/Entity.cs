@@ -4,8 +4,8 @@ namespace Model
 {
     public abstract class Entity
     {
-        public string Id { get; set; }
-        public DateTime Created { get; set; } = DateTime.Now;
+        public int Id { get; set; }
+        public DateTime Created { get; set; } = DateTime.MinValue;
         public DateTime Updated { get; set; } = DateTime.Now;
         public string Slug { get; set; }
         public int Stars { get; set; }

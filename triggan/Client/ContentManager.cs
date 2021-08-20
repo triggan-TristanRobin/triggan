@@ -19,7 +19,6 @@ namespace triggan.Client
             Http = httpClient;
         }
 
-        public bool UseLocalDb => Settings?.UseLocal ?? false;
         protected Settings Settings { get; set; }
         protected HttpClient Http { get; }
         protected HttpClient FunctionsHttp { get; } = new HttpClient { BaseAddress = new Uri("https://trigganfunctions.azurewebsites.net") };

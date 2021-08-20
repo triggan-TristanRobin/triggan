@@ -11,6 +11,7 @@ using DataAccessLayer;
 using System.Diagnostics;
 using System;
 using DataAccessLayer.Helpers;
+using Microsoft.Extensions.Logging;
 
 namespace triggan.Server
 {
@@ -47,7 +48,7 @@ namespace triggan.Server
                 case DBProvider.MSSQL:
                     contextName = "trigganContext";
                     Trace.TraceInformation("Retrieving MSSQL DB context with name " + contextName);
-                    services.AddDbContext<TrigganContext>(options => options.UseSqlServer(Configuration.GetConnectionString(contextName)));
+                    services.AddDbContext<TrigganContext>(options => options.UseSqlServer(Configuration.GetConnectionString(contextName)).LogTo(Console.WriteLine, LogLevel.Information));
                     break;
                 case DBProvider.Cosmos:
                     contextName = "trigganCosmos";
