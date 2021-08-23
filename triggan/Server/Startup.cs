@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System;
 using DataAccessLayer.Helpers;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace triggan.Server
 {
@@ -30,14 +31,20 @@ namespace triggan.Server
         {
             Trace.TraceInformation("Configure services");
 
-            services.AddControllersWithViews();
-            services.AddRazorPages();
+            services.AddControllers();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExpensesTracker", Version = "v1" });
+            });
+
 
             services.AddTransient<ISlugRepository<Post>, PostRepository>();
-            services.AddTransient<ISlugRepository<Project>, Repository<Project>>();
+            services.AddTransient<ISlugRepository<Project>, ProjectRepository>();
             services.AddTransient<IRepository<Message>, MessageRepository>();
 
-            SetDBContextService(services, Enum.Parse<DBProvider>(Configuration["DBConfig:Type"]));
+            var conf = Configuration["DBConfig:Type"];
+            SetDBContextService(services, Enum.Parse<DBProvider>(conf));
         }
 
         public void SetDBContextService(IServiceCollection services, DBProvider dbType)
@@ -73,7 +80,9 @@ namespace triggan.Server
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebAssemblyDebugging();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ExpensesTracker v1"));
             }
             else
             {
@@ -83,16 +92,16 @@ namespace triggan.Server
             }
 
             app.UseHttpsRedirection();
-            app.UseBlazorFrameworkFiles();
-            app.UseStaticFiles();
-
             app.UseRouting();
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
                 endpoints.MapControllers();
-                endpoints.MapFallbackToFile("index.html");
             });
         }
     }

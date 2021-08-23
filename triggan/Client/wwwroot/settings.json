@@ -1,4 +1,7 @@
 {
-  "onlineUrl": "api/{type}/{route}/{param}",
-  "localUrl": "{type}/content.json"
+  "onlineUrl": "{type}/{route}/{param}",
+  "apiUri": null,
+  "apiPort": 5001,
+  "localUrl": "{type}/content.json",
+  "useLocal": false
 }

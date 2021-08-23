@@ -16,6 +16,12 @@ namespace Model
         public DateTime PublicationDate { get; set; }
         public List<Update> Updates { get; set; } = new List<Update>();
 
-        public DateTime LastUpdate => Updates?.Any() == true ? Updates.Max(u => u.PublicationDate) : PublicationDate;
+        public DateTime LastUpdate { get; set; } = DateTime.Now;
+
+        public void SetUpdate(Update update)
+        {
+            Updates.Add(update);
+            LastUpdate = Updates.Max(u => u.PublicationDate);
+        }
     }
 }

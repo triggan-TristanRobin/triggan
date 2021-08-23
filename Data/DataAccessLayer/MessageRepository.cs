@@ -27,7 +27,7 @@ namespace DataAccessLayer
             return context.Messages.Find(MessageId);
         }
 
-        public IEnumerable<Message> Get(Expression<Func<Message, bool>> filter = null, Func<IQueryable<Message>, IOrderedQueryable<Message>> orderBy = null, int count = 0, string includeProperties = "")
+        public IEnumerable<Message> Get(Expression<Func<Message, bool>> filter = null, int count = 0, string includeProperties = "")
         {
             IQueryable<Message> query = context.Messages;
             if (filter != null)
@@ -43,7 +43,6 @@ namespace DataAccessLayer
                 }
             }
 
-            query = orderBy != null ? orderBy(query) : query;
             query = count == 0 ? query : query.Take(count);
 
             return query.ToList();

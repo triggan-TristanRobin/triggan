@@ -39,7 +39,7 @@ namespace DataAccessLayer
             return p;
         }
 
-        public IEnumerable<Post> Get(Expression<Func<Post, bool>> filter = null, Func<IQueryable<Post>, IOrderedQueryable<Post>> orderBy = null, int count = 0, string includeProperties = "")
+        public IEnumerable<Post> Get(Expression<Func<Post, bool>> filter = null, int count = 0, string includeProperties = "")
         {
             IQueryable<Post> query = context.Posts;
             if (filter != null)
@@ -55,13 +55,14 @@ namespace DataAccessLayer
                 }
             }
 
-            query = orderBy != null ? orderBy(query) : query;
+            query = query.OrderByDescending(post => post.PublicationDate);
             query = count == 0 ? query : query.Take(count);
 
-            var posts = query.ToList();
-
-            posts.ForEach(p => p.Tags = p.Tags ?? new List<string>());
-            return posts;
+            foreach(var p in query)
+            {
+                p.Tags ??= new List<string>();
+                yield return p;
+            }
         }
 
         public void Insert(Post Post)

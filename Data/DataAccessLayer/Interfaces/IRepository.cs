@@ -11,7 +11,7 @@ namespace DataAccessLayer.Interfaces
 	{
 		IEnumerable<TEntity> GetAll();
 		TEntity Get(int id);
-		IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, int count = 0, string includeProperties = "");
+		IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, int count = 0, string includeProperties = "");
 		void Insert(TEntity tentity);
 		void Update(TEntity tentity);
 		void Delete(TEntity tentity);

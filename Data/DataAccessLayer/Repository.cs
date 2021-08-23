@@ -34,7 +34,7 @@ namespace DataAccessLayer
             return dbSet.FirstOrDefault(e => e.Slug == slug);
         }
 
-        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, int count = 0, string includeProperties = "")
+        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, int count = 0, string includeProperties = "")
         {
             IQueryable<TEntity> query = dbSet;
             if (filter != null)
@@ -50,7 +50,6 @@ namespace DataAccessLayer
                 }
             }
 
-            query = orderBy != null ? orderBy(query) : query;
             query = count == 0 ? query : query.Take(count);
 
             return query.ToList();

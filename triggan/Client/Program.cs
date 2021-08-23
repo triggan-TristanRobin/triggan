@@ -25,7 +25,6 @@ namespace triggan.Client
                 var httpClient = p.GetRequiredService<HttpClient>();
                 var settings = await httpClient.GetFromJsonAsync<Settings>("settings.json")
                     .ConfigureAwait(false);
-                settings.UseLocal = true;
                 return settings;
             });
             builder.Services.AddSingleton(async p => new ContentManager(await p.GetRequiredService<Task<Settings>>(), p.GetRequiredService<HttpClient>()));

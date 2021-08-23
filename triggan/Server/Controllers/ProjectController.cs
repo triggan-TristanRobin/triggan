@@ -18,16 +18,16 @@ namespace triggan.Server.Controllers
             this.repository = repo;
         }
 
-        [HttpGet("[action]")]
-        public IEnumerable<Project> GetAll(int count = 0)
+        [HttpGet]
+        public IEnumerable<Project> Get([FromQuery] int count = 0)
         {
-            return repository.Get(orderBy: source => source.OrderBy(proj => proj.Updated), count: count, includeProperties: "Updates");
+            return repository.Get(count: count, includeProperties: "Updates");
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("{slug}")]
         public Project Get(string slug)
         {
-            return repository.Get(proj => proj.Slug == slug, includeProperties: "Updates").FirstOrDefault();
+            return repository.Get(slug);
         }
     }
 }

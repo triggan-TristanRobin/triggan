@@ -18,13 +18,13 @@ namespace triggan.Server.Controllers
             this.repository = repo;
         }
 
-        [HttpGet("[action]")]
-        public IEnumerable<Post> GetAll(int count = 0)
+        [HttpGet]
+        public IEnumerable<Post> Get([FromQuery] int count = 0)
         {
-            return repository.Get(post => post.Type != PostType.Update, orderBy: source => source.OrderBy(post => post.Updated), count: count);
+            return repository.Get(post => post.Type != PostType.Update, count: count);
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("{slug}")]
         public Post Get(string slug)
         {
             return repository.Get(slug);

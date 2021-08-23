@@ -22,7 +22,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        projects = (await (await contentManager).GetEntitiesAsync<Project>()).OrderByDescending(proj => proj.LastUpdate).Take(ProjectCount).ToList();
+        projects = (await (await contentManager).GetEntitiesAsync<Project>(ProjectCount)).ToList();
     }
 }
 
