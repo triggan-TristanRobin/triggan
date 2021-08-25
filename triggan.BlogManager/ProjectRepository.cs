@@ -9,38 +9,20 @@ namespace triggan.BlogManager
 {
     public class ProjectRepository : Repository<Project>
     {
-        public ProjectRepository(TrigganContext context)
-            : base(context)
-        {
-        }
-
-        public override Project Get(string slug)
-        {
-            var project = dbSet.Include(proj => proj.Updates).FirstOrDefault(e => e.Slug == slug);
-            return project;
-        }
+        public ProjectRepository(TrigganContext context) : base(context) { }
 
         public override IEnumerable<Project> Get(Expression<Func<Project, bool>> filter = null, int count = 0, string includeProperties = "")
         {
-            IQueryable<Project> query = dbSet;
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-
-            if (includeProperties != null)
-            {
-                foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(includeProperty);
-                }
-            }
-
-            query = query.OrderByDescending(p => p.LastUpdate);
-            query = count == 0 ? query : query.Take(count);
-
-            var projects = query.ToList();
+            IEnumerable<Project> projects = base.Get(filter, 0, includeProperties);
+            projects = projects.OrderByDescending(p => p.LastUpdate);
+            projects = count == 0 ? projects : projects.Take(count);
             return projects;
+        }
+
+        public List<Update> GetUpdates(string slug)
+        {
+            var project = dbSet.Include(e => e.Updates).Single(p => p.Slug == slug);
+            return project.Updates;
         }
     }
 }

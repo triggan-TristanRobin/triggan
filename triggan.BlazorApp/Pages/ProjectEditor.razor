@@ -102,7 +102,7 @@
         submitText = "";
         StateHasChanged();
         var success = false;
-        var tupleResult = await logger.RunWithLogin(async () => await (await contentManager).PostEntityAsync<Project>(Slug ?? project.Slug, project));
+        var tupleResult = await logger.RunWithLogin(async () => await (await contentManager).PostOrUpdateEntityAsync<Project>(Slug, project));
         result = tupleResult.Item1;
         success = tupleResult.Item2;
         result = success ? "Your project is saved on the site! Redirecting..." : result;

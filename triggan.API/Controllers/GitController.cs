@@ -14,7 +14,7 @@ namespace triggan.API.Controllers
         private static LibGit2Sharp.Credentials credentials = null;
 
         [HttpPost("[controller]/[action]")]
-        public void Authenticate([FromBody] triggan.BlogModel.Credentials creds)
+        public void Authenticate([FromBody] BlogModel.Credentials creds)
         {
             credentials = new UsernamePasswordCredentials
             {
@@ -142,7 +142,7 @@ namespace triggan.API.Controllers
 
         public void RemoveReadOnlyAttributes(DirectoryInfo directory, bool recursive = true)
         {
-            directory.Attributes = directory.Attributes & ~FileAttributes.ReadOnly;
+            directory.Attributes &= ~FileAttributes.ReadOnly;
 
             if (recursive)
             {

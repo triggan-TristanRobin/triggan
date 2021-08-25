@@ -8,7 +8,7 @@ using triggan.BlogModel;
 
 namespace triggan.BlogManager
 {
-    public class Repository<TEntity> : ISlugRepository<TEntity> where TEntity : Entity
+    public class Repository<TEntity> : IRepository<TEntity>, IDisposable where TEntity : Entity
     {
         internal TrigganContext context;
         internal DbSet<TEntity> dbSet;
@@ -24,14 +24,9 @@ namespace triggan.BlogManager
             return dbSet.ToList();
         }
 
-        public virtual TEntity Get(int id)
-        {
-            return dbSet.Find(id);
-        }
-
         public virtual TEntity Get(string slug)
         {
-            return dbSet.FirstOrDefault(e => e.Slug == slug);
+            return dbSet.SingleOrDefault(e => e.Slug == slug);
         }
 
         public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, int count = 0, string includeProperties = "")
@@ -52,12 +47,34 @@ namespace triggan.BlogManager
 
             query = count == 0 ? query : query.Take(count);
 
-            return query.ToList();
+            return query.AsEnumerable();
         }
 
-        public virtual void Insert(TEntity entity)
+        public virtual void Add(TEntity updatedEntity)
         {
-            dbSet.Add(entity);
+            var entity = dbSet.SingleOrDefault(e => e.Slug == updatedEntity.Slug);
+            if (entity != null)
+            {
+                throw new DbUpdateException($"Cannot add entity with existing slug {updatedEntity.Slug}");
+            }
+            else
+            {
+                dbSet.Add(updatedEntity);
+            }
+        }
+
+        public virtual void Update(string slug, TEntity updatedEntity)
+        {
+            var entity = dbSet.SingleOrDefault(e => e.Slug == slug);
+            if (entity != null)
+            {
+                entity.Update(updatedEntity);
+                dbSet.Update(entity);
+            }
+            else
+            {
+                dbSet.Add(updatedEntity);
+            }
         }
 
         public virtual void Delete(object id)
@@ -75,23 +92,14 @@ namespace triggan.BlogManager
             dbSet.Remove(entityToDelete);
         }
 
-        public virtual void Update(TEntity entityToUpdate)
-        {
-            dbSet.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
-        }
-
         public void Save()
         {
             context.SaveChanges();
         }
-    }
 
-    public static class RepositoryExtensions
-    {
-        public static Entity Get(this Repository<Entity> repository, string slug)
+        public void Dispose()
         {
-            return repository.dbSet.FirstOrDefault(e => e.Slug == slug);
+            Save();
         }
     }
 }

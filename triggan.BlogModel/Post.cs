@@ -14,6 +14,6 @@ namespace triggan.BlogModel
         public bool Public { get; set; }
         public PostType Type { get; set; }
         public DateTime PublicationDate { get; set; }
-        public IEnumerable<string> Tags { get; set; }
+        public IEnumerable<string> Tags { get; set; } = new List<string>();
     }
 }

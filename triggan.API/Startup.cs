@@ -37,9 +37,7 @@ namespace triggan.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExpensesTracker", Version = "v1" });
             });
 
-            services.AddTransient<ISlugRepository<Post>, PostRepository>();
-            services.AddTransient<ISlugRepository<Project>, ProjectRepository>();
-            services.AddTransient<IRepository<Message>, MessageRepository>();
+            services.AddTransient<BlogAccessor>();
 
             var conf = Configuration["DBConfig:Type"];
             SetDBContextService(services, Enum.Parse<DBProvider>(conf));

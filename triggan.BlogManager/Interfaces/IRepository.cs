@@ -4,17 +4,21 @@ using System.Linq.Expressions;
 
 namespace triggan.BlogManager.Interfaces
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository
+    {
+
+    }
+
+    public interface IRepository<TEntity> : IRepository where TEntity : class
     {
         IEnumerable<TEntity> GetAll();
 
-        TEntity Get(int id);
+        TEntity Get(string slug);
 
         IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, int count = 0, string includeProperties = "");
 
-        void Insert(TEntity tentity);
-
-        void Update(TEntity tentity);
+        void Add(TEntity tentity);
+        void Update(string slug, TEntity tentity);
 
         void Delete(TEntity tentity);
 

@@ -8,7 +8,7 @@ using triggan.BlogModel;
 
 namespace triggan.BlogManager
 {
-    public class MessageRepository : IRepository<Message>
+    public class MessageRepository
     {
         private readonly TrigganContext context;
 

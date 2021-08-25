@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using triggan.BlogManager;
 using triggan.BlogManager.Interfaces;
 using triggan.BlogModel;
 
@@ -9,23 +10,70 @@ namespace triggan.API.Controllers
     [Route("[controller]")]
     public class ProjectController : ControllerBase
     {
-        private readonly ISlugRepository<Project> repository;
+        private readonly BlogAccessor accessor;
 
-        public ProjectController(ISlugRepository<Project> repo)
+        public ProjectController(BlogAccessor accessor)
         {
-            this.repository = repo;
+            this.accessor = accessor;
         }
 
         [HttpGet]
         public IEnumerable<Project> Get([FromQuery] int count = 0)
         {
-            return repository.Get(count: count, includeProperties: "Updates");
+            return accessor.GetAll<Project>(count);
         }
 
         [HttpGet("{slug}")]
-        public Project Get(string slug)
+        public Project Get(string slug, [FromQuery] bool withUpdates = false)
         {
-            return repository.Get(slug);
+            var project = accessor.Get(slug) as Project;
+            if(withUpdates)
+            {
+                project.Updates = accessor.GetProjectUpdates(slug);
+            }
+            return project;
+        }
+
+        [HttpGet("{slug}/Updates")]
+        public List<Update> Get(string slug)
+        {
+            return accessor.GetProjectUpdates(slug);
+        }
+
+        [HttpPost()]
+        public Project Post(Project project)
+        {
+            return accessor.Add(project);
+        }
+
+        [HttpPost("{slug}/Updates")]
+        public Project Update(string slug, Update update)
+        {
+            return accessor.AddUpdate(slug, update);
+        }
+
+        [HttpPut("{slug}")]
+        public Project Put(string slug, Project project)
+        {
+            return accessor.Update(slug, project);
+        }
+
+        [HttpPut("{slug}/Updates")]
+        public Project Update(string slug, List<Update> updates)
+        {
+            return accessor.SetUpdates(slug, updates);
+        }
+
+        [HttpDelete("{slug}")]
+        public Project Delete(string slug)
+        {
+            return accessor.Delete(slug) as Project;
+        }
+
+        [HttpPost("{slug}/[action]")]
+        public int Star(string slug)
+        {
+            return accessor.Star(slug);
         }
     }
 }

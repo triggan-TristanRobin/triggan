@@ -16,7 +16,7 @@
                 .Replace("{param}", param)
                 .Replace("//", "/")
                 .Trim('/')
-                + ((local ?? UseLocal) ? "" : $"?{queryParam}");
+                + ((local ?? UseLocal || string.IsNullOrEmpty(queryParam)) ? "" : $"?{queryParam}");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using triggan.BlogManager;
 using triggan.BlogManager.Interfaces;
 using triggan.BlogModel;
 using triggan.BlogModel.Enums;
@@ -10,23 +11,47 @@ namespace triggan.API.Controllers
     [Route("[controller]")]
     public class PostController : ControllerBase
     {
-        private readonly ISlugRepository<Post> repository;
+        private readonly BlogAccessor accessor;
 
-        public PostController(ISlugRepository<Post> repo)
+        public PostController(BlogAccessor accessor)
         {
-            this.repository = repo;
+            this.accessor = accessor;
         }
 
         [HttpGet]
         public IEnumerable<Post> Get([FromQuery] int count = 0)
         {
-            return repository.Get(post => post.Type != PostType.Update, count: count);
+            return accessor.GetAll<Post>(count);
         }
 
         [HttpGet("{slug}")]
         public Post Get(string slug)
         {
-            return repository.Get(slug);
+            return accessor.Get(slug) as Post;
+        }
+
+        [HttpPost()]
+        public Post Post(Post post)
+        {
+            return accessor.Add(post);
+        }
+
+        [HttpPut("{slug}")]
+        public Post Put(string slug, Post post)
+        {
+            return accessor.Update(slug, post);
+        }
+
+        [HttpDelete("{slug}")]
+        public Post Delete(string slug)
+        {
+            return accessor.Delete(slug) as Post;
+        }
+
+        [HttpPost("{slug}/[action]")]
+        public int Star(string slug)
+        {
+            return accessor.Star(slug);
         }
     }
 }

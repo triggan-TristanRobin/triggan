@@ -30,7 +30,7 @@ namespace triggan.API.Controllers
         [HttpPost]
         public void Insert(Message message)
         {
-            repository.Insert(message);
+            repository.Add(message);
             repository.Save();
         }
 

@@ -1,32 +1,44 @@
 ﻿@inject HttpClient Http
 
-<EditForm Model=@creds class="form-group">
-    <div class="form-group">
-        <label for="creds">Git credentils</label>
-        <div>
-            <InputText @bind-Value=creds.Id />
-            <InputText type="password" placeholder="Password" @bind-Value=creds.Password />
+@if(enabled)
+{
+    <EditForm Model=@creds class="form-group">
+        <div class="form-group">
+            <label for="creds">Git credentils</label>
+            <div>
+                <InputText @bind-Value=creds.Id />
+                <InputText type="password" placeholder="Password" @bind-Value=creds.Password />
+            </div>
         </div>
-    </div>
-</EditForm>
+    </EditForm>
+}
 
 @code {
     private Credentials creds = new Credentials();
+    private bool enabled = false;
 
     public async Task<Tuple<string, T>> RunWithLogin<T>(Func<Task<T>> func)
     {
         var resultValue = default(T);
         var resultStr = "Cannot currently process this function without credentials for git";
-        if (!string.IsNullOrEmpty(creds.Id))
+        if(enabled)
         {
-            var authenticated = await Http.PostAsJsonAsync<Credentials>("/Git/Authenticate", creds);
-            if (authenticated.IsSuccessStatusCode)
+            if (!string.IsNullOrEmpty(creds.Id))
             {
-                resultStr = "Unfortunately, an error occurred while processing function inside git logger. Please try again later.";
-                resultValue = await func();
+                var authenticated = await Http.PostAsJsonAsync<Credentials>("/Git/Authenticate", creds);
+                if (authenticated.IsSuccessStatusCode)
+                {
+                    resultStr = "Unfortunately, an error occurred while processing function inside git logger. Please try again later.";
+                    resultValue = await func();
+                }
+                else
+                    resultStr = "Could not login with these credentials.";
             }
-            else
-                resultStr = "Could not login with these credentials.";
+        }
+        else
+        {
+            resultStr = "Git logger disabled, running function as is.";
+            resultValue = await func();
         }
         return new Tuple<string, T>(resultStr, resultValue);
     }
