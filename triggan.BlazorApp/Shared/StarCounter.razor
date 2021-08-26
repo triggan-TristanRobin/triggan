@@ -36,26 +36,14 @@
     [Parameter]
     public EventCallback<int> CountChanged { get; set; }
 
-    private void Star()
+    private async Task Star()
     {
         if (clicked) return;
         clicked = true;
         Count += IsCounter ? 1 : 0;
         StateHasChanged();
 
-        // Actual feature currently desable.
-        //var result = -1;
-        //var concreteType = typeof(Entity).Assembly.GetType($"Model.{Type}");
-        //if (concreteType.IsSubclassOf(typeof(Entity)))
-        //{
-        //    Console.WriteLine(concreteType);
-        //    var task = (Task)typeof(ContentManager).GetMethod("StarEntity").MakeGenericMethod(concreteType).Invoke(await contentManager, new object[] { Slug });
-        //    await task.ConfigureAwait(false);
-        //    result = (int)task.GetType().GetProperty("Result").GetValue(task);
-        //    Console.WriteLine("Found? " + Count);
-        //}
-        //inError = result == -1;
-        //Count = inError ? Count : result;
-        //StateHasChanged();
+        inError = !(await (await contentManager).StarEntity(Slug));
+        StateHasChanged();
     }
 }

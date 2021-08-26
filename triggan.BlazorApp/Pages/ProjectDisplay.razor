@@ -27,7 +27,7 @@
                 @((MarkupString)Markdig.Markdown.ToHtml(update.Content))
             </div>
         }
-        <StarCounter Slug="@project.Slug" Type="Project" IsCounter="false" @bind-Count=@project.Stars />
+        <StarCounter Slug="@project.Slug" Type="Project" IsCounter="true" @bind-Count=@project.Stars />
         <br />
         <a href="/projects">Back</a>
     }

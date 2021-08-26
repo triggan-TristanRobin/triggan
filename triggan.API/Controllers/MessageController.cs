@@ -24,7 +24,7 @@ namespace triggan.API.Controllers
         [HttpGet]
         public IEnumerable<Message> Get()
         {
-            return repository.GetAll();
+            return repository.Get();
         }
 
         [HttpPost]

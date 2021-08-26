@@ -24,18 +24,14 @@ namespace triggan.API.Controllers
         }
 
         [HttpGet("{slug}")]
-        public Project Get(string slug, [FromQuery] bool withUpdates = false)
+        public Project Get(string slug)
         {
             var project = accessor.Get(slug) as Project;
-            if(withUpdates)
-            {
-                project.Updates = accessor.GetProjectUpdates(slug);
-            }
             return project;
         }
 
         [HttpGet("{slug}/Updates")]
-        public List<Update> Get(string slug)
+        public List<Update> GetUpdates(string slug)
         {
             return accessor.GetProjectUpdates(slug);
         }
@@ -68,12 +64,6 @@ namespace triggan.API.Controllers
         public Project Delete(string slug)
         {
             return accessor.Delete(slug) as Project;
-        }
-
-        [HttpPost("{slug}/[action]")]
-        public int Star(string slug)
-        {
-            return accessor.Star(slug);
         }
     }
 }

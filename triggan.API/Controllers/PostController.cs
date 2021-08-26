@@ -47,11 +47,5 @@ namespace triggan.API.Controllers
         {
             return accessor.Delete(slug) as Post;
         }
-
-        [HttpPost("{slug}/[action]")]
-        public int Star(string slug)
-        {
-            return accessor.Star(slug);
-        }
     }
 }

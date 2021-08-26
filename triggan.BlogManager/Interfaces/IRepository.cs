@@ -11,7 +11,6 @@ namespace triggan.BlogManager.Interfaces
 
     public interface IRepository<TEntity> : IRepository where TEntity : class
     {
-        IEnumerable<TEntity> GetAll();
 
         TEntity Get(string slug);
 

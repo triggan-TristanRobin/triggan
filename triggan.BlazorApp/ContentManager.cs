@@ -40,7 +40,7 @@ namespace triggan.BlazorApp
             {
                 return (await APIHttp.GetFromJsonAsync<IEnumerable<T>>(Settings.GetFullUrl(typeof(T).Name))).SingleOrDefault(e => e.Slug == slug);
             }
-            var url = Settings.GetFullUrl($"{typeof(T).Name}", slug, queryParam: (typeof(T) == typeof(Project) ? $"withUpdates=true" : ""));
+            var url = Settings.GetFullUrl($"{typeof(T).Name}", slug);
             Console.WriteLine($"Retrieving entity from {url}");
 
             return await APIHttp.GetFromJsonAsync<T>(url);
@@ -68,18 +68,19 @@ namespace triggan.BlazorApp
 
         public async Task<bool> UpdateProjectAsync(string slug, Update update)
         {
-            var success = await APIHttp.PostAsJsonAsync(Settings.GetFullUrl($"Project", slug, "Updates"), update);
+            var success = await APIHttp.PostAsJsonAsync(Settings.GetFullUrl($"Project", route: $"{slug}/Updates"), update);
             return success.IsSuccessStatusCode;
         }
 
-        public async Task<int> StarEntity<T>(string slug) where T : Entity
+        public async Task<bool> StarEntity(string slug)
         {
-            var entity = await GetEntityAsync<T>(slug);
-            entity.Stars++;
-            var success = await APIHttp.GetAsync(Settings.GetFullUrl(typeof(T).Name, entity.Slug, "Star", local: false));
+            if(Settings.UseLocal)
+            {
+                return false;
+            }
 
-            Console.WriteLine("Star result: " + await success.Content.ReadAsStringAsync());
-            return int.Parse(await success.Content.ReadAsStringAsync());
+            var success = await APIHttp.PostAsync($"{slug}/Star", null);
+            return success.IsSuccessStatusCode;
         }
     }
 }

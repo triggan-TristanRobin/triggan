@@ -19,11 +19,6 @@ namespace triggan.BlogManager
             this.dbSet = context.Set<TEntity>();
         }
 
-        public IEnumerable<TEntity> GetAll()
-        {
-            return dbSet.ToList();
-        }
-
         public virtual TEntity Get(string slug)
         {
             return dbSet.SingleOrDefault(e => e.Slug == slug);

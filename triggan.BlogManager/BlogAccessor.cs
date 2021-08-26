@@ -27,8 +27,7 @@ namespace triggan.BlogManager
 
         public IEnumerable<TEntity> GetAll<TEntity>(int count) where TEntity : Entity
         {
-            var entities = GetRepository<TEntity>().GetAll();
-            return count > 0 ? entities.Take(count) : entities;
+            return GetRepository<TEntity>().Get(count: count);
         }
 
         public Entity Get(string slug)
@@ -86,12 +85,11 @@ namespace triggan.BlogManager
         {
             foreach (dynamic repo in repositories)
             {
-                var repository = repo as IRepository<Entity>;
-                var entity = repository.Get(slug);
+                var entity = repo.Get(slug);
                 if (entity != null)
                 {
-                    repository.Delete(entity);
-                    repository.Save();
+                    repo.Delete(entity);
+                    repo.Save();
                 }
             }
             throw new KeyNotFoundException($"Could not delete entity {slug} as it wasn't found.");
@@ -101,13 +99,12 @@ namespace triggan.BlogManager
         {
             foreach (dynamic repo in repositories)
             {
-                var repository = repo as IRepository<Entity>;
-                var entity = repository.Get(slug);
+                var entity = repo.Get(slug);
                 if (entity != null)
                 {
                     entity.Stars++;
-                    repository.Update(slug, entity);
-                    repository.Save();
+                    repo.Update(slug, entity);
+                    repo.Save();
                     return entity.Stars;
                 }
             }
