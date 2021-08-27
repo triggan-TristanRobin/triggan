@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,9 +6,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Diagnostics;
+using System.Text;
+using triggan.API.Helpers;
 using triggan.BlogManager;
 using triggan.BlogManager.Helpers;
 using triggan.BlogManager.Interfaces;
@@ -34,13 +38,40 @@ namespace triggan.API
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExpensesTracker", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "triggan", Version = "v1" });
             });
 
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
             services.AddTransient<BlogAccessor>();
 
             var conf = Configuration["DBConfig:Type"];
             SetDBContextService(services, Enum.Parse<DBProvider>(conf));
+            AddAuthenticationServices(services);
+        }
+
+        private void AddAuthenticationServices(IServiceCollection services)
+        {
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            var key = Encoding.ASCII.GetBytes(appSettingsSection.Get<AppSettings>().JwtSecret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true
+                };
+            });
         }
 
         public void SetDBContextService(IServiceCollection services, DBProvider dbType)
@@ -96,6 +127,8 @@ namespace triggan.API
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

@@ -4,33 +4,27 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using triggan.BlazorApp.Helpers;
 using triggan.BlogModel;
 
-namespace triggan.BlazorApp
+namespace triggan.BlazorApp.Services
 {
-    public class ContentManager
+    public class BlogService : IBlogService
     {
-        public ContentManager(Settings settings, HttpClient httpClient)
+        public BlogService(Settings settings, HttpClient httpClient)
         {
             Settings = settings;
-            LocalHttp = httpClient;
-            var apiUri = (settings.APIUri == null ? httpClient.BaseAddress : new Uri(settings.APIUri)).SetPort(settings.APIPort);
-            Console.WriteLine($"Port in settings {settings.APIPort}");
-            APIHttp = new HttpClient { BaseAddress = apiUri };
+            APIClient = httpClient;
         }
 
         protected Settings Settings { get; set; }
-        protected HttpClient LocalHttp { get; }
-        protected HttpClient APIHttp { get; }
-        protected HttpClient FunctionsHttp { get; } = new HttpClient { BaseAddress = new Uri("https://trigganfunctions.azurewebsites.net") };
+        protected HttpClient APIClient { get; }
 
         public async Task<List<T>> GetEntitiesAsync<T>(int count = 0) where T : Entity
         {
             var url = Settings.GetFullUrl($"{typeof(T).Name}", queryParam: $"count={count}");
             Console.WriteLine($"Retrieving entities from {url}");
 
-            var tmp = (await APIHttp.GetFromJsonAsync<IEnumerable<T>>(url));
+            var tmp = (await APIClient.GetFromJsonAsync<IEnumerable<T>>(url));
             return (count > 0 ? tmp.Take(count) : tmp).ToList();
         }
 
@@ -38,12 +32,12 @@ namespace triggan.BlazorApp
         {
             if(Settings.UseLocal)
             {
-                return (await APIHttp.GetFromJsonAsync<IEnumerable<T>>(Settings.GetFullUrl(typeof(T).Name))).SingleOrDefault(e => e.Slug == slug);
+                return (await APIClient.GetFromJsonAsync<IEnumerable<T>>(Settings.GetFullUrl(typeof(T).Name))).SingleOrDefault(e => e.Slug == slug);
             }
             var url = Settings.GetFullUrl($"{typeof(T).Name}", slug);
             Console.WriteLine($"Retrieving entity from {url}");
 
-            return await APIHttp.GetFromJsonAsync<T>(url);
+            return await APIClient.GetFromJsonAsync<T>(url);
         }
 
         public async Task<bool> PostOrUpdateEntityAsync<T>(string slug, T entity) where T : Entity
@@ -54,21 +48,21 @@ namespace triggan.BlazorApp
         public async Task<bool> PostEntityAsync<T>(T entity) where T : Entity
         {
             //var success = await APIHttp.PostAsJsonAsync($"Commit/{typeof(T).Name}/{Slug}", entity);
-            var success = await APIHttp.PostAsJsonAsync(Settings.GetFullUrl($"{typeof(T).Name}"), entity);
+            var success = await APIClient.PostAsJsonAsync(Settings.GetFullUrl($"{typeof(T).Name}"), entity);
 
             return success.IsSuccessStatusCode;
         }
 
         public async Task<bool> UpdateEntityAsync<T>(string slug, T entity) where T : Entity
         {
-            var success = await APIHttp.PutAsJsonAsync(Settings.GetFullUrl($"{typeof(T).Name}", slug), entity);
+            var success = await APIClient.PutAsJsonAsync(Settings.GetFullUrl($"{typeof(T).Name}", slug), entity);
 
             return success.IsSuccessStatusCode;
         }
 
         public async Task<bool> UpdateProjectAsync(string slug, Update update)
         {
-            var success = await APIHttp.PostAsJsonAsync(Settings.GetFullUrl($"Project", route: $"{slug}/Updates"), update);
+            var success = await APIClient.PostAsJsonAsync(Settings.GetFullUrl($"Project", route: $"{slug}/Updates"), update);
             return success.IsSuccessStatusCode;
         }
 
@@ -79,7 +73,7 @@ namespace triggan.BlazorApp
                 return false;
             }
 
-            var success = await APIHttp.PostAsync($"{slug}/Star", null);
+            var success = await APIClient.PostAsync($"{slug}/Star", null);
             return success.IsSuccessStatusCode;
         }
     }

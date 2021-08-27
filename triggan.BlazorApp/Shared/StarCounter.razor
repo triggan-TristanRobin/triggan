@@ -1,5 +1,5 @@
 ﻿@inject HttpClient Http
-@inject Task<ContentManager> contentManager
+@inject IBlogService blogService
 
 <button @onclick="Star" class="counter">
     <i class="fa fa-star"></i>
@@ -43,7 +43,7 @@
         Count += IsCounter ? 1 : 0;
         StateHasChanged();
 
-        inError = !(await (await contentManager).StarEntity(Slug));
+        inError = !(await blogService.StarEntity(Slug));
         StateHasChanged();
     }
 }

@@ -1,6 +1,6 @@
 ﻿@page "/blog/{Slug}"
 @inject HttpClient Http
-@inject Task<ContentManager> contentManager
+@inject IBlogService blogService
 
 <section class="post">
     @if (post == null)
@@ -40,7 +40,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        post = await (await contentManager).GetEntityAsync<Post>(Slug);
+        post = await blogService.GetEntityAsync<Post>(Slug);
     }
 
 }

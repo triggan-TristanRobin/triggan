@@ -2,7 +2,7 @@
 @page "/project/edit/{Slug}"
 @inject NavigationManager NavigationManager
 @inject HttpClient Http
-@inject Task<ContentManager> contentManager
+@inject IBlogService blogService
 
 <section class="editor">
     @if (project == null)
@@ -86,7 +86,7 @@
         if (!string.IsNullOrEmpty(Slug))
         {
             Console.WriteLine($"Trying to get project for edit");
-            project = await (await contentManager).GetEntityAsync<Project>(Slug);
+            project = await blogService.GetEntityAsync<Project>(Slug);
         }
         else
         {
@@ -102,7 +102,7 @@
         submitText = "";
         StateHasChanged();
         var success = false;
-        var tupleResult = await logger.RunWithLogin(async () => await (await contentManager).PostOrUpdateEntityAsync<Project>(Slug, project));
+        var tupleResult = await logger.RunWithLogin(async () => await blogService.PostOrUpdateEntityAsync<Project>(Slug, project));
         result = tupleResult.Item1;
         success = tupleResult.Item2;
         result = success ? "Your project is saved on the site! Redirecting..." : result;

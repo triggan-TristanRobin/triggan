@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using triggan.BlogManager;
 using triggan.BlogManager.Interfaces;
@@ -7,6 +8,7 @@ using triggan.BlogModel.Enums;
 
 namespace triggan.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PostController : ControllerBase
@@ -18,12 +20,14 @@ namespace triggan.API.Controllers
             this.accessor = accessor;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<Post> Get([FromQuery] int count = 0)
         {
             return accessor.GetAll<Post>(count);
         }
 
+        [AllowAnonymous]
         [HttpGet("{slug}")]
         public Post Get(string slug)
         {

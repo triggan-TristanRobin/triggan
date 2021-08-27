@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace triggan.BlogManager.Migrations
 {
     [DbContext(typeof(TrigganContext))]
-    partial class TrigganDBContextModelSnapshot : ModelSnapshot
+    partial class TrigganContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

@@ -1,6 +1,6 @@
 ﻿@page "/project/{Slug}/update"
 @inject HttpClient Http
-@inject Task<ContentManager> contentManager
+@inject IBlogService blogService
 
 <section class="editor">
     @if (project == null)
@@ -70,7 +70,7 @@
         if (!string.IsNullOrEmpty(Slug))
         {
             Console.WriteLine($"Trying to get project for edit");
-            project = await (await contentManager).GetEntityAsync<Project>(Slug);
+            project = await blogService.GetEntityAsync<Project>(Slug);
         }
         else
         {
@@ -81,7 +81,7 @@
     private string result;
     private async Task UpdateProject()
     {
-        var tupleResult = await logger.RunWithLogin(async () => await (await contentManager).UpdateProjectAsync(project.Slug, newUpdate));
+        var tupleResult = await logger.RunWithLogin(async () => await blogService.UpdateProjectAsync(project.Slug, newUpdate));
         result = tupleResult.Item1;
         var success = tupleResult.Item2;
         Console.WriteLine(success);

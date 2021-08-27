@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using triggan.BlogManager;
 using triggan.BlogManager.Interfaces;
@@ -6,6 +7,7 @@ using triggan.BlogModel;
 
 namespace triggan.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ProjectController : ControllerBase
@@ -17,12 +19,14 @@ namespace triggan.API.Controllers
             this.accessor = accessor;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<Project> Get([FromQuery] int count = 0)
         {
             return accessor.GetAll<Project>(count);
         }
 
+        [AllowAnonymous]
         [HttpGet("{slug}")]
         public Project Get(string slug)
         {
@@ -30,6 +34,7 @@ namespace triggan.API.Controllers
             return project;
         }
 
+        [AllowAnonymous]
         [HttpGet("{slug}/Updates")]
         public List<Update> GetUpdates(string slug)
         {

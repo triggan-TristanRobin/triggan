@@ -10,6 +10,7 @@ namespace triggan.BlogManager
 {
     public class TrigganContext : DbContext
     {
+        public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Message> Messages { get; set; }
@@ -42,6 +43,10 @@ namespace triggan.BlogManager
             var splitStringConverter = new ValueConverter<IEnumerable<string>, string>(v => string.Join(";", v), v => v.Split(new[] { ';' }));
             modelBuilder.Entity<Post>().Property(p => p.Tags).HasConversion(splitStringConverter);
             modelBuilder.Entity<Project>().OwnsMany(p => p.Updates);
+
+            modelBuilder.Entity<User>().HasKey(e => e.Id);
+            modelBuilder.Entity<User>().HasIndex(e => e.Username).IsUnique();
+            modelBuilder.Entity<User>().Ignore(e => e.Token);
 
             modelBuilder.Entity<Message>().HasKey(e => e.Id);
 

@@ -1,6 +1,6 @@
 ﻿@page "/project/{slug}"
 @inject HttpClient Http
-@inject Task<ContentManager> contentManager
+@inject IBlogService blogService
 
 <section class="post">
     @if (project == null)
@@ -40,7 +40,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        project = await (await contentManager).GetEntityAsync<Project>(Slug);
+        project = await blogService.GetEntityAsync<Project>(Slug);
     }
 
     private string StateToString(BlogModel.Enums.ProjectState state)

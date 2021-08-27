@@ -1,5 +1,5 @@
 ﻿@inject HttpClient Http
-@inject Task<ContentManager> contentManager
+@inject IBlogService blogService
 
 @if (projects?.Any() != true)
 {
@@ -22,7 +22,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        projects = (await (await contentManager).GetEntitiesAsync<Project>(ProjectCount)).ToList();
+        projects = (await blogService.GetEntitiesAsync<Project>(ProjectCount)).ToList();
     }
 }
 

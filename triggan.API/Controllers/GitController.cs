@@ -1,4 +1,5 @@
 ﻿using LibGit2Sharp;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,9 @@ using triggan.BlogModel;
 
 namespace triggan.API.Controllers
 {
+    [ApiController]
+    [Authorize]
+    [Route("")]
     public class GitController : Controller
     {
         private static LibGit2Sharp.Credentials credentials = null;
@@ -80,7 +84,7 @@ namespace triggan.API.Controllers
             System.IO.File.WriteAllText(@"wwwroot\Project\content.json", projectContent);
         }
 
-        public bool Commit<T>(string slug, [FromBody] T entity) where T : Entity
+        private bool Commit<T>(string slug, [FromBody] T entity) where T : Entity
         {
             Console.WriteLine($"Committing publication data");
 
@@ -140,7 +144,7 @@ namespace triggan.API.Controllers
             return true;
         }
 
-        public void RemoveReadOnlyAttributes(DirectoryInfo directory, bool recursive = true)
+        private void RemoveReadOnlyAttributes(DirectoryInfo directory, bool recursive = true)
         {
             directory.Attributes &= ~FileAttributes.ReadOnly;
 
@@ -156,7 +160,7 @@ namespace triggan.API.Controllers
             }
         }
 
-        public void StageChanges(Repository repo)
+        private void StageChanges(Repository repo)
         {
             try
             {

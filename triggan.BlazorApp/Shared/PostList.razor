@@ -1,5 +1,5 @@
 ﻿@inject HttpClient Http
-@inject Task<ContentManager> contentManager
+@inject IBlogService blogService
 
 @if (posts?.Any() != true)
 {
@@ -24,6 +24,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        posts = (await (await contentManager).GetEntitiesAsync<Post>(PostCount)).ToList();
+        posts = (await blogService.GetEntitiesAsync<Post>(PostCount)).ToList();
     }
 }

@@ -2,7 +2,7 @@
 @page "/blog/edit/{Slug}"
 @inject NavigationManager NavigationManager
 @inject HttpClient Http
-@inject Task<ContentManager> contentManager
+@inject IBlogService blogService
 
 <section class="editor">
     @if (post == null)
@@ -76,7 +76,7 @@
         if (!string.IsNullOrEmpty(Slug))
         {
             Console.WriteLine($"Trying to get post for edit");
-            post = await (await contentManager).GetEntityAsync<Post>(Slug);
+            post = await blogService.GetEntityAsync<Post>(Slug);
         }
         else
         {
@@ -92,7 +92,7 @@
         submitText = "";
         StateHasChanged();
         var success = false;
-        var tupleResult = await logger.RunWithLogin(async () => await (await contentManager).PostOrUpdateEntityAsync<Post>(Slug, post));
+        var tupleResult = await logger.RunWithLogin(async () => await blogService.PostOrUpdateEntityAsync<Post>(Slug, post));
         result = tupleResult.Item1;
         success = tupleResult.Item2;
         result = success ? "Your post is saved on the site! Redirecting..." : result;
