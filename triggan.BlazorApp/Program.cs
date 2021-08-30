@@ -15,6 +15,8 @@ namespace triggan.BlazorApp
 {
     public class Program
     {
+        public static HttpClient APIClient;
+
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -22,14 +24,15 @@ namespace triggan.BlazorApp
 
             var localClient = new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) };
             var settings = await localClient.GetFromJsonAsync<Settings>("settings.json");
+            APIClient = GetApiClient(localClient.BaseAddress, settings);
 
-            builder.Services.AddSingleton(sp => GetApiClient(localClient.BaseAddress, settings));
+            builder.Services.AddSingleton(sp => APIClient);
             builder.Services.AddSingleton(sp => settings);
 
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddAuthorizationCore();
 
-            builder.Services.AddScoped<IBlogService, BlogService>();
+            builder.Services.AddSingleton<IBlogService, BlogService>();
             builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
             builder.Services.AddScoped<IAuthService, AuthService>();
 

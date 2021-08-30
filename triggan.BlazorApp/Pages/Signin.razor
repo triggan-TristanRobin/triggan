@@ -43,11 +43,11 @@
     {
         ShowErrors = false;
 
-        var signedInUser = await AuthService.Login(signinInfos);
+        var signedInUser = await AuthService.Signin(signinInfos);
         
         if (signedInUser.Id != -500)
         {
-            NavigationManager.NavigateTo("/", true);
+            NavigationManager.NavigateTo("/");
         }
         else
         {

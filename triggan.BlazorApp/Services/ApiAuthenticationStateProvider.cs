@@ -20,17 +20,23 @@ namespace triggan.BlazorApp.Services
         {
             this.httpClient = httpClient;
             this.localStorage = localStorage;
+
+            Console.WriteLine("Created ApiAuthenticationStateProvider instance.");
         }
+
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
+            Console.WriteLine("GetAuthenticationStateAsync");
             var savedToken = await localStorage.GetItemAsync<string>("authToken");
 
             if (string.IsNullOrWhiteSpace(savedToken))
             {
                 return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
             }
+            Console.WriteLine("Found token, adding in httpClient.");
 
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", savedToken);
+            Console.WriteLine($"(AuthProvider) HttpClient requestheader auth: {httpClient.DefaultRequestHeaders.Authorization}");
 
             var authState = new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(ParseClaimsFromJwt(savedToken), "jwt")));
             return authState;
@@ -40,6 +46,8 @@ namespace triggan.BlazorApp.Services
         {
             var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, id), new Claim(ClaimTypes.Role, role) }, "apiauth"));
             var authState = Task.FromResult(new AuthenticationState(authenticatedUser));
+
+            Console.WriteLine("User marked as authenticated");
             NotifyAuthenticationStateChanged(authState);
         }
 

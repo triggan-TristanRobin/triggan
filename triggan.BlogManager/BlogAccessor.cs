@@ -8,15 +8,14 @@ namespace triggan.BlogManager
     public class BlogAccessor
     {
         private List<IRepository> repositories;
-        public ProjectRepository ProjectRepository { get; set; }
-        public PostRepository PostRepository { get; set; }
 
         public BlogAccessor(TrigganContext context)
         {
             repositories = new List<IRepository>
             {
                 new PostRepository(context),
-                new ProjectRepository(context)
+                new ProjectRepository(context),
+                new Repository<Message>(context)
             };
         }
 

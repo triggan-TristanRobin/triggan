@@ -1,6 +1,7 @@
 ﻿@page "/blog/{Slug}"
 @inject HttpClient Http
 @inject IBlogService blogService
+@inject AuthenticationStateProvider authStateProvider
 
 <section class="post">
     @if (post == null)
@@ -29,6 +30,12 @@
         }
         <StarCounter Slug="@post.Slug" Type="Post" IsCounter="true" @bind-Count=@post.Stars />
         <br />
+        @if(isAuthenticated)
+        {
+            <a href="/blog/edit/@Slug">
+                <span class="@("fas fa-edit")"></span>
+            </a>
+        }
         <a href="/blog">Back</a>
     }
 </section>
@@ -37,10 +44,12 @@
     private Post post;
     [Parameter]
     public string Slug { get; set; }
+    private bool isAuthenticated;
 
     protected override async Task OnInitializedAsync()
     {
         post = await blogService.GetEntityAsync<Post>(Slug);
+        isAuthenticated = (await authStateProvider.GetAuthenticationStateAsync()).User?.Identity?.IsAuthenticated ?? false;
     }
 
 }

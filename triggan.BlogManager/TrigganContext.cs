@@ -13,7 +13,6 @@ namespace triggan.BlogManager
         public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Project> Projects { get; set; }
-        public DbSet<Message> Messages { get; set; }
         public DBProvider DbType { get; set; }
 
         public TrigganContext(DbContextOptions<TrigganContext> options)
@@ -44,11 +43,10 @@ namespace triggan.BlogManager
             modelBuilder.Entity<Post>().Property(p => p.Tags).HasConversion(splitStringConverter);
             modelBuilder.Entity<Project>().OwnsMany(p => p.Updates);
 
-            modelBuilder.Entity<User>().HasKey(e => e.Id);
-            modelBuilder.Entity<User>().HasIndex(e => e.Username).IsUnique();
+            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<Post>().ToTable("Posts");
+            modelBuilder.Entity<Project>().ToTable("Projects");
             modelBuilder.Entity<User>().Ignore(e => e.Token);
-
-            modelBuilder.Entity<Message>().HasKey(e => e.Id);
 
             base.OnModelCreating(modelBuilder);
         }

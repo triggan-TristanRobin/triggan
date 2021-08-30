@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using triggan.BlogManager;
 
 namespace triggan.BlogManager.Migrations
 {
     [DbContext(typeof(TrigganContext))]
-    partial class TrigganContextModelSnapshot : ModelSnapshot
+    [Migration("20210830193219_DropMessages")]
+    partial class DropMessages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

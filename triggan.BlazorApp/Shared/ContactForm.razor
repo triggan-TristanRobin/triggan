@@ -50,7 +50,7 @@
         var success = await Http.PostAsJsonAsync($"Message/Contact", message);
         Console.WriteLine(success);
         inError = !success.IsSuccessStatusCode;
-        result = !inError ? "Your message have been sent!" : "Unfortunately, an error occurred while sending your message.\nPlease try again later.";
+        result = !inError ? "Your message have been sent! You should receive a copy." : "Unfortunately, an error occurred while sending your message.\nPlease try again later.";
         submitClass = !inError ? "fa fa-check" : "fa fa-times";
         submitText = "Submit";
         StateHasChanged();

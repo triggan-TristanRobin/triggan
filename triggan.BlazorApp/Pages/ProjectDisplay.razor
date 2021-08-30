@@ -1,6 +1,7 @@
 ﻿@page "/project/{slug}"
 @inject HttpClient Http
 @inject IBlogService blogService
+@inject AuthenticationStateProvider authStateProvider
 
 <section class="post">
     @if (project == null)
@@ -29,6 +30,15 @@
         }
         <StarCounter Slug="@project.Slug" Type="Project" IsCounter="true" @bind-Count=@project.Stars />
         <br />
+        @if(isAuthenticated)
+        {
+            <a href="/project/edit/@Slug">
+                <span class="@("fas fa-edit")"></span>
+            </a>
+            <a href="/project/update/@Slug">
+                <span class="@("fas fa-pen")"></span>
+            </a>
+        }
         <a href="/projects">Back</a>
     }
 </section>
@@ -37,10 +47,12 @@
     private Project project;
     [Parameter]
     public string Slug { get; set; }
+    private bool isAuthenticated;
 
     protected override async Task OnInitializedAsync()
     {
         project = await blogService.GetEntityAsync<Project>(Slug);
+        isAuthenticated = (await authStateProvider.GetAuthenticationStateAsync()).User?.Identity?.IsAuthenticated ?? false;
     }
 
     private string StateToString(BlogModel.Enums.ProjectState state)

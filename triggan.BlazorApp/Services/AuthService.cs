@@ -1,5 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -19,6 +20,9 @@ namespace triggan.BlazorApp.Services
             this.httpClient = httpClient;
             this.authStateProvider = authStateProvider;
             this.localStorage = localStorage;
+
+            Console.WriteLine("Created AuthService instance.");
+            Console.WriteLine($"(AuthService) HttpClient requestheader auth: {httpClient.DefaultRequestHeaders.Authorization}");
         }
 
         public async Task<User> Register(User registerModel)
@@ -29,7 +33,7 @@ namespace triggan.BlazorApp.Services
                 : new User { Id = -500 };
         }
 
-        public async Task<User> Login(UserSigninInfos signinInfos)
+        public async Task<User> Signin(UserSigninInfos signinInfos)
         {
             var response = await httpClient.PostAsJsonAsync("Signin", signinInfos);
 
@@ -41,13 +45,15 @@ namespace triggan.BlazorApp.Services
             var signedInUser = await response.Content.ReadFromJsonAsync<User>();
             await localStorage.SetItemAsync("authToken", signedInUser.Token);
             await localStorage.SetItemAsync("user", signedInUser);
+            Console.WriteLine($"User signed in");
             ((ApiAuthenticationStateProvider)authStateProvider).MarkUserAsAuthenticated(signedInUser.Id.ToString(), signedInUser.Role);
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", signedInUser.Token);
+            Console.WriteLine($"(AuthService signin) HttpClient requestheader auth: {httpClient.DefaultRequestHeaders.Authorization}");
 
             return signedInUser;
         }
 
-        public async Task Logout()
+        public async Task Signout()
         {
             await localStorage.RemoveItemAsync("authToken");
             await localStorage.RemoveItemAsync("user");
