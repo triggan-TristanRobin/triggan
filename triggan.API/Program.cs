@@ -14,6 +14,8 @@ namespace triggan.API
         {
             var host = CreateHostBuilder(args).Build();
 
+            var logger = host.Services.GetRequiredService<ILogger<Program>>();
+            logger.LogInformation("Host created.");
             CreateDbIfNotExists(host);
 
             host.Run();

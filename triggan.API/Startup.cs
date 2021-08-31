@@ -104,7 +104,7 @@ namespace triggan.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -129,6 +129,7 @@ namespace triggan.API
                 .AllowAnyHeader());
             app.UseAuthentication();
             app.UseAuthorization();
+            loggerFactory.AddLog4Net();
 
             app.UseEndpoints(endpoints =>
             {
