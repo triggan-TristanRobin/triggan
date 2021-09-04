@@ -1,7 +1,7 @@
 {
   "onlineUrl": "{type}/{route}/{param}",
-  "apiUri": null,
-  "apiPort": 5001,
+  "apiUri": "https://api.triggan.com",
+  "apiPort": null,
   "localUrl": "{type}/content.json",
   "useLocal": false
 }

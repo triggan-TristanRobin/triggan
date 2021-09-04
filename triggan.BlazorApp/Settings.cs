@@ -5,7 +5,7 @@
         public string OnlineUrl { get; set; }
         public string LocalUrl { get; set; }
         public bool UseLocal { get; set; }
-        public int APIPort { get; set; }
+        public int? APIPort { get; set; }
         public string APIUri { get; set; }
 
         public string GetFullUrl(string type, string param = null, string route = null, string queryParam = null, bool? local = null)
