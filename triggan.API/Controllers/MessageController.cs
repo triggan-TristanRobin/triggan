@@ -8,7 +8,6 @@ using triggan.BlogModel;
 
 namespace triggan.API.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class MessageController : ControllerBase
