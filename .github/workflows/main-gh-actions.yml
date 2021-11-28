@@ -27,7 +27,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
         
     - name: Restore dependencies
       run: dotnet restore
@@ -40,7 +40,7 @@ jobs:
     - name: App Settings Variable Substitution
       uses: microsoft/variable-substitution@v1
       with:
-        files: '${{ env.PROJECT_DIRECTORY_PATH }}\bin\Release\net5.0\publish\appsettings.json'
+        files: '${{ env.PROJECT_DIRECTORY_PATH }}\bin\Release\net6.0\publish\appsettings.json'
       env:
         ConnectionStrings.trigganContext: ${{ secrets.TRIGGAN_CONNECTIONSTRING }}
         AppSettings.JwtSecret: ${{ secrets.JWT_SECRET }}
@@ -48,7 +48,7 @@ jobs:
 
     - name: Deploy Application
       shell: cmd
-      run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:contentPath="%CD%\${{ env.PROJECT_DIRECTORY_PATH }}\bin\Release\net5.0\publish\" -dest:contentPath="${{ env.WEBSITE_CONTENT_PATH }}",computerName="${{ env.IIS_SERVER_COMPUTER_NAME }}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",username="${{ env.IIS_SERVER_USERNAME }}",password="${{ env.IIS_SERVER_PASSWORD }}",authtype="Basic"'
+      run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:contentPath="%CD%\${{ env.PROJECT_DIRECTORY_PATH }}\bin\Release\net6.0\publish\" -dest:contentPath="${{ env.WEBSITE_CONTENT_PATH }}",computerName="${{ env.IIS_SERVER_COMPUTER_NAME }}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",username="${{ env.IIS_SERVER_USERNAME }}",password="${{ env.IIS_SERVER_PASSWORD }}",authtype="Basic"'
           
   Buil-Deploy-StaticApp:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
