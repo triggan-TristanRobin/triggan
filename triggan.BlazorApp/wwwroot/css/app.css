@@ -1,5 +1,4 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
-@import url('https://use.fontawesome.com/releases/v5.12.0/css/all.css');
 
 :root {
     --dark-blue: #002040;
@@ -30,8 +29,8 @@
 html, body {
     font-family: Comfortaa, Akshar, sans-serif;
     font-size: 1.2em;
-    background-color: var(--gray-blue) !important;
-    color: var(--light-blue) !important;
+    background-color: var(--gray-blue);
+    color: var(--light-blue);
     margin: 0;
 }
 
@@ -57,7 +56,7 @@ h1, h2, h3 {
 }
 
 .content {
-    padding-top: 1.1rem;
+    padding-top: 1.1em;
 }
 
 .small {
@@ -79,10 +78,10 @@ h1, h2, h3 {
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
-    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -0.1em 0.25em rgba(0, 0, 0, 0.2);
     display: none;
     left: 0;
-    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    padding: 0.6em 1.25em 0.7em 1.25em;
     position: fixed;
     width: 100%;
     z-index: 1000;
@@ -91,8 +90,8 @@ h1, h2, h3 {
     #blazor-error-ui .dismiss {
         cursor: pointer;
         position: absolute;
-        right: 0.75rem;
-        top: 0.5rem;
+        right: 0.75em;
+        top: 0.5em;
     }
 
 ul {
@@ -114,35 +113,55 @@ ul {
 
 .quote {
     position: relative;
-    padding: .75rem 1.25rem;
-    margin-bottom: 1rem;
-    border: 1px solid transparent;
+    padding: .75em 1.25em;
+    margin-bottom: 1em;
+    border: 0.1em solid transparent;
     border-top-color: transparent;
     border-right-color: transparent;
     border-bottom-color: transparent;
     border-left-color: transparent;
-    border-radius: .25rem;
+    border-radius: 0.25em;
     color: var(--dark-blue);
     background-color: var(--gray);
     border-color: var(--main-blue);
 }
 
 .tile {
-    border-left: solid 0.1rem var(--main-blue);
-    padding: 0.5rem;
-    margin-top: 0.5rem;
+    border-left: solid 0.25em var(--main-blue);
+    padding: 1em;
+    margin: 0.5em 0;
     background-color: var(--dark-blue);
-    margin-bottom: 0.5rem;
 }
 
     .tile h1, .tile h2, .tile h3 {
         color: var(--main-blue);
     }
 
-.post.tile:hover {
-    box-shadow: 0em 0em 0.35em var(--main-blue);
-    padding-left: 1em;
+.post {
+    background-color: var(--dark-blue);
+    padding: 1em;
+    margin: 0.5em 0;
 }
+
+    .post:not(.tile) {
+        box-shadow: 0em 0em 0.5em var(--light-blue);
+    }
+
+    .post.tile:hover {
+        box-shadow: 0em 0em 0.5em var(--light-blue);
+    }
+
+    .post.tile h3 {
+        transition: all 0.5s;
+    }
+
+    .post.tile:hover h3 {
+        padding-left: 2em;
+    }
+
+        .post h1, .tile h2, .tile h3, .post h1, .post h2, .post h3 {
+            color: var(--main-blue);
+        }
 
 .tag {
     margin-left: 0.5em;
@@ -215,22 +234,14 @@ button {
     padding: 0.5em;
     transition: all .3s ease-in-out;
     background: var(--dark-blue);
-    border: 3px solid var(--dark-blue);
+    border: 0.25em solid var(--dark-blue);
     color: var(--gray-blue);
 }
 
     button:hover {
         color: var(--dark-blue);
-        background-image: initial;
-        background-color: initial;
-        border: 3px solid var(--dark-blue);
         background: 0 0;
     }
-
-.post {
-    box-shadow: 0 0 0.5em var(--main-blue);
-    padding: 1em;
-}
 
 .post h3 {
     cursor: pointer;
@@ -252,7 +263,7 @@ img {
 }
 
 .card {
-    max-width: 30%;
+    max-width: calc(33% - 2em);
     border: none;
     cursor: pointer;
 }
