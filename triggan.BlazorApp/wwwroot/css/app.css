@@ -2,45 +2,48 @@
 @import url('https://use.fontawesome.com/releases/v5.12.0/css/all.css');
 
 :root {
-    --background-color: #0c1526;
-    --dark-blue: #052767;
-    --blue: #007bff;
-    --grey-blue: #1a3466;
-    --indigo: #6610f2;
-    --cyan: #17a2b8;
+    --dark-blue: #002040;
+    --mate-blue: #004080;
+    --main-blue: #0080FF;
+    --light-blue: #80BBFF;
+    --gray-blue: #548BC4;
+    --red: #FF2819;
+    --light-green: #E7FF19;
+    --olive-green: #A1B309;
     --white: #d7d7d7;
     --gray: #646464;
-    --gray-dark: #353535;
-    --primary: #007bff;
-    --secondary: #6c757d;
-    --success: #28a745;
-    --info: #34c9fb;
-    --warning: #ffc107;
-    --danger: #dc3545;
-    --light: #85c2ff;
+    --dark-gray: #353535;
     --dark: #343a40;
     --transparent: #00000000;
-    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+@font-face {
+    font-family: "Akshar";
+    src: url('../fonts/Akshar/Akshar-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "Comfortaa";
+    src: url('../fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf') format('truetype');
 }
 
 html, body {
-    font-family: 'Roboto', Georgia, Helvetica, Arial, sans-serif;
-    font-size: 20px;
-    line-height: 30px;
-    background-color: var(--background-color) !important;
-    color: var(--light) !important;
+    font-family: Comfortaa, Akshar, sans-serif;
+    font-size: 1.2em;
+    background-color: var(--gray-blue) !important;
+    color: var(--light-blue) !important;
     margin: 0;
 }
 
 a, .btn-link {
-    color: var(--info);
+    color: var(--main-blue);
     text-decoration: none;
 }
 
 h1, h2, h3 {
-    color: var(--blue);
+    color: var(--dark-blue);
     font-weight: bold;
+    margin: 0.5em 0;
 }
 
 .a:hover {
@@ -48,9 +51,9 @@ h1, h2, h3 {
 }
 
 .btn-primary {
-    color: var(--light);
-    background-color: var(--primary);
-    border-color: var(--primary);
+    color: var(--light-blue);
+    background-color: var(--main-blue);
+    border-color: var(--main-blue);
 }
 
 .content {
@@ -121,18 +124,23 @@ ul {
     border-radius: .25rem;
     color: var(--dark-blue);
     background-color: var(--gray);
-    border-color: var(--blue);
+    border-color: var(--main-blue);
 }
 
 .tile {
-    border-left: solid 0.1rem var(--dark-blue);
+    border-left: solid 0.1rem var(--main-blue);
     padding: 0.5rem;
     margin-top: 0.5rem;
+    background-color: var(--dark-blue);
     margin-bottom: 0.5rem;
 }
 
+    .tile h1, .tile h2, .tile h3 {
+        color: var(--main-blue);
+    }
+
 .post.tile:hover {
-    box-shadow: 0em 0em 0.35em var(--dark-blue);
+    box-shadow: 0em 0em 0.35em var(--main-blue);
     padding-left: 1em;
 }
 
@@ -170,7 +178,7 @@ form {
 form input, form textarea, form select {
     max-width: 100%;
     min-width: 95%;
-    background-color: var(--grey-blue);
+    background-color: var(--dark-blue);
     border: none;
     resize: none;
     padding: 0.5em;
@@ -184,6 +192,7 @@ form input, form textarea, form select {
 form label {
     width: 100%;
     padding: 0.5em;
+    color: var(--dark-blue);
 }
 
 form i {
@@ -199,24 +208,29 @@ button {
     text-transform: capitalize;
     font-weight: bold;
     margin: 1em auto;
-    border: 3px solid var(--blue);
     outline: 0;
     border-radius: 2em;
     font-size: 1.2em;
     cursor: pointer;
     padding: 0.5em;
     transition: all .3s ease-in-out;
-    background: var(--blue);
+    background: var(--dark-blue);
+    border: 3px solid var(--dark-blue);
+    color: var(--gray-blue);
 }
 
     button:hover {
-        color: var(--light);
+        color: var(--dark-blue);
         background-image: initial;
         background-color: initial;
-        color: var(--blue);
-        border: 3px solid var(--blue);
+        border: 3px solid var(--dark-blue);
         background: 0 0;
     }
+
+.post {
+    box-shadow: 0 0 0.5em var(--main-blue);
+    padding: 1em;
+}
 
 .post h3 {
     cursor: pointer;
@@ -244,7 +258,7 @@ img {
 }
 
     .card:hover {
-        box-shadow: 0 0 0.5em var(--blue);
+        box-shadow: 0 0 0.5em var(--main-blue);
     }
 
         .card:hover img {
@@ -254,12 +268,12 @@ img {
 .skill-tile {
     margin: 0.25em;
     width: 30%;
-    border: var(--light) 0.1em solid;
+    border: var(--light-blue) 0.1em solid;
     padding: 0.25em;
 }
 
     .skill-tile i {
-        color: var(--info);
+        color: var(--main-blue);
     }
 
     .skill-tile:hover {

@@ -4,11 +4,11 @@
 }
 
     .counter:focus {
-        color: var(--light);
+        color: var(--light-blue);
         background-image: initial;
         background-color: initial;
-        color: var(--blue);
-        border: 3px solid var(--blue);
+        color: var(--main-blue);
+        border: 3px solid var(--main-blue);
         background: 0 0;
     }
 

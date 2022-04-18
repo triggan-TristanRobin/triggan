@@ -43,7 +43,7 @@
         align-items: center;
         padding-left: 1rem;
         padding-right: 1rem;
-        color: var(--light);
+        color: var(--light-blue);
     }
 
         .nav-item ::deep a.active {

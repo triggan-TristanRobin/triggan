@@ -9,7 +9,6 @@
     max-width: 60em;
     margin: 0 auto;
     width: 100%;
-    margin-bottom: 2em;
 }
 
 .navigation, footer {
@@ -29,7 +28,7 @@ footer {
 }
 
 .social-footer a {
-    color: var(--light);
+    color: var(--light-blue);
 }
 
 .social-footer {
@@ -71,6 +70,6 @@ footer {
 
     .main > div {
         padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
+        padding-right: 2rem !important;
     }
 }
