@@ -1,6 +1,6 @@
 ﻿@inject NavigationManager NavigationManager
 
-<div class="post tile">
+<div class="post tile @state">
     <h3 @onclick=@Read>@Post.Title</h3>
     <p>
         <span class="small">
@@ -25,9 +25,16 @@
 @code {
     [Parameter]
     public Post Post { get; set; }
+    private string state = "hidden";
 
     public void Read()
     {
         NavigationManager.NavigateTo($"/blog/{Post.Slug}");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(100);
+        state = "appear-slide";
     }
 }

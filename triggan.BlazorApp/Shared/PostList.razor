@@ -7,23 +7,27 @@
 }
 else
 {
-    <ul class="content-list">
+    <div class="content-list">
         @foreach (var post in posts)
         {
-            <li>
-                <PostPreview Post=@post />
-            </li>
+            <PostPreview Post=@post />
         }
-    </ul>
+    </div>
 }
 
 @code {
-    private List<Post> posts;
+    private List<Post> posts = new();
     [Parameter]
     public int PostCount { get; set; } = 0;
 
     protected override async Task OnInitializedAsync()
     {
-        posts = (await blogService.GetEntitiesAsync<Post>(PostCount)).ToList();
+        var tmpPosts = await blogService.GetEntitiesAsync<Post>(PostCount);
+        foreach(var post in tmpPosts)
+        {
+            await Task.Delay(100);
+            posts.Add(post);
+            StateHasChanged();
+        }
     }
 }

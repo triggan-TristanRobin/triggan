@@ -45,12 +45,7 @@
         border-bottom: solid 0.15em var(--transparent);
     }
 
-        .nav-item ::deep a.active {
-            border-color: var(--main-blue);
-            color: var(--main-blue);
-        }
-
-        .navbar-toggler:hover, .nav-item ::deep a:hover {
+        .nav-item ::deep a.active, .navbar-toggler:hover, .nav-item ::deep a:hover {
             border-color: var(--main-blue);
             color: var(--main-blue);
         }
