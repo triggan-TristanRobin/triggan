@@ -10,7 +10,7 @@
     --red: #FF2819;
     --light-green: #E7FF19;
     --olive-green: #A1B309;
-    --white: #F0F0F0;
+    --white: #DDDDDD;
     --gray: #646464;
     --dark-gray: #353535;
     --dark: #343a40;
@@ -68,15 +68,21 @@ h1, h2, h3, h4 {
 }
 
 .valid.modified:not([type=checkbox]) {
-    outline: 1px solid var(--light-green);
+    border: 0.05em solid var(--light-green);
 }
 
 .invalid {
-    outline: 1px solid red;
+    border: 0.05em solid var(--red);
+}
+
+.validation-errors {
+    flex-direction: column;
+    background: var(--dark-blue);
+    padding: 0.5em;
 }
 
 .validation-message {
-    color: red;
+    color: var(--red);
 }
 
 #blazor-error-ui {
@@ -130,27 +136,6 @@ ul {
     border-color: var(--main-blue);
 }
 
-#main-title {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-    #main-title h1 {
-        color: var(--white);
-        text-shadow: 0 0 0.25em var(--light-blue), 0 0 0.5em var(--light-blue), 0 0 0.75em var(--light-blue);
-    }
-
-    #main-title hr {
-        width: 20%;
-        margin: 0 1em;
-        height: 0.15em;
-        border: none;
-        background: var(--white);
-        box-shadow: 0 0 0.25em var(--light-blue), 0 0 0.5em var(--light-blue), 0 0 0.75em var(--light-blue);
-        border-radius: 1em;
-    }
-
 .tile {
     border-left: solid 0.25em var(--main-blue);
     padding: 1em;
@@ -201,7 +186,7 @@ ul {
 }
 
 form {
-    margin: 1.5em auto;
+    margin: 1em auto;
 }
 
 .form-group {
@@ -233,10 +218,13 @@ form input, form textarea, form select {
 
 .row div {
     flex-shrink: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 form label {
-    width: 100%;
+    width: calc(100% - 1em);
     padding: 0.5em;
     color: var(--accent-light-blue);
 }
@@ -262,12 +250,12 @@ button {
     transition: all .3s ease-in-out;
     background: var(--dark-blue);
     border: 0.25em solid var(--dark-blue);
-    color: var(--gray-blue);
+    color: var(--light-blue);
 }
 
     button:hover {
         color: var(--dark-blue);
-        background: 0 0;
+        background: var(--accent-light-blue);
     }
 
 .post h3 {
@@ -321,6 +309,26 @@ img {
 .appear-slide {
     animation: 0.5s ease-in;
 }
+
+.neon-title {
+    display: flex;
+    align-items: center;
+}
+
+    .neon-title h1 {
+        color: var(--white);
+        text-shadow: 0 0 0.25em var(--light-blue), 0 0 0.5em var(--light-blue), 0 0 0.75em var(--light-blue);
+    }
+
+    .neon-title hr {
+        width: 20%;
+        margin: 0 1em;
+        height: 0.15em;
+        border: none;
+        background: var(--white);
+        box-shadow: 0 0 0.25em var(--light-blue), 0 0 0.5em var(--light-blue), 0 0 0.75em var(--light-blue);
+        border-radius: 1em;
+    }
 
 @keyframes AppearGrow {
     0% {

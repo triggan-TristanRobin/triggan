@@ -2,11 +2,16 @@
 
 <div id="presenter">
     <div id="presenter-intro">
+    <div class="neon-title">
         <h1>Hi, I'm Tristan!</h1>
-        <h4>Creator of triggan</h4>
+        <hr />
+    </div>
+        <h4>Learning Freelancer Dad and creator of triggan</h4>
         <p>
             triggan is my company, my personal blog, some space to show my work. <br />
-            Let's share the ride learning everyday, discovering new ideas and cool stuff to do! <br />
+            My main goal is to share my experience as a learner, a dad and a freelancer. <br />
+            <br />
+            The topics involved are broads so hang around and tell me what you think!
         </p>
     </div>
     <div id="portrait-container">
@@ -14,7 +19,6 @@
             <img alt="Tristan Robin" src="images/ProfilePicture-15092018.jpg" />
         </div>
         <div>
-            <span class="small">and also</span>
             <span class="@beamState role">@roles[index]</span>
         </div>
     </div>
@@ -22,7 +26,7 @@
 
 @code {
     private int index = 0;
-    private string[] roles = { "Pastry lover", ".NET developer", "Team Leader", "In continuous improvment", "Loving dad and husband" };
+    private string[] roles = { "Pastry lover", ".NET developer", "Team Leader", "In continuous improvment", "Freelancer", "Loving dad and husband" };
     private string beamState = "beam";
 
     protected override async Task OnInitializedAsync()
