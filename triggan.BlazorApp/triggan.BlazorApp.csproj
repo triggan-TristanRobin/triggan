@@ -12,7 +12,7 @@
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	</PropertyGroup>
 
-	<Target Name="PreBuild" AfterTargets="ToolRestore">
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
 		<Exec Command="webcompiler -r .\wwwroot\scss -c .\webcompilerconfiguration.json" StandardOutputImportance="high" />
 	</Target>
 
