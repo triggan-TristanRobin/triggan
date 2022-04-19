@@ -47,7 +47,7 @@ jobs:
       run: dotnet restore
       
     - name: Install WebCompiler
-        run: dotnet tool install Excubo.WebCompiler --global
+      run: dotnet tool install Excubo.WebCompiler --global
         
     - name: Build with dotnet
       run: dotnet build
