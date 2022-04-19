@@ -1,13 +1,14 @@
 ﻿@page "/work"
 
 <div>
-    <SelfPresenter />
-
     <section>
-        <h3>What can I do for You?</h3>
+        <h1>What can I do for You?</h1>
         <p>
-            You might have some needs, or some ideas you would like to analyze. I might help you so why not get in touch?<br />
-            I will try my best to answer any question, to help you with your projects of any kind by either offering my services or redirecting you to someone who could.<br />
+            Whether you own a business, want to create a product or have a cool new idea that would solve some problem, it might be interesting to discuss it!<br />
+            My main skill is software development, specially using .NET, but I can also work more broadly depending on your needs! <br />
+            I will always do my best to answer any question and help you for any kind of request.<br />
+            You can check on my <a href="/now">now page</a> if my availability is clearly written, or reach out when it's not.
+            Either way I'll always get back as soon as possible.
         </p>
         <p style="margin: 0 auto">
             Do you have
@@ -16,15 +17,15 @@
         </p>
         <p>
             Then <a href="#contactme">contact me</a> to discuss our possibilities!<br />
-            Some or my skills:
+            Some of my skills:
         </p>
         <div id="skillGrid" class="grid">
             @foreach (var skill in skills)
             {
-            <div class="card skill-tile">
-                <span class="@($"{skill.Modifier ?? "fa"} fa-{skill.Icon}")"></span>
-                @skill.Name
-            </div>
+                <div class="card skill-tile">
+                    <span class="@($"{skill.Modifier ?? "fa"} fa-{skill.Icon}")"></span>
+                    <span>@skill.Name</span>
+                </div>
             }
         </div>
         <div id="contactme" class="card skill-tile" style="margin-left: auto;margin-right: auto">
@@ -41,7 +42,7 @@
             <br />
             Whether it is for your own idea, to work on something new, or my ongoing projects, it would alway be nice to discuss!<br />
             <br />
-            Here is my most recent updates on some of my work:<br />
+            Here are the most recent updates on some of my work:<br />
         </p>
         <ProjectGrid ProjectCount="3" />
     </section>
@@ -60,11 +61,11 @@
 
     private Skill[] skills = new[]{
     new Skill { Icon = "terminal", Name = "Software" },
-    new Skill { Icon = "visual-studio", Name = ".NET" },
+    new Skill { Icon = "visual-studio", Name = ".NET", Modifier = "fa-triggan" },
     new Skill { Icon = "gamepad", Name = "Video Games" },
     new Skill { Icon = "cubes", Name = "3D modeling" },
     new Skill { Icon = "users", Name = "Team Management" },
-    new Skill { Icon = "teamspeak", Name = "Remote", Modifier = "fab" },
+    new Skill { Icon = "camera", Name = "Video Edition", Modifier = "fa-solid" },
     };
 
     private string[] needs = {

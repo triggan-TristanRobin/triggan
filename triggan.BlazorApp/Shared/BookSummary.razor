@@ -1,0 +1,44 @@
+﻿@inject NavigationManager NavigationManager
+
+<div class="post tile @state">
+    <h3>@Book.Title</h3>
+    <p>
+        <span>
+            From @Book.Author
+        </span>
+        <br />
+        <span class="small">
+            Read: @Book.DateRead.ToShortDateString()
+        </span>
+        <br />
+        <span class="small">
+            How much I love it: @(Book.Score)/10
+        </span>
+        <br />
+        <span class="text-nowrap">
+            @if(Book.ShortReview != null)
+            {
+                @((MarkupString)Markdig.Markdown.ToHtml(Book.ShortReview))
+            }
+        </span>
+        <br />
+        <a href="@Book.BuyLink">Buy it</a>
+    </p>
+</div>
+
+@code {
+    [Parameter]
+    public Book Book { get; set; }
+    private string state = "hidden";
+
+    public void Read()
+    {
+        NavigationManager.NavigateTo($"/book/{Book.Slug}");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(100);
+        state = "appear-slide";
+    }
+}

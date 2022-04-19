@@ -1,15 +1,28 @@
 ﻿@using System.Timers
 
-<div class="presenter">
-    <h1>Tristan Robin</h1>
-    <h2>Creator of triggan</h2>
-    <span class="small">but also</span>
-    <span class="@beamState role">@roles[index]</span>
+<div id="presenter">
+    <div id="presenter-intro">
+        <h1>Hi, I'm Tristan!</h1>
+        <h4>Creator of triggan</h4>
+        <p>
+            triggan is my company, my personal blog, some space to show my work. <br />
+            Let's share the ride learning everyday, discovering new ideas and cool stuff to do! <br />
+        </p>
+    </div>
+    <div id="portrait-container">
+        <div id="portrait">
+            <img alt="Tristan Robin" src="images/ProfilePicture-15092018.jpg" />
+        </div>
+        <div>
+            <span class="small">and also</span>
+            <span class="@beamState role">@roles[index]</span>
+        </div>
+    </div>
 </div>
 
 @code {
     private int index = 0;
-    private string[] roles = { "Pastry lover", ".NET developer", "Team Leader", "In continuous improvment", "Dad" };
+    private string[] roles = { "Pastry lover", ".NET developer", "Team Leader", "In continuous improvment", "Loving dad and husband" };
     private string beamState = "beam";
 
     protected override async Task OnInitializedAsync()
@@ -20,12 +33,12 @@
 
     public async Task ChangeRole()
     {
-        await Task.Delay(1000);
+        await Task.Delay(2000);
         beamState = "";
         StateHasChanged();
         while (true)
         {
-            await Task.Delay(2000);
+            await Task.Delay(4000);
 
             beamState = "beam";
             StateHasChanged();

@@ -9,7 +9,6 @@
     max-width: 60em;
     margin: 0 auto;
     width: 100%;
-    margin-bottom: 2em;
 }
 
 .navigation, footer {
@@ -17,7 +16,7 @@
 }
 
 footer {
-    padding: 0.5rem;
+    padding: 0.5em;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -25,11 +24,11 @@ footer {
 }
 
 .social-footer li {
-    padding: 0.25rem;
+    padding: 0.25em;
 }
 
 .social-footer a {
-    color: var(--light);
+    color: var(--light-blue);
 }
 
 .social-footer {
@@ -41,14 +40,14 @@ footer {
     background-color: #f7f7f7;
     border-bottom: 1px solid #d6d5d5;
     justify-content: flex-end;
-    height: 3.5rem;
+    height: 3.5em;
     display: flex;
     align-items: center;
 }
 
     .top-row ::deep a, .top-row .btn-link {
         white-space: nowrap;
-        margin-left: 1.5rem;
+        margin-left: 1.5em;
     }
 
     .top-row a:first-child {
@@ -70,7 +69,7 @@ footer {
     }
 
     .main > div {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
+        padding-left: 2em !important;
+        padding-right: 2em !important;
     }
 }

@@ -18,11 +18,17 @@ else
 @code {
     [Parameter]
     public int ProjectCount { get; set; } = 0;
-    private List<Project> projects;
+    private List<Project> projects = new();
 
     protected override async Task OnInitializedAsync()
     {
-        projects = (await blogService.GetEntitiesAsync<Project>(ProjectCount)).ToList();
+        var tmpProjects = await blogService.GetEntitiesAsync<Project>(ProjectCount);
+        foreach(var post in tmpProjects)
+        {
+            await Task.Delay(100);
+            projects.Add(post);
+            StateHasChanged();
+        }
     }
 }
 

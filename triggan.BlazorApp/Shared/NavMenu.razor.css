@@ -1,17 +1,16 @@
 .top-row {
-    height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
+    height: 3.5em;
 }
 
 .navbar-brand {
     margin-top: auto;
     margin-bottom: auto;
-    padding-left: 2rem;
+    padding-left: 2em;
 }
 
 .oi {
-    width: 2rem;
-    font-size: 1.1rem;
+    width: 2em;
+    font-size: 1.1em;
     vertical-align: text-top;
     top: -2px;
 }
@@ -20,7 +19,7 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    padding: 0.5rem;
+    padding: 0.5em;
     margin: 0;
 }
 
@@ -33,30 +32,25 @@
 }
 
 .nav-item {
-    font-size: 0.9rem;
+    font-size: 0.83em;
 }
 
     .navbar-toggler, .nav-item ::deep a {
-        border-radius: 4px;
-        height: 2.5rem;
+        height: 2.5em;
         display: flex;
         align-items: center;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        color: var(--light);
+        padding-left: 1em;
+        padding-right: 1em;
+        color: var(--light-blue);
+        border-bottom: solid 0.15em var(--transparent);
     }
 
-        .nav-item ::deep a.active {
-            background-color: rgba(255,255,255,0.25);
-            color: var(--white);
+        .nav-item ::deep a.active, .navbar-toggler:hover, .nav-item ::deep a:hover {
+            border-color: var(--main-blue);
+            color: var(--main-blue);
         }
 
-        .navbar-toggler:hover, .nav-item ::deep a:hover {
-            background-color: rgba(255,255,255,0.1);
-            color: var(--white);
-        }
-
-.nav-link .fa {
+.nav-link .fa, .nav-link .fa-solid, .nav-link .fa-regular {
     margin-right: 0.5em;
     margin-left: 0.5em;
 }

@@ -1,46 +1,52 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
-@import url('https://use.fontawesome.com/releases/v5.12.0/css/all.css');
 
 :root {
-    --background-color: #0c1526;
-    --dark-blue: #052767;
-    --blue: #007bff;
-    --grey-blue: #1a3466;
-    --indigo: #6610f2;
-    --cyan: #17a2b8;
-    --white: #d7d7d7;
+    --dark-blue: #002040;
+    --mate-blue: #004E9C;
+    --main-blue: #0080FF;
+    --light-blue: #33D7FF;
+    --accent-light-blue: #ABCDFF;
+    --gray-blue: #334E6B;
+    --red: #FF2819;
+    --light-green: #E7FF19;
+    --olive-green: #A1B309;
+    --white: #F0F0F0;
     --gray: #646464;
-    --gray-dark: #353535;
-    --primary: #007bff;
-    --secondary: #6c757d;
-    --success: #28a745;
-    --info: #34c9fb;
-    --warning: #ffc107;
-    --danger: #dc3545;
-    --light: #85c2ff;
+    --dark-gray: #353535;
     --dark: #343a40;
     --transparent: #00000000;
-    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+@font-face {
+    font-family: "Akshar";
+    src: url('../fonts/Akshar/Akshar-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "Comfortaa";
+    src: url('../fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf') format('truetype');
 }
 
 html, body {
-    font-family: 'Roboto', Georgia, Helvetica, Arial, sans-serif;
-    font-size: 20px;
-    line-height: 30px;
-    background-color: var(--background-color) !important;
-    color: var(--light) !important;
+    font-family: Comfortaa, Akshar, sans-serif;
+    font-size: 1.2em;
+    background-color: var(--gray-blue);
+    color: var(--light-blue);
     margin: 0;
 }
 
 a, .btn-link {
-    color: var(--info);
+    color: var(--light-green);
     text-decoration: none;
 }
 
 h1, h2, h3 {
-    color: var(--blue);
     font-weight: bold;
+    margin: 0.5em 0;
+}
+
+h1, h2, h3, h4 {
+    color: var(--accent-light-blue);
 }
 
 .a:hover {
@@ -48,13 +54,13 @@ h1, h2, h3 {
 }
 
 .btn-primary {
-    color: var(--light);
-    background-color: var(--primary);
-    border-color: var(--primary);
+    color: var(--light-blue);
+    background-color: var(--main-blue);
+    border-color: var(--main-blue);
 }
 
 .content {
-    padding-top: 1.1rem;
+    padding-top: 1.1em;
 }
 
 .small {
@@ -62,7 +68,7 @@ h1, h2, h3 {
 }
 
 .valid.modified:not([type=checkbox]) {
-    outline: 1px solid #26b050;
+    outline: 1px solid var(--light-green);
 }
 
 .invalid {
@@ -76,10 +82,10 @@ h1, h2, h3 {
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
-    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -0.1em 0.25em rgba(0, 0, 0, 0.2);
     display: none;
     left: 0;
-    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    padding: 0.6em 1.25em 0.7em 1.25em;
     position: fixed;
     width: 100%;
     z-index: 1000;
@@ -88,8 +94,8 @@ h1, h2, h3 {
     #blazor-error-ui .dismiss {
         cursor: pointer;
         position: absolute;
-        right: 0.75rem;
-        top: 0.5rem;
+        right: 0.75em;
+        top: 0.5em;
     }
 
 ul {
@@ -111,30 +117,77 @@ ul {
 
 .quote {
     position: relative;
-    padding: .75rem 1.25rem;
-    margin-bottom: 1rem;
-    border: 1px solid transparent;
+    padding: .75em 1.25em;
+    margin-bottom: 1em;
+    border: 0.1em solid transparent;
     border-top-color: transparent;
     border-right-color: transparent;
     border-bottom-color: transparent;
     border-left-color: transparent;
-    border-radius: .25rem;
+    border-radius: 0.25em;
     color: var(--dark-blue);
     background-color: var(--gray);
-    border-color: var(--blue);
+    border-color: var(--main-blue);
 }
+
+#main-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+    #main-title h1 {
+        color: var(--white);
+        text-shadow: 0 0 0.25em var(--light-blue), 0 0 0.5em var(--light-blue), 0 0 0.75em var(--light-blue);
+    }
+
+    #main-title hr {
+        width: 20%;
+        margin: 0 1em;
+        height: 0.15em;
+        border: none;
+        background: var(--white);
+        box-shadow: 0 0 0.25em var(--light-blue), 0 0 0.5em var(--light-blue), 0 0 0.75em var(--light-blue);
+        border-radius: 1em;
+    }
 
 .tile {
-    border-left: solid 0.1rem var(--dark-blue);
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    border-left: solid 0.25em var(--main-blue);
+    padding: 1em;
+    margin: 0.5em 0;
+    background-color: var(--dark-blue);
 }
 
-.post.tile:hover {
-    box-shadow: 0em 0em 0.35em var(--dark-blue);
-    padding-left: 1em;
+    .tile h1, .tile h2, .tile h3 {
+        color: var(--main-blue);
+    }
+
+.post {
+    background-color: var(--dark-blue);
+    padding: 1em;
+    margin: 0.5em 0;
+    color: var(--light-blue);
 }
+
+    .post:not(.tile) {
+        box-shadow: 0em 0em 0.5em var(--light-blue);
+    }
+
+    .post.tile:hover {
+        box-shadow: 0em 0em 0.5em var(--light-blue);
+    }
+
+    .post.tile h3 {
+        transition: all 0.5s;
+    }
+
+    .post.tile:hover h3 {
+        padding-left: 2em;
+    }
+
+        .post h1, .tile h2, .tile h3, .post h1, .post h2, .post h3 {
+            color: var(--main-blue);
+        }
 
 .tag {
     margin-left: 0.5em;
@@ -170,7 +223,8 @@ form {
 form input, form textarea, form select {
     max-width: 100%;
     min-width: 95%;
-    background-color: var(--grey-blue);
+    background-color: var(--dark-blue);
+    color: var(--light-blue);
     border: none;
     resize: none;
     padding: 0.5em;
@@ -184,6 +238,7 @@ form input, form textarea, form select {
 form label {
     width: 100%;
     padding: 0.5em;
+    color: var(--accent-light-blue);
 }
 
 form i {
@@ -199,22 +254,19 @@ button {
     text-transform: capitalize;
     font-weight: bold;
     margin: 1em auto;
-    border: 3px solid var(--blue);
     outline: 0;
     border-radius: 2em;
     font-size: 1.2em;
     cursor: pointer;
     padding: 0.5em;
     transition: all .3s ease-in-out;
-    background: var(--blue);
+    background: var(--dark-blue);
+    border: 0.25em solid var(--dark-blue);
+    color: var(--gray-blue);
 }
 
     button:hover {
-        color: var(--light);
-        background-image: initial;
-        background-color: initial;
-        color: var(--blue);
-        border: 3px solid var(--blue);
+        color: var(--dark-blue);
         background: 0 0;
     }
 
@@ -234,36 +286,97 @@ img {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+#skillGrid {
     justify-content: space-between;
 }
 
 .card {
-    max-width: 30%;
+    max-width: calc(33% - 3em);
+    margin: 0.5em;
+    padding: 1em;
     border: none;
     cursor: pointer;
+    color: var(--light-blue);
 }
 
     .card:hover {
-        box-shadow: 0 0 0.5em var(--blue);
+        box-shadow: 0em 0em 0.5em var(--light-blue);
     }
 
         .card:hover img {
             transform: scale(1.05);
         }
 
+.hidden {
+    visibility: hidden;
+}
+
+.appear-grow {
+    animation: AppearGrow 0.25s ease-in;
+}
+
+.appear-slide {
+    animation: 0.5s ease-in;
+}
+
+@keyframes AppearGrow {
+    0% {
+        transform: scale(0);
+    }
+
+    75% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes SlideFromLeft {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes SlideFromRight {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
 .skill-tile {
+    color: var(--accent-light-blue);
     margin: 0.25em;
     width: 30%;
-    border: var(--light) 0.1em solid;
+    border: var(--accent-light-blue) 0.1em solid;
+    box-shadow: 0 0 0.5em var(--dark-blue);
     padding: 0.25em;
 }
 
+    .skill-tile * {
+        margin: auto 0;
+    }
+
     .skill-tile i {
-        color: var(--info);
+        color: var(--accent-light-blue);
     }
 
     .skill-tile:hover {
         box-shadow: none;
+        cursor: default; 
     }
 
 @media (max-width: 767.98px) {
@@ -283,10 +396,6 @@ img {
     width: auto !important;
 }
 
-.fa, .fas, .far, .fab {
-    margin: 0.5em;
-}
-
 select {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -296,12 +405,4 @@ select {
 
     select::-ms-expand {
         display: none;
-    }
-
-    select + i.fa, select + i.fas {
-        float: right;
-        margin-top: -26px;
-        margin-right: 10px;
-        pointer-events: none;
-        padding-right: 5px;
     }

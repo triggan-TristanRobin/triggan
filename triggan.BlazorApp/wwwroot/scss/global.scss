@@ -1,0 +1,12 @@
+﻿@for $i from 1 through 100 {
+    .appear-grow:nth-child(#{$i}) {
+    }
+}
+@for $i from 0 through 49 {
+    .appear-slide:nth-child(#{$i*2 + 1}) {
+        animation-name: SlideFromLeft;
+    }
+    .appear-slide:nth-child(#{$i*2 + 2}) {
+        animation-name: SlideFromRight;
+    }
+}

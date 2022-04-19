@@ -1,0 +1,54 @@
+﻿@page "/"
+@page "/about"
+
+<div>
+    <div id="main-title">
+        <h1>Let's build!</h1>
+        <hr />
+    </div>
+
+    <span>What is triggan?</span>
+    <h3>An IT Consulting Company</h3>
+    <p>
+        triggan is first an IT consulting company. I can help you with your IT project, join your team, create a POC or a MVP, let's discuss to see if I can help you! <br />
+        If you want to learn more, check my <a href="/work">work together page</a> or <a href="#contact">contact me</a>.
+    </p>
+
+    <h3>A blog in tech, personal growth, entrepreneurship, art and maybe more!</h3>
+    <p>
+        I have no pretention whatsoever to be good at copywriting. <br />
+        Neither will I pretend to have breaking news to share you wouldn't find elsewhere. <br />
+        But if you want to read, check the <a href="/blog">blog</a> and feel free to send a mail to let me know your thoughts!
+    </p>
+
+    <h3>A sandbox to test new stuff</h3>
+    <p>
+        Even if they are mostly hidden for my own use, you might find some useless stuff here too. <br />
+        This website is indeed home to many test I want to make, either to learn, to verify technology, or anything else! <br />
+        Did you notice some strange features? Reach out to me!
+    </p>
+
+    <h3>A place to share projects</h3>
+    <p>
+        triggan is the home of my projects. They might be business oriented, just for fun, some tools I build for myself, ... <br />
+        You can take a look at them and their progress <a href="/projects">here</a>.<br />
+        I you have an idea of yourself you'd like to discuss, <a href="#contact">send a message</a>! I would love to talk about it.
+    </p>
+</div>
+<hr>
+<SelfPresenter />
+<hr>
+<h1>Last articles</h1>
+<PostList PostCount=3 />
+
+<hr>
+<h1>Last projects updates</h1>
+<ProjectGrid ProjectCount=3 />
+
+<hr>
+<ContactForm />
+
+
+@code {
+
+}

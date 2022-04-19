@@ -13,7 +13,7 @@ using System.Text;
 using triggan.BlogManager;
 using triggan.BlogModel;
 
-namespace ExpensesTracker.Controllers
+namespace triggan.API.Controllers
 {
     [ApiController]
     [Authorize]
