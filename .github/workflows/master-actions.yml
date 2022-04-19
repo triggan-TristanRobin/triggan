@@ -1,0 +1,55 @@
+name: triggan web deploy API & azure static webapp
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - master
+
+jobs:
+  Build-API:
+    runs-on: windows-latest
+    env:
+      PROJECT_DIRECTORY_PATH: "triggan.API"
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore
+        
+    - name: Build with dotnet
+      run: dotnet build
+           ${{ env.PROJECT_DIRECTORY_PATH }}/${{ env.PROJECT_DIRECTORY_PATH }}.csproj
+           --configuration Release
+  Build-BlazorApp:
+    runs-on: windows-latest
+    env:
+      PROJECT_DIRECTORY_PATH: "triggan.BlazorApp"
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Install WebCompiler
+        run: dotnet tool install Excubo.WebCompiler --global
+        
+    - name: Build with dotnet
+      run: dotnet build
+           ${{ env.PROJECT_DIRECTORY_PATH }}/${{ env.PROJECT_DIRECTORY_PATH }}.csproj
+           --configuration Release
