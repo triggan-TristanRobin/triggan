@@ -19,7 +19,7 @@
 		<Exec Command="dotnet tool update excubo.webcompiler" StandardOutputImportance="high" />
 	</Target>
 	<Target Name="PreBuild" AfterTargets="ToolRestore">
-		<Exec Command="dotnet tool run webcompiler -r .\\wwwroot\\scss -c .\\webcompilerconfiguration.json" StandardOutputImportance="high" />
+		<Exec Command="dotnet tool run webcompiler -r .\wwwroot\scss -c webcompilerconfiguration.json" StandardOutputImportance="high" />
 	</Target>
 
 	<ItemGroup>
