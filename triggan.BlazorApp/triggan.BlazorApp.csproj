@@ -12,8 +12,14 @@
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	</PropertyGroup>
 
-	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-		<Exec Command="webcompiler -r .\wwwroot\scss -c .\webcompilerconfiguration.json" StandardOutputImportance="high" />
+	<Target Name="ToolRestore" BeforeTargets="PreBuildEvent">
+		<Exec Command="dotnet tool restore" StandardOutputImportance="high" />
+	</Target>
+	<Target Name="ToolRestore" BeforeTargets="PreBuildEvent">
+		<Exec Command="dotnet tool update excubo.webcompiler" StandardOutputImportance="high" />
+	</Target>
+	<Target Name="PreBuild" AfterTargets="ToolRestore">
+		<Exec Command="dotnet tool run webcompiler -r .\wwwroot\scss -c .\webcompilerconfiguration.json" StandardOutputImportance="high" />
 	</Target>
 
 	<ItemGroup>
