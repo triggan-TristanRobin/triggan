@@ -206,8 +206,7 @@ form {
 }
 
 form input, form textarea, form select {
-    max-width: 100%;
-    min-width: 95%;
+    width: calc(100% - 1em);
     background-color: var(--dark-blue);
     color: var(--light-blue);
     border: none;
@@ -234,8 +233,6 @@ form i {
 }
 
 form .row label, form .row input, form .row textarea {
-    max-width: max-content;
-    min-width: auto;
 }
 
 button {
@@ -368,7 +365,8 @@ img {
 .skill-tile {
     color: var(--accent-light-blue);
     margin: 0.25em;
-    width: 30%;
+    width: calc(33% - 1.2em);
+    max-width: calc(33% - 1.2em);
     border: var(--accent-light-blue) 0.1em solid;
     box-shadow: 0 0 0.5em var(--dark-blue);
     padding: 0.25em;
@@ -387,17 +385,39 @@ img {
         cursor: default; 
     }
 
+@media (max-width: 1000px) {
+    .card {
+        max-width: calc(50% - 3em);
+    }
+
+    .skill-tile {
+        width: calc(50% - 1.2em);
+        max-width: calc(50% - 1.2em);
+    }
+}
+
 @media (max-width: 767.98px) {
     .row {
         flex-direction: column !important;
     }
 
     .card {
-        max-width: 100%;
+        max-width: calc(100% - 3em);
     }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 680px) {
+    .skill-tile {
+        width: calc(100% - 1.2em);
+        max-width: calc(100% - 1.2em);
+    }
+}
+
+@media (max-width: 580px) {
+    .form-group > .row > div {
+        flex-direction: column;
+        width: 100%;
+    }
 }
 
 #blazor-error-ui {

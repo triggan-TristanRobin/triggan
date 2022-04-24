@@ -13,7 +13,6 @@
     {
         <div class="row">
             <div style="width: 50%;">
-                <GitLogger @ref="logger" />
                 <EditForm Model=@post OnSubmit="@Write" class="form-group">
                     <div class="form-group">
                         <div>
@@ -69,7 +68,6 @@
     private string result;
     private string submitClass = "";
     private string submitText = "Submit";
-    private GitLogger logger;
 
     protected override async Task OnInitializedAsync()
     {
@@ -91,11 +89,8 @@
         submitClass = "fas fa-spinner fa-pulse";
         submitText = "";
         StateHasChanged();
-        var success = false;
-        var tupleResult = await logger.RunWithLogin(async () => await blogService.PostOrUpdateEntityAsync<Post>(Slug, post));
-        result = tupleResult.Item1;
-        success = tupleResult.Item2;
-        result = success ? "Your post is saved on the site! Redirecting..." : result;
+        var success = await blogService.PostOrUpdateEntityAsync<Post>(Slug, post);
+        result = success ? "Your post is saved on the site! Redirecting..." : "Could not save your post.";
         submitClass = success ? "fa fa-check" : "fa fa-times";
         submitText = "Submit";
         StateHasChanged();

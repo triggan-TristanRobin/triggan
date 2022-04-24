@@ -1,5 +1,7 @@
-﻿<nav class="navbar">
-	<a class="navbar-brand" href="#"><h2 style="margin:0">triggan</h2></a>
+﻿@inject NavigationManager NavigationManager
+
+<nav class="navbar">
+    <a class="navbar-brand" href="#"><h2 style="margin:0">triggan</h2></a>
     <div class="navbar-toggler nav-link" @onclick="ToggleNavMenu">
         <span class="fa fa-bars"></span>
     </div>
@@ -46,5 +48,20 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected override void OnInitialized()
+    {
+        // Subscribe to the event
+        NavigationManager.LocationChanged += LocationChanged;
+        base.OnInitialized();
+    }
+
+    void LocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        collapseNavMenu = true;
+        StateHasChanged();
+        string navigationMethod = e.IsNavigationIntercepted ? "HTML" : "code";
+        System.Diagnostics.Debug.WriteLine($"Notified of navigation via {navigationMethod} to {e.Location}");
     }
 }
