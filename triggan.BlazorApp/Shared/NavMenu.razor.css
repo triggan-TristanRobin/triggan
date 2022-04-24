@@ -28,7 +28,7 @@
     flex-direction: column;
     flex-basis: 100%;
     margin: 0;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .nav-item {
@@ -55,7 +55,12 @@
     margin-left: 0.5em;
 }
 
-@media (min-width: 768px) {
+.navbar-toggler .fa {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+@media (min-width: 1200px) {
     .navbar-toggler {
         display: none;
     }
@@ -69,5 +74,18 @@
     .collapse {
         /* Never collapse the sidebar for wide screens */
         display: flex !important;
+    }
+}
+
+
+@media (max-width: 300px) {
+    .nav-menu {
+        align-items: flex-start;
+    }
+
+    .navbar-brand {
+        margin-top: auto;
+        margin-bottom: auto;
+        padding-left: 0;
     }
 }

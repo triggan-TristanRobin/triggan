@@ -17,7 +17,6 @@
             @((MarkupString)Markdig.Markdown.ToHtml(project.Excerpt))
         </p>
         <div>
-            <GitLogger @ref="logger" />
             <EditForm Model=@newUpdate OnSubmit="@UpdateProject" class="form-group">
                 <div class="form-group">
                     <div>
@@ -63,7 +62,7 @@
     private Update newUpdate = new Update();
     [Parameter]
     public string Slug { get; set; }
-    private GitLogger logger;
+    private string result;
 
     protected override async Task OnInitializedAsync()
     {
@@ -77,13 +76,10 @@
             Console.WriteLine($"Project doesn't exist");
         }
     }
-
-    private string result;
     private async Task UpdateProject()
     {
-        var tupleResult = await logger.RunWithLogin(async () => await blogService.UpdateProjectAsync(project.Slug, newUpdate));
-        result = tupleResult.Item1;
-        var success = tupleResult.Item2;
+        var success = await blogService.UpdateProjectAsync(project.Slug, newUpdate);
+        result = success ? "Your project has been updated." : "Could not update your project.";
         Console.WriteLine(success);
     }
 
