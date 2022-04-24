@@ -14,7 +14,7 @@ namespace triggan.BlogManager
         public override IEnumerable<Project> Get(Expression<Func<Project, bool>> filter = null, int count = 0, string includeProperties = "")
         {
             IEnumerable<Project> projects = base.Get(filter, 0, includeProperties);
-            projects = projects.Where(p => p.Public && p.PublicationDate >= DateTime.Now).OrderByDescending(p => p.LastUpdate);
+            projects = projects.Where(p => p.Public && p.PublicationDate <= DateTime.Now).OrderByDescending(p => p.LastUpdate);
             projects = count == 0 ? projects : projects.Take(count);
             return projects;
         }
@@ -22,7 +22,7 @@ namespace triggan.BlogManager
         public List<Update> GetUpdates(string slug)
         {
             var project = dbSet.Include(e => e.Updates).Single(p => p.Slug == slug);
-            return project.Updates.Where(u => u.PublicationDate >= DateTime.Now).ToList();
+            return project.Updates.Where(u => u.PublicationDate <= DateTime.Now).ToList();
         }
     }
 }
