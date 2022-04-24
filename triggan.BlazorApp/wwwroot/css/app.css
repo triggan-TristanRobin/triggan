@@ -215,7 +215,7 @@ form input, form textarea, form select {
     font-size: 1.1em;
 }
 
-.row div {
+form .row div {
     flex-shrink: 2;
     display: flex;
     justify-content: space-between;

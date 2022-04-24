@@ -16,7 +16,7 @@ namespace triggan.BlogManager
         public override IEnumerable<Post> Get(Expression<Func<Post, bool>> filter = null, int count = 0, string includeProperties = "")
         {
             IEnumerable<Post> posts = base.Get(filter, 0, includeProperties);
-            posts = posts.OrderByDescending(p => p.PublicationDate);
+            posts = posts.Where(p => p.Public && p.PublicationDate >= DateTime.Now).OrderByDescending(p => p.PublicationDate);
             posts = count == 0 ? posts : posts.Take(count);
             return posts;
         }
