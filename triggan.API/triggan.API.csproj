@@ -19,14 +19,14 @@
 
 	<ItemGroup>
 		<PackageReference Include="LibGit2Sharp" Version="0.27.0-preview-0096" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.9" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.9">
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="5.0.3" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.1.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
 	</ItemGroup>
 
 	<ItemGroup>

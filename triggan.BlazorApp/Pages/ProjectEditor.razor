@@ -19,9 +19,11 @@
                             <label for="Title">Title</label>
                             <KeystrokeTextInput @bind-Value=project.Title />
                         </div>
-                        <div class="row" style="flex-wrap: wrap;padding-top: 0.5em;padding-bottom: 0.5em;">
+                        <div class="row">
                             <label for="Slug">Slug</label>
                             <InputText @bind-Value=project.Slug />
+                        </div>
+                        <div class="row">
                             <label for="Public">Public</label>
                             <InputCheckbox @bind-Value=project.Public />
                         </div>
@@ -29,20 +31,19 @@
                             <label for="CoverImagePath">CoverImagePath</label>
                             <InputText @bind-Value=project.CoverImagePath />
                         </div>
-                        <div class="row" style="flex-wrap: wrap;padding-top: 0.5em;padding-bottom: 0.5em;">
+                        <div style="flex-wrap: wrap;padding-top: 0.5em;padding-bottom: 0.5em;">
                             <div class="form-group">
                                 <label for="PublicationDate">Publication Date</label>
                                 <InputDate @bind-Value=project.PublicationDate />
                             </div>
                             <label for="Sate">State</label>
-                            <div class="row">
+                            <div>
                                 <InputSelect @bind-Value=project.State>
                                     @foreach (var state in Enum.GetValues<BlogModel.Enums.ProjectState>())
                                         {
                                         <option value="@state" label="@StateToString(state)"></option>
                                         }
                                 </InputSelect>
-                                <i class="fas fa-angle-down"></i>
                             </div>
                         </div>
                     </div>

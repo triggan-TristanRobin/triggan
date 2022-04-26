@@ -13,6 +13,7 @@ namespace triggan.BlogManager
         public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Project> Projects { get; set; }
+        public DbSet<Book> Books  { get; set; }
         public DBProvider DbType { get; set; }
 
         public TrigganContext(DbContextOptions<TrigganContext> options)
@@ -46,6 +47,7 @@ namespace triggan.BlogManager
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<Post>().ToTable("Posts");
             modelBuilder.Entity<Project>().ToTable("Projects");
+            modelBuilder.Entity<Book>().ToTable("Books");
             modelBuilder.Entity<User>().Ignore(e => e.Token);
 
             base.OnModelCreating(modelBuilder);

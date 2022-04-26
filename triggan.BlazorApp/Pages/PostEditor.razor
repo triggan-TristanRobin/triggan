@@ -19,9 +19,11 @@
                             <label for="Title">Title</label>
                             <KeystrokeTextInput @bind-Value=post.Title />
                         </div>
-                        <div class="row" style="flex-wrap: wrap;padding-top: 0.5em;padding-bottom: 0.5em;">
+                        <div class="row">
                             <label for="Slug">Slug</label>
                             <InputText @bind-Value=post.Slug />
+                        </div>
+                        <div class="row">
                             <label for="Public">Public</label>
                             <InputCheckbox @bind-Value=post.Public />
                         </div>
