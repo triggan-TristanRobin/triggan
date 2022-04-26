@@ -1,4 +1,5 @@
 ﻿@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider authStateProvider
 
 <div class="post tile @state">
     <h3>@Book.Title</h3>
@@ -23,6 +24,12 @@
         </span>
         <br />
         <a href="@Book.BuyLink">Buy it</a>
+        @if(isAuthenticated)
+        {
+            <a href="/book/edit/@Book.Slug">
+                <span class="@("fas fa-edit")"></span>
+            </a>
+        }
     </p>
 </div>
 
@@ -30,6 +37,7 @@
     [Parameter]
     public Book Book { get; set; }
     private string state = "hidden";
+    private bool isAuthenticated = false;
 
     public void Read()
     {
@@ -38,6 +46,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        isAuthenticated = (await authStateProvider.GetAuthenticationStateAsync()).User?.Identity?.IsAuthenticated ?? false;
         await Task.Delay(100);
         state = "appear-slide";
     }

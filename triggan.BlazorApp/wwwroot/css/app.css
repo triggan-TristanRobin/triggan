@@ -215,6 +215,10 @@ form input, form textarea, form select {
     font-size: 1.1em;
 }
 
+select {
+    box-sizing: unset;
+}
+
 form .row div {
     flex-shrink: 2;
     display: flex;
@@ -423,14 +427,3 @@ img {
 #blazor-error-ui {
     width: auto !important;
 }
-
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
-    appearance: none;
-}
-
-    select::-ms-expand {
-        display: none;
-    }

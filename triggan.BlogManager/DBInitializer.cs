@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -50,10 +51,22 @@ namespace triggan.BlogManager
             {
                 Trace.TraceInformation("Add commited projects");
 
-                string postsAsJson = File.ReadAllText(@$"{currentPath}./Seeds/projects.json");
-                var projects = JsonSerializer.Deserialize<List<Project>>(postsAsJson);
+                string projectsAsJson = File.ReadAllText(@$"{currentPath}./Seeds/projects.json");
+                var projects = JsonSerializer.Deserialize<List<Project>>(projectsAsJson);
 
                 context.AddRange(projects);
+                context.SaveChanges();
+            }
+
+            if(!context.Books.Any())
+            {
+                Trace.TraceInformation("Add commited books");
+
+                var date = JsonSerializer.Serialize(new DateTime(2022, 04, 20));
+                string booksAsJson = File.ReadAllText(@$"{currentPath}./Seeds/books.json");
+                var books = JsonSerializer.Deserialize<List<Book>>(booksAsJson);
+
+                context.AddRange(books);
                 context.SaveChanges();
             }
         }

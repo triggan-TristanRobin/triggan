@@ -15,6 +15,7 @@ namespace triggan.BlogManager
             {
                 new PostRepository(context),
                 new ProjectRepository(context),
+                new Repository<Book>(context),
                 new Repository<Message>(context)
             };
         }

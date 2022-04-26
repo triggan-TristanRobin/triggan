@@ -1,4 +1,6 @@
 ﻿@page "/books"
+@inject AuthenticationStateProvider authStateProvider
+@inject IBlogService blogService
 
 <h1>The books I've read</h1>
 <p>
@@ -12,6 +14,12 @@
 else
 {
     <div class="content-list">
+        @if (isAuthenticated)
+        {
+            <a href="/book/edit">
+                <span class="@("fas fa-plus")"></span>
+            </a>
+        }
         @foreach (var book in books)
         {
             <BookSummary Book=@book />
@@ -21,32 +29,18 @@ else
 
 @code {
     private List<Book> books = new();
+    private bool isAuthenticated = false;
 
     protected override async Task OnInitializedAsync()
     {
+        isAuthenticated = (await authStateProvider.GetAuthenticationStateAsync()).User?.Identity?.IsAuthenticated ?? false;
         await Task.Delay(100);
-        books = new List<Book>
+        var tmpBooks = await blogService.GetEntitiesAsync<Book>();
+        foreach(var book in tmpBooks)
         {
-            new Book
-            {
-                Title = "The 4-Hour Workweek",
-                Author = "Tim Ferriss",
-                ShortReview = "Certainly not for everyone, this books will must probably either be loved or hated.\r\nThis is one of the first \"self-development\" book I've read, but clearly the most important one. It's not the books I've most acted upon but it changed my vision on life entirely (even though it took time).\r\nTim Ferriss has a fun writing in my opinion, but mostly wrote a very clear step by step guide into a new way of living your life.",
-                BuyLink = "https://www.amazon.com/4-Hour-Workweek-Escape-Live-Anywhere/dp/0307465357",
-                Category = BlogModel.Enums.BookCategory.Information,
-                Score = 10,
-                DateRead = new DateTime(2017, 12, 01)
-            },
-            new Book
-            {
-                Title = "Anything You Want",
-                Author = "Derek Sivers",
-                ShortReview = "Anything you want is a very odd kind of book. you can't say it's self development or \"how to\" for business. Derek Sivers, as most often, only relates his story, without ever saying what you hsould or shouldn't do.\r\nThe book is short, funny and to the point.\r\nIt provides a different way of viewing how business are built and run.\r\nWhat you will learn and retain from this book is entirely dependant on yourself.",
-                BuyLink = "https://www.amazon.com/Anything-You-Want-Derek-Sivers/dp/0241209048",
-                Category = BlogModel.Enums.BookCategory.Information,
-                Score = 10,
-                DateRead = new DateTime(2019, 09, 30)
-            }
-        };
+            await Task.Delay(100);
+            books.Add(book);
+            StateHasChanged();
+        }
     }
 }

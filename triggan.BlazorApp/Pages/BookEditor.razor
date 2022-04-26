@@ -1,0 +1,117 @@
+﻿@page "/book/edit"
+@page "/book/edit/{Slug}"
+@inject NavigationManager NavigationManager
+@inject HttpClient Http
+@inject IBlogService blogService
+
+<section class="editor">
+    @if (book == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <div class="row">
+            <div style="width: 50%;">
+                <EditForm Model=@book OnSubmit="@Write" class="form-group">
+                    <div class="form-group">
+                        <div>
+                            <label for="Title">Title</label>
+                            <KeystrokeTextInput @bind-Value=book.Title />
+                        </div>
+                        <div>
+                            <label for="Author">Author</label>
+                            <InputText @bind-Value=book.Author />
+                        </div>
+                        <div class="row">
+                            <label for="Slug">Slug</label>
+                            <InputText @bind-Value=book.Slug />
+                        </div>
+                        <div>
+                            <label for="ShortReview">Short Review</label>
+                            <InputTextArea @bind-Value=book.ShortReview />
+                        </div>
+                        <div>
+                            <label for="DateRead">Date Read</label>
+                            <InputDate @bind-Value=book.DateRead />
+                        </div>
+                        <div>
+                            <label for="BuyLink">Buy Link</label>
+                            <InputTextArea @bind-Value=book.BuyLink />
+                        </div>
+                        <div>
+                            <label for="Score">Score</label>
+                            <InputNumber @bind-Value=book.Score />
+                        </div>
+                        <div>
+                            <InputSelect @bind-Value=book.Category>
+                                @foreach (var category in Enum.GetValues<BlogModel.Enums.BookCategory>())
+                                {
+                                <option value="@category" label="@category"></option>
+                                }
+                            </InputSelect>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="LongReview">Long Review</label>
+                        <KeystrokeTextArea @bind-Value=book.LongReview Rows="30" />
+                    </div>
+                    <button type="submit" class=""><span class="@submitClass"></span>@submitText</button>
+                    <span class="small" style="margin: 1em auto;">@result</span>
+            </EditForm>
+        </div>
+
+        <div class="book" style="width: 50%;">
+            <h1>@book.Title</h1>
+            @if (!string.IsNullOrEmpty(book.LongReview))
+            {
+                <p class="content">
+                    @((MarkupString)Markdig.Markdown.ToHtml(book.LongReview))
+                </p>
+            }
+        </div>
+    </div>
+    <a href="/blog">Back</a>
+    }
+</section>
+
+@code {
+    [Parameter]
+    public string Slug { get; set; }
+    private Book book;
+    private string result;
+    private string submitClass = "";
+    private string submitText = "Submit";
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!string.IsNullOrEmpty(Slug))
+        {
+            Console.WriteLine($"Trying to get book for edit");
+            book = await blogService.GetEntityAsync<Book>(Slug);
+        }
+        else
+        {
+            Console.WriteLine($"New book");
+            book = new Book();
+            book.DateRead = DateTime.Today;
+        }
+    }
+
+    private async Task Write()
+    {
+        submitClass = "fas fa-spinner fa-pulse";
+        submitText = "";
+        StateHasChanged();
+        var success = await blogService.PostOrUpdateEntityAsync<Book>(Slug, book);
+        result = success ? "Your book is saved on the site! Redirecting..." : "Could not save your book.";
+        submitClass = success ? "fa fa-check" : "fa fa-times";
+        submitText = "Submit";
+        StateHasChanged();
+        if (success)
+        {
+            await Task.Delay(500);
+            NavigationManager.NavigateTo($"/books", true);
+        }
+    }
+}
