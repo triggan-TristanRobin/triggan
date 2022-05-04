@@ -104,6 +104,12 @@ h1, h2, h3, h4 {
         top: 0.5em;
     }
 
+nav ul, footer ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
 .sticky-top {
     position: -webkit-sticky;
     position: sticky;
