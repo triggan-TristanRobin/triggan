@@ -13,16 +13,6 @@
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	</PropertyGroup>
 
-	<Target Name="ToolRestore" BeforeTargets="PreBuildEvent">
-		<Exec Command="dotnet tool restore" StandardOutputImportance="high" />
-	</Target>
-	<Target Name="ToolRestore" BeforeTargets="PreBuildEvent">
-		<Exec Command="dotnet tool update excubo.webcompiler" StandardOutputImportance="high" />
-	</Target>
-	<Target Name="PreBuild" AfterTargets="ToolRestore">
-		<Exec Command="dotnet tool run webcompiler -r .\wwwroot\scss -c webcompilerconfiguration.json" StandardOutputImportance="high" />
-	</Target>
-
 	<ItemGroup>
 		<PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
 		<PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
@@ -40,6 +30,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Update="wwwroot\images\ProfilePicture-29032023.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		<Content Update="wwwroot\light logo.svg">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>

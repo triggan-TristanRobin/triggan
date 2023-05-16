@@ -23,6 +23,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "triggan.BlogManager.Tests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "triggan.BlazorApp", "triggan.BlazorApp\triggan.BlazorApp.csproj", "{DF5CE9D4-B1B7-4EEE-8966-25B745D362DE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E86DBEEE-422F-49F3-84FB-EF85228424A4}"
+	ProjectSection(SolutionItems) = preProject
+		DockerFileClient = DockerFileClient
+		nginx.conf = nginx.conf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
