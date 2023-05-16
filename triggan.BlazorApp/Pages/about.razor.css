@@ -1,3 +1,83 @@
-﻿.neon-title {
-    justify-content: flex-end;
+﻿#mainPage {
+    display: flex;
+    padding-top: 1em;
+    height: calc(100% - 1em);
+}
+
+#main {
+    flex: 2;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+#profilePicture {
+    flex: 1;
+    justify-content: end;
+    display: flex;
+    flex-direction: column;
+    background-image: url('images/profilepicture1.png');
+    background-repeat: no-repeat;
+    background-position: 55%;
+    background-size: cover;
+}
+
+#title {
+    margin-bottom: 3em;
+}
+
+.row {
+    justify-content: space-between;
+}
+
+section {
+    width: 48%;
+}
+
+#title h1 {
+    margin-bottom: 0;
+}
+
+.mail {
+    margin: auto;
+    width: auto;
+    text-align: center;
+    color: var(--light-blue);
+    background-color: var(--dark-blue);
+    padding: 0.5em;
+}
+
+    .mail .fa {
+        color: var(--accent-light-blue);
+    }
+
+    .mail:hover {
+        color: var(--white);
+    }
+
+
+
+@media (max-width: 767.98px) {
+    #mainPage {
+        flex-direction: column;
+        height: auto;
+        padding-bottom: 1em;
+    }
+
+    #main {
+         width: unset;
+    }
+
+    section {
+        width: unset;
+    }
+
+    #profilePicture {
+        display: none;
+    }
+
+    #title {
+        margin-bottom: 1em;
+    }
 }

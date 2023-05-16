@@ -1,10 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
-	<div class="sticky-top navigation">
-        <NavMenu />
-    </div>
-
     <main class="main">
         <div>
             @Body
@@ -12,44 +8,9 @@
     </main>
 
     <footer>
-		@*Flag icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from
-		<a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by
-		<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>*@
-		<span class="small" style="margin-top: auto; margin-bottom: auto;">&copy; @DateTime.Now.Year - Tristan Robin</span>
-        <a href="Signin" style="color: var(--dark-blue);">Signin</a>
-		<ul class="social-footer">
-
-			<!-- Twitter -->
-			<li>
-                <a id="twitter-button" href="https://twitter.com/Tris_Robin" target="_blank"
-                   data-share-text=""
-                   data-share-url="http://.triggan.com/Read/" data-share-via="" data-share-hashtags="" data-share-related="">
-                    <span class="@("fab fa-twitter")"></span>
-                </a>
-				@*<span id="twitter-count" class="social-count">0</span>*@
-			</li>
-
-			<!-- Instagram -->
-			<li>
-                <a id="instagram-button" href="https://www.instagram.com/trisrobin/" target="_blank">
-                    <span class="@("fab fa-instagram")"></span>
-                </a>
-				@*<span id="twitter-count" class="social-count">0</span>*@
-			</li>
-
-			<!-- Youtube -->
-			<li>
-                <a id="youtube-button" href="https://www.youtube.com/channel/UCTUyfNsecc5H7W_prkxpyKA" target="_blank">
-                    <span class="@("fab fa-youtube")"></span>
-                </a>
-			</li>
-
-			<!-- Email -->
-			<li>
-                <a href="mailto:?Subject=Hello there!">
-                    <span class="@("fa fa-envelope")"></span>
-                </a>
-			</li>
-		</ul>
+        @*Flag icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from
+        <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by
+        <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>*@
+        <span class="small" style="margin-top: auto; margin-bottom: auto;">&copy; @DateTime.Now.Year - Tristan Robin</span>
     </footer>
 </div>

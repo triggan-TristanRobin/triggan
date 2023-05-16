@@ -1,7 +1,7 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 :root {
-    --dark-blue: #002040;
+    --dark-blue: #00162C;
     --mate-blue: #004E9C;
     --main-blue: #0080FF;
     --light-blue: #33D7FF;
@@ -30,7 +30,6 @@
 html, body {
     font-family: Comfortaa, Akshar, sans-serif;
     font-size: 1.2em;
-    background-color: var(--gray-blue);
     color: var(--light-blue);
     margin: 0;
 }
@@ -104,7 +103,7 @@ h1, h2, h3, h4 {
         top: 0.5em;
     }
 
-ul {
+nav ul, footer ul {
     display: flex;
     list-style: none;
     padding: 0;
@@ -367,21 +366,28 @@ img {
 
 
 .skill-tile {
-    color: var(--accent-light-blue);
+    display: flex;
+    justify-content: space-around;
     margin: 0.25em;
     width: calc(33% - 1.2em);
     max-width: calc(33% - 1.2em);
-    border: var(--accent-light-blue) 0.1em solid;
-    box-shadow: 0 0 0.5em var(--dark-blue);
-    padding: 0.25em;
+    padding: 0.5em 0.25em;
+    background-color: var(--dark-blue);
+    font-size: 0.75em;
 }
+
+    .skill-tile :not(.fa), .skill-tile :not(.fa-solid), .skill-tile :not(.fa-triggan) {
+        width: 75%;
+        text-align: center;
+    }
 
     .skill-tile * {
         margin: auto 0;
     }
 
-    .skill-tile i {
+    .skill-tile .fa, .skill-tile .fa-solid, .skill-tile .fa-triggan {
         color: var(--accent-light-blue);
+        width: 15%;
     }
 
     .skill-tile:hover {
